@@ -10,7 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GraphicView : NSView
+@interface GraphicView : NSView {
+    float scaleX;
+    float scaleY;
+    float moveX;
+    float moveY;
+}
 
 @end
 
