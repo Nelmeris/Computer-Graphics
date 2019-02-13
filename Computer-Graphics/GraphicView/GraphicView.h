@@ -7,10 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "CoreTransform.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GraphicView : NSView
+@interface GraphicView : NSView {
+    NSMutableArray *points;
+    Matrix transform;
+}
 
 @end
 
