@@ -77,4 +77,36 @@
     [figure stroke];
 }
 
+- (BOOL)acceptsFirstResponder {
+    return YES;
+}
+
+- (void)keyDown:(NSEvent *)event {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:YES];
+    [panel setCanChooseDirectories:YES];
+    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    
+    NSInteger clicked = [panel runModal];
+    
+    if (clicked == NSModalResponseOK) {
+        for (NSURL *url in [panel URLs]) {
+            
+            NSError *attributesError = nil;
+            NSString *str = url.relativeString;
+            
+            NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath: str error:&attributesError];
+            
+            NSString *stringFromFileAtPath = [[NSString alloc]
+
+                                              initWithContentsOfFile:str
+
+                                              encoding:NSUTF8StringEncoding
+
+                                              error:&attributesError];
+            NSLog(@"Wat");
+        }
+    }
+}
+
 @end

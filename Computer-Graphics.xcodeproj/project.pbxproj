@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		57EC40C122133640001A69AB /* CoreTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransform.h; sourceTree = "<group>"; };
 		57EC40C222133640001A69AB /* CoreTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransform.m; sourceTree = "<group>"; };
-		57EC40C422134D2C001A69AB /* Figure.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Figure.txt; sourceTree = "<group>"; };
+		57EC40C422134D2C001A69AB /* Figure.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Figure.txt; sourceTree = "<group>"; };
 		57FA69302212CAA20028B0BB /* Computer-Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer-Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FA69332212CAA20028B0BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57FA69342212CAA20028B0BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
