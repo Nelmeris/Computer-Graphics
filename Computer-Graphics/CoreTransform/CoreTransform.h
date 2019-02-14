@@ -20,7 +20,7 @@ typedef float Matrix[M][M];
 + (void) timesMatVec: (Matrix)a andB: (Vector)b andC: (Vector)c;
 + (void) set: (Matrix)a andB: (Matrix)b;
 + (void) point2vec: (NSPoint)a andB: (Vector)b;
-+ (void) vec2point: (Vector)a andB: (NSPoint) b;
++ (void) vec2point: (Vector)a andB: (NSPoint*) b;
 + (void) makeHomogenVec: (float)x andY: (float)y andC: (Vector)c;
 + (void) unit: (Matrix)a;
 + (void) move: (float)Tx andTy: (float)Ty andC: (Matrix)c;

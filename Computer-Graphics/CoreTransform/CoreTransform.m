@@ -45,9 +45,9 @@
 }
 
 // Перевод вектора в точку
-+ (void) vec2point: (Vector)a andB: (NSPoint) b {
-    b.x = ((float)a[0]) / a[2];
-    b.y = ((float)a[1]) / a[2];
++ (void) vec2point: (Vector)a andB: (NSPoint*) b {
+    b->x = ((float)a[0]) / a[2];
+    b->y = ((float)a[1]) / a[2];
 }
 
 // Создание вектора
