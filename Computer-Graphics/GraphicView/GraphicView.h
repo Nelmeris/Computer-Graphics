@@ -12,7 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GraphicView : NSView {
-    NSMutableArray *points;
+    NSMutableArray *paths;
+    NSMutableArray *figures;
     Matrix transform;
 }
 

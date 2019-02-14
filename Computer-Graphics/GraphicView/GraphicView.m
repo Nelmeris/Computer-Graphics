@@ -6,22 +6,25 @@
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-// #import <Cocoa/Cocoa.h>
 #import "GraphicView.h"
 #import "CoreTransform.h"
-// #import <UIKit/UIKit.h>
+#import "GraphicalObject.h"
 
 @implementation GraphicView
 
 - (id)initWithCoder:(NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder])) {
-        points = [NSMutableArray array];
         [CoreTransform unit:transform];
-        
-//        [points addObject:[NSValue valueWithPoint:CGPointMake(10, 10)]];
+        figures = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (void)clearView {
+    [paths removeAllObjects];
+    [figures removeAllObjects];
+    [self setNeedsDisplay: YES];
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -33,48 +36,51 @@
 
     [[NSColor whiteColor] setFill];
     [background fill];
-    [background stroke];
 
-    NSBezierPath *figure = [NSBezierPath bezierPath];
-
-    if (points.count != 0) {
-        NSInteger count = points.count;
-        NSInteger index = count - 1;
+    for (NSInteger i = paths.count; i < figures.count; i++) {
+        GraphicalObject *figure = [figures objectAtIndex: i];
+        NSBezierPath *figurePath = [NSBezierPath bezierPath];
         
-        NSValue *value = [points objectAtIndex: index];
-        CGPoint cgPoint;
-//        cgPoint = [value CGPointValue];
-        
-        NSPoint point = NSMakePoint(cgPoint.x, cgPoint.y);
-        // Установка начальной позиции фигуры на последней точке
-        Vector A;
-        [CoreTransform point2vec: point andB: A];
-        
-        Vector B;
-        [CoreTransform timesMatVec: transform andB: A andC: B];
-        
-        NSPoint newPoint;
-        [CoreTransform vec2point: B andB: newPoint];
-        
-        [figure moveToPoint: newPoint];
-        
-        // Черчение линии по всем точкам
-        for (int i = 0; i < points.count; i++) {
+        NSInteger pointsCount = [figure getPointsCount];
+        if (pointsCount != 0) {
+            NSPoint point = [figure getPoint:pointsCount - 1];
+            
             Vector A;
-            NSPoint* point = (NSPoint*)CFBridgingRetain(points[i]);
-            [CoreTransform point2vec: *point andB: A];
+            [CoreTransform point2vec: point andB: A];
             
             Vector B;
             [CoreTransform timesMatVec: transform andB: A andC: B];
             
-            NSPoint newPoint;
-            [CoreTransform vec2point: B andB: newPoint];
+            NSPoint newPoint = NSMakePoint(0, 0);
+            [CoreTransform vec2point: B andB: &newPoint];
             
-            [figure lineToPoint: newPoint];
+            [figurePath moveToPoint: newPoint];
+            
+            // Черчение линии по всем точкам
+            for (NSInteger i = 0; i < pointsCount; i++) {
+                NSPoint point = [figure getPoint:i];
+                
+                Vector A;
+                [CoreTransform point2vec: point andB: A];
+                
+                Vector B;
+                [CoreTransform timesMatVec: transform andB: A andC: B];
+                
+                NSPoint newPoint = NSMakePoint(0, 0);
+                [CoreTransform vec2point: B andB: &newPoint];
+                
+                [figurePath lineToPoint: newPoint];
+            }
         }
+        
+        [figurePath setLineWidth: [figure getThickness]];
+        
+        [[NSColor blackColor] setStroke];
+        
+        [figurePath closePath];
+        
+        [figurePath stroke];
     }
-    
-    [figure stroke];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -84,27 +90,19 @@
 - (void)keyDown:(NSEvent *)event {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles:YES];
-    [panel setCanChooseDirectories:YES];
-    [panel setAllowsMultipleSelection:YES]; // yes if more than one dir is allowed
+    [panel setCanChooseDirectories:NO];
+    [panel setAllowsMultipleSelection:NO];
+    NSArray* fileTypes = [NSArray arrayWithObjects:@"txt", nil];
+    [panel setAllowedFileTypes: fileTypes];
     
     NSInteger clicked = [panel runModal];
     
     if (clicked == NSModalResponseOK) {
         for (NSURL *url in [panel URLs]) {
-            
-            NSError *attributesError = nil;
-            NSString *str = url.relativeString;
-            
-            NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath: str error:&attributesError];
-            
-            NSString *stringFromFileAtPath = [[NSString alloc]
-
-                                              initWithContentsOfFile:str
-
-                                              encoding:NSUTF8StringEncoding
-
-                                              error:&attributesError];
-            NSLog(@"Wat");
+            GraphicalObject *figure = [[GraphicalObject alloc] init];
+            [figure loadFigure: url.relativePath andBaseScaling: 10 andThickness: 2.5];
+            [figures addObject: figure];
+            [self setNeedsDisplay: YES];
         }
     }
 }
