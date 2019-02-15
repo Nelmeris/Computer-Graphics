@@ -9,6 +9,7 @@
 #import "CoreTransform.h"
 #import "TransformMatrix.h"
 #import "TransformVector.h"
+#import "GraphicalObject.h"
 
 @implementation CoreTransform
 
@@ -53,13 +54,13 @@
 }
 
 // Трансформация перемещения
-+ (void)move: (CGFloat)Tx andTy: (CGFloat)Ty andC: (TransformMatrix*)c {
-    [c setValue:Tx andI:0 andJ:M - 1];
-    [c setValue:Ty andI:1 andJ:M - 1];
++ (void)move: (CGFloat)x byY: (CGFloat)y matrix: (TransformMatrix*)c {
+    [c setValue:x andI:0 andJ:M - 1];
+    [c setValue:y andI:1 andJ:M - 1];
 }
 
 // Трансформация поворота
-+ (void)rotate: (CGFloat)phi andC: (TransformMatrix*)c {
++ (void)rotate: (CGFloat)phi matrix: (TransformMatrix*)c {
     [c setValue:cos(phi) andI:0 andJ:0];
     [c setValue:-sin(phi) andI:0 andJ:1];
     [c setValue:sin(phi) andI:1 andJ:0];
@@ -67,9 +68,23 @@
 }
 
 // Трансформация скалирования
-+ (void)scale: (CGFloat)S andC: (TransformMatrix*)c {
-    [c setValue:S andI:0 andJ:0];
-    [c setValue:S andI:1 andJ:1];
++ (void)scale: (CGFloat)value matrix: (TransformMatrix*)c {
+    [c setValue:value andI:0 andJ:0];
+    [c setValue:value andI:1 andJ:1];
+}
+
++ (void)mirrorFrameRefByX: (NSRect)frame matrix: (TransformMatrix*)c {
+    [c setValue:frame.size.width andI:0 andJ:M - 1];
+    [c setValue:-1 andI:0 andJ:0];
+}
+
++ (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c {
+    [c setValue:frame.size.height andI:1 andJ:M - 1];
+    [c setValue:-1 andI:1 andJ:1];
+}
+
++ (void)scaleRefByC: (CGFloat)value matrix: (TransformMatrix*)c {
+    
 }
 
 @end

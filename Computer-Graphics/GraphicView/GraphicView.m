@@ -68,19 +68,23 @@
 }
 
 - (NSPoint)getTransformedPoint: (GraphicalObject*)figure index: (NSInteger)index {
-    NSPoint point = [figure getPoint:index];
-    
-    TransformVector* A = [CoreTransform makeVector:point];
+    TransformVector* A = [CoreTransform makeVector:[figure getPoint:index]];
     
     TransformVector* B = [CoreTransform multiMatVec: transform andB: A];
     
-    NSPoint newPoint = [CoreTransform makePoint:B];
-    
-    return newPoint;
+    return [CoreTransform makePoint:B];
 }
 
-- (void)shuffleKeys: (unsigned short)key andTransformMatrix: (TransformMatrix*)transform andShiftIsClamped: (BOOL)shiftIsClamped {
+- (void)shuffleKeys: (unsigned short)key
+             transformMatrix: (TransformMatrix*)transform
+             shiftIsClamped: (BOOL)shiftIsClamped {
     switch (key) {
+        case kVK_ANSI_U:
+            [CoreTransform mirrorFrameRefByX:self.frame matrix:transform];
+            return;
+        case kVK_ANSI_J:
+            [CoreTransform mirrorFrameRefByY:self.frame matrix:transform];
+            return;
     }
     
     if (shiftIsClamped) { // Shift Down
@@ -90,56 +94,56 @@
                 return;
                 
             case kVK_ANSI_W: // Fast move up
-                [CoreTransform move: 0 andTy: 10 andC: transform];
+                [CoreTransform move:0 byY:10 matrix:transform];
                 break;
             case kVK_ANSI_S: // Fast move down
-                [CoreTransform move: 0 andTy: -10 andC: transform];
+                [CoreTransform move:0 byY:-10 matrix:transform];
                 break;
             case kVK_ANSI_A: // Fast move left
-                [CoreTransform move: -10 andTy: 0 andC: transform];
+                [CoreTransform move:-10 byY:0 matrix:transform];
                 break;
             case kVK_ANSI_D: // Fast move right
-                [CoreTransform move: 10 andTy: 0 andC: transform];
+                [CoreTransform move:10 byY:0 matrix:transform];
                 break;
                 
             case kVK_ANSI_Q: // Fast rotate counterclockwise
-                [CoreTransform rotate:-0.25 andC:transform];
+                [CoreTransform rotate:-0.25 matrix:transform];
                 break;
             case kVK_ANSI_E: // Fast rotate clockwise
-                [CoreTransform rotate:0.25 andC:transform];
+                [CoreTransform rotate:0.25 matrix:transform];
                 break;
                 
             case kVK_ANSI_X: // Fast zoom in
-                [CoreTransform scale:1.5 andC:transform];
+                [CoreTransform scale:1.5 matrix:transform];
                 break;
             case kVK_ANSI_Z: // Fast zoom out
-                [CoreTransform scale:1 / 1.5 andC:transform];
+                [CoreTransform scale:1 / 1.5 matrix:transform];
                 break;
         }
     } else { // NaN Shift
         switch (key) {
             case kVK_ANSI_W: // Move up
-                [CoreTransform move: 0 andTy: 1 andC: transform];
+                [CoreTransform move:0 byY:1 matrix:transform];
                 break;
             case kVK_ANSI_S: // Move down
-                [CoreTransform move: 0 andTy: -1 andC: transform];
+                [CoreTransform move:0 byY:-1 matrix:transform];
                 break;
             case kVK_ANSI_A: // Move left
-                [CoreTransform move: -1 andTy: 0 andC: transform];
+                [CoreTransform move:-1 byY:0 matrix:transform];
                 break;
             case kVK_ANSI_D: // Move right
-                [CoreTransform move: 1 andTy: 0 andC: transform];
+                [CoreTransform move:1 byY:0 matrix:transform];
                 break;
                 
             case kVK_ANSI_Q: // Rotate counterclockwise
-                [CoreTransform rotate:-0.05 andC:transform];
+                [CoreTransform rotate:-0.05 matrix:transform];
                 break;
             case kVK_ANSI_E: // Rotate clockwise
-                [CoreTransform rotate:0.05 andC:transform];
+                [CoreTransform rotate:0.05 matrix:transform];
                 break;
                 
             case kVK_ANSI_X: // Zoom in
-                [CoreTransform scale:1.1 andC:transform];
+                [CoreTransform scale:1.1 matrix:transform];
                 break;
             case kVK_ANSI_Z: // Zoom out
                 [CoreTransform scale:(1 / 1.1) matrix:transform];
@@ -153,14 +157,20 @@
 }
 
 - (void)keyUp:(NSEvent *)theEvent {
+    if ([theEvent keyCode] == kVK_Escape) {
+        [self->transform makeUnit];
+        [self setNeedsDisplay: YES];
+        return;
+    }
+    
     TransformMatrix* timeTransform = [[TransformMatrix alloc] init];
     [timeTransform makeUnit];
     
     BOOL shiftIsClamped = ([theEvent modifierFlags] & NSEventModifierFlagShift) ? YES : NO;
     
     [self shuffleKeys:[theEvent keyCode]
-            andTransformMatrix:timeTransform
-            andShiftIsClamped:shiftIsClamped];
+            transformMatrix:timeTransform
+            shiftIsClamped:shiftIsClamped];
     
     if (![timeTransform isUnit]) {
         transform = [CoreTransform multi: timeTransform andB: transform];

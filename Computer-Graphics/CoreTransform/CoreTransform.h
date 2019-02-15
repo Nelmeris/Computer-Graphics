@@ -10,6 +10,7 @@
 
 @class TransformMatrix;
 @class TransformVector;
+@class GraphicalObject;
 
 #define M 3
 
@@ -23,9 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (TransformVector*)makeVector: (NSPoint)a;
 + (NSPoint)makePoint: (TransformVector*)a;
 
-+ (void)move: (CGFloat)Tx andTy: (CGFloat)Ty andC: (TransformMatrix*)c;
-+ (void)rotate: (CGFloat)phi andC: (TransformMatrix*)c;
-+ (void)scale: (CGFloat)S andC: (TransformMatrix*)c;
++ (void)move: (CGFloat)x byY: (CGFloat)y matrix: (TransformMatrix*)c;
++ (void)rotate: (CGFloat)phi matrix: (TransformMatrix*)c;
++ (void)scale: (CGFloat)value matrix: (TransformMatrix*)c;
+
++ (void)mirrorFrameRefByX: (NSRect)frame matrix: (TransformMatrix*)c;
++ (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c;
+
++ (void)scaleRefByC: (CGFloat)value matrix: (TransformMatrix*)c;
 
 @end
 
