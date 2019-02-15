@@ -9,12 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import "CoreTransform.h"
 
+@class TransformMatrix;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GraphicView : NSView {
     NSMutableArray *paths;
     NSMutableArray *figures;
-    Matrix transform;
+    TransformMatrix *transform;
 }
 
 @end

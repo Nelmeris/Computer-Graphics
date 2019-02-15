@@ -8,24 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
+@class TransformMatrix;
+@class TransformVector;
 
 #define M 3
-typedef float Vector[M];
-typedef float Matrix[M][M];
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreTransform : NSObject
 
-+ (void) times: (Matrix)a andB: (Matrix)b andC: (Matrix)c;
-+ (void) timesMatVec: (Matrix)a andB: (Vector)b andC: (Vector)c;
-+ (void) set: (Matrix)a andB: (Matrix)b;
-+ (void) point2vec: (NSPoint)a andB: (Vector)b;
-+ (void) vec2point: (Vector)a andB: (NSPoint*) b;
-+ (void) makeHomogenVec: (float)x andY: (float)y andC: (Vector)c;
-+ (void) unit: (Matrix)a;
-+ (void) move: (float)Tx andTy: (float)Ty andC: (Matrix)c;
-+ (void) rotate: (float)phi andC: (Matrix)c;
-+ (void) scale: (float)S andC: (Matrix)c;
++ (void)times: (TransformMatrix*)a andB: (TransformMatrix*)b andC: (TransformMatrix*)c;
++ (void)timesMatVec: (TransformMatrix*)a andB: (TransformVector*)b andC: (TransformVector*)c;
++ (void)set: (TransformMatrix*)a andB: (TransformMatrix*)b;
++ (void)point2vec: (NSPoint)a andB: (TransformVector*)b;
++ (void)vec2point: (TransformVector*)a andB: (NSPoint*) b;
++ (void)makeHomogenVec: (CGFloat)x andY: (CGFloat)y andC: (TransformVector*)c;
++ (void)move: (CGFloat)Tx andTy: (CGFloat)Ty andC: (TransformMatrix*)c;
++ (void)rotate: (CGFloat)phi andC: (TransformMatrix*)c;
++ (void)scale: (CGFloat)S andC: (TransformMatrix*)c;
 
 @end
 

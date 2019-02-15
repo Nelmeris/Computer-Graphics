@@ -10,13 +10,20 @@
 #import "CoreTransform.h"
 #import "GraphicalObject.h"
 
+#import "TransformMatrix.h"
+#import "TransformVector.h"
+
+#import <Carbon/Carbon.h>
+
 @implementation GraphicView
 
 - (id)initWithCoder:(NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder])) {
-        [CoreTransform unit:transform];
+        transform = [[TransformMatrix alloc]init];
+        [transform makeUnit];
         figures = [[NSMutableArray alloc] init];
+        paths = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -37,49 +44,117 @@
     [[NSColor whiteColor] setFill];
     [background fill];
 
-    for (NSInteger i = paths.count; i < figures.count; i++) {
+    for (NSInteger i = 0; i < figures.count; i++) {
         GraphicalObject *figure = [figures objectAtIndex: i];
+        
         NSBezierPath *figurePath = [NSBezierPath bezierPath];
         
         NSInteger pointsCount = [figure getPointsCount];
-        if (pointsCount != 0) {
-            NSPoint point = [figure getPoint:pointsCount - 1];
-            
-            Vector A;
-            [CoreTransform point2vec: point andB: A];
-            
-            Vector B;
-            [CoreTransform timesMatVec: transform andB: A andC: B];
-            
-            NSPoint newPoint = NSMakePoint(0, 0);
-            [CoreTransform vec2point: B andB: &newPoint];
-            
-            [figurePath moveToPoint: newPoint];
-            
-            // Черчение линии по всем точкам
-            for (NSInteger i = 0; i < pointsCount; i++) {
-                NSPoint point = [figure getPoint:i];
-                
-                Vector A;
-                [CoreTransform point2vec: point andB: A];
-                
-                Vector B;
-                [CoreTransform timesMatVec: transform andB: A andC: B];
-                
-                NSPoint newPoint = NSMakePoint(0, 0);
-                [CoreTransform vec2point: B andB: &newPoint];
-                
-                [figurePath lineToPoint: newPoint];
-            }
-        }
+        if (pointsCount == 0) continue;
+        
+        // Черчение линии по всем точкам
+        [figurePath moveToPoint: [self getTransformedPoint:figure index:pointsCount - 1]];
+        for (NSInteger i = 0; i < pointsCount; i++)
+            [figurePath lineToPoint: [self getTransformedPoint:figure index:i]];
         
         [figurePath setLineWidth: [figure getThickness]];
-        
         [[NSColor blackColor] setStroke];
         
         [figurePath closePath];
         
         [figurePath stroke];
+        [paths setObject:figurePath atIndexedSubscript:i];
+    }
+}
+
+- (NSPoint)getTransformedPoint: (GraphicalObject*)figure index: (NSInteger)index {
+    NSPoint point = [figure getPoint:index];
+    
+    TransformVector* A = [[TransformVector alloc] init];
+    [CoreTransform point2vec: point andB: A];
+    
+    [A print];
+    
+    TransformVector* B = [[TransformVector alloc] init];
+    [CoreTransform timesMatVec: transform andB: A andC: B];
+    
+    [B print];
+    
+    NSPoint newPoint = NSMakePoint(0, 0);
+    [CoreTransform vec2point: B andB: &newPoint];
+    
+    return newPoint;
+}
+
+- (void)shuffleKeys: (unsigned short)key andTransformMatrix: (TransformMatrix*)transform andShiftIsClamped: (BOOL)shiftIsClamped {
+    switch (key) {
+        case kVK_Escape:
+            [self->transform makeUnit];
+            return;
+    }
+    
+    if (shiftIsClamped) { // Shift Down
+        switch (key) {
+            case kVK_ANSI_O: // File Open
+                [self openFile];
+                return;
+                
+            case kVK_ANSI_W: // Fast move up
+                [CoreTransform move: 0 andTy: 10 andC: transform];
+                break;
+            case kVK_ANSI_S: // Fast move down
+                [CoreTransform move: 0 andTy: -10 andC: transform];
+                break;
+            case kVK_ANSI_A: // Fast move left
+                [CoreTransform move: -10 andTy: 0 andC: transform];
+                break;
+            case kVK_ANSI_D: // Fast move right
+                [CoreTransform move: 10 andTy: 0 andC: transform];
+                break;
+                
+            case kVK_ANSI_Q: // Fast rotate counterclockwise
+                [CoreTransform rotate:-0.25 andC:transform];
+                break;
+            case kVK_ANSI_E: // Fast rotate clockwise
+                [CoreTransform rotate:0.25 andC:transform];
+                break;
+                
+            case kVK_ANSI_X: // Fast zoom in
+                [CoreTransform scale:1.5 andC:transform];
+                break;
+            case kVK_ANSI_Z: // Fast zoom out
+                [CoreTransform scale:1 / 1.5 andC:transform];
+                break;
+        }
+    } else { // NaN Shift
+        switch (key) {
+            case kVK_ANSI_W: // Move up
+                [CoreTransform move: 0 andTy: 1 andC: transform];
+                break;
+            case kVK_ANSI_S: // Move down
+                [CoreTransform move: 0 andTy: -1 andC: transform];
+                break;
+            case kVK_ANSI_A: // Move left
+                [CoreTransform move: -1 andTy: 0 andC: transform];
+                break;
+            case kVK_ANSI_D: // Move right
+                [CoreTransform move: 1 andTy: 0 andC: transform];
+                break;
+                
+            case kVK_ANSI_Q: // Rotate counterclockwise
+                [CoreTransform rotate:-0.05 andC:transform];
+                break;
+            case kVK_ANSI_E: // Rotate clockwise
+                [CoreTransform rotate:0.05 andC:transform];
+                break;
+                
+            case kVK_ANSI_X: // Zoom in
+                [CoreTransform scale:1.1 andC:transform];
+                break;
+            case kVK_ANSI_Z: // Zoom out
+                [CoreTransform scale:(1 / 1.1) andC:transform];
+                break;
+        }
     }
 }
 
@@ -87,7 +162,23 @@
     return YES;
 }
 
-- (void)keyDown:(NSEvent *)event {
+- (void)keyUp:(NSEvent *)theEvent {
+    TransformMatrix* timeTransform = [[TransformMatrix alloc] init];
+    [timeTransform makeUnit];
+    
+    BOOL shiftIsClamped = ([theEvent modifierFlags] & NSEventModifierFlagShift) ? YES : NO;
+                           
+    [self shuffleKeys:[theEvent keyCode]
+            andTransformMatrix:timeTransform
+            andShiftIsClamped:shiftIsClamped];
+    
+    if (![transform isEqual:timeTransform]) {
+        [CoreTransform times: timeTransform andB: transform andC: transform];
+        [self setNeedsDisplay: YES];
+    }
+}
+
+- (void)openFile {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];

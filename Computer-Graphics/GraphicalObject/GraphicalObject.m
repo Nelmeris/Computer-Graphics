@@ -9,11 +9,13 @@
 #import "GraphicalObject.h"
 #import "MyPoint.h"
 
+#import "Matrix.h"
+
 @implementation GraphicalObject
 
 - (id) init {
     self = [super init];
-    points = [[NSMutableArray alloc] initWithCapacity:10];
+    points = [[NSMutableArray alloc] init];
     return self;
 }
 
