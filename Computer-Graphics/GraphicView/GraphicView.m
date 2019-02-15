@@ -81,9 +81,6 @@
 
 - (void)shuffleKeys: (unsigned short)key andTransformMatrix: (TransformMatrix*)transform andShiftIsClamped: (BOOL)shiftIsClamped {
     switch (key) {
-        case kVK_Escape:
-            [self->transform makeUnit];
-            return;
     }
     
     if (shiftIsClamped) { // Shift Down
@@ -145,7 +142,7 @@
                 [CoreTransform scale:1.1 andC:transform];
                 break;
             case kVK_ANSI_Z: // Zoom out
-                [CoreTransform scale:(1 / 1.1) andC:transform];
+                [CoreTransform scale:(1 / 1.1) matrix:transform];
                 break;
         }
     }
@@ -160,12 +157,12 @@
     [timeTransform makeUnit];
     
     BOOL shiftIsClamped = ([theEvent modifierFlags] & NSEventModifierFlagShift) ? YES : NO;
-                           
+    
     [self shuffleKeys:[theEvent keyCode]
             andTransformMatrix:timeTransform
             andShiftIsClamped:shiftIsClamped];
     
-    if (![transform isEqual:timeTransform]) {
+    if (![timeTransform isUnit]) {
         transform = [CoreTransform multi: timeTransform andB: transform];
         [self setNeedsDisplay: YES];
     }

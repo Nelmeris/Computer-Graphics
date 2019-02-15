@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)getRowCount;
 - (NSInteger)getColumnCount;
 
+- (BOOL)isUnit;
 - (BOOL)isEqual:(Matrix*)secondMatrix;
 
 - (void)print;

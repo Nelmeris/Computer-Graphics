@@ -53,6 +53,18 @@
     }
 }
 
+- (BOOL)isUnit {
+    for (NSInteger i = 0; i < [matrix count]; i++) {
+        NSMutableArray *vector = [matrix objectAtIndex: i];
+        for (NSInteger j = 0; j < [vector count]; j++) {
+            CGFloat value = [self getValue:i andJ:j];
+            if (value != 0 && !(i == j && value == 1))
+                return NO;
+        }
+    }
+    return YES;
+}
+
 - (BOOL)isEqual:(Matrix*)secondMatrix {
     if ([self getRowCount] != [secondMatrix getRowCount] || [self getColumnCount] != [secondMatrix getColumnCount])
         return NO;
