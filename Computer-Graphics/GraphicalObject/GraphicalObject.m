@@ -33,9 +33,7 @@
     return nsPoint;
 }
 
-- (void) loadFigure:(NSString *)filePath andBaseScaling:(CGFloat)scale andThickness:(CGFloat)thickness {
-    self->thickness = thickness;
-    
+- (void) loadFigure:(NSString *)filePath {
     NSError *error = nil;
     
     NSString *stringFromFile = [[NSString alloc]
@@ -53,15 +51,63 @@
     while (!scanner.atEnd) {
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
         
-        NSInteger x = [numberString integerValue] * scale;
+        NSInteger x = [numberString integerValue];
         
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
         
-        NSInteger y = [numberString integerValue] * scale;
+        NSInteger y = [numberString integerValue];
         
         MyPoint *point = [[MyPoint alloc] init:x andY:y];
         [points addObject: point];
     }
+}
+
+- (void)setThickness: (CGFloat)value {
+    thickness = value;
+}
+- (void)scaling: (CGFloat)value {
+    for (NSInteger i = 0; i < points.count; i++) {
+        MyPoint *point = [points objectAtIndex: i];
+        point.x *= value;
+        point.y *= value;
+        [points setObject:point atIndexedSubscript:i];
+    }
+}
+
+- (CGFloat)getMinX {
+    NSPoint point = [self getPoint:0];
+    for (NSInteger i = 1; i < [self getPointsCount]; i++)
+        if ([self getPoint:i].x < point.x)
+            point = [self getPoint:i];
+    return point.x;
+}
+- (CGFloat)getMinY {
+    NSPoint point = [self getPoint:0];
+    for (NSInteger i = 1; i < [self getPointsCount]; i++)
+        if ([self getPoint:i].y < point.y)
+            point = [self getPoint:i];
+    return point.y;
+}
+- (CGFloat)getMaxX {
+    NSPoint point = [self getPoint:0];
+    for (NSInteger i = 1; i < [self getPointsCount]; i++)
+        if ([self getPoint:i].x > point.x)
+            point = [self getPoint:i];
+    return point.x;
+}
+- (CGFloat)getMaxY {
+    NSPoint point = [self getPoint:0];
+    for (NSInteger i = 1; i < [self getPointsCount]; i++)
+        if ([self getPoint:i].y > point.y)
+            point = [self getPoint:i];
+    return point.y;
+}
+- (CGFloat)getWidth {
+    return fabs([self getMaxX] - [self getMinX]);
+}
+
+- (CGFloat)getHeight {
+    return fabs([self getMaxY] - [self getMinY]);
 }
 
 @end

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *paths;
     NSMutableArray *figures;
     TransformMatrix *transform;
+    CGFloat defaultThickness;
 }
 
 @end

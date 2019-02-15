@@ -15,14 +15,25 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat thickness;
 }
 
-- (id) init;
+- (id)init;
 
-- (NSInteger) getPointsCount;
-- (CGFloat) getThickness;
+- (NSInteger)getPointsCount;
+- (CGFloat)getThickness;
 
-- (NSPoint) getPoint: (NSInteger)index;
+- (void)setThickness: (CGFloat)value;
+- (void)scaling: (CGFloat)value;
 
-- (void) loadFigure: (NSString*)filePath andBaseScaling: (CGFloat)scale andThickness: (CGFloat) thickness;
+- (CGFloat)getMinX;
+- (CGFloat)getMinY;
+- (CGFloat)getMaxX;
+- (CGFloat)getMaxY;
+
+- (CGFloat)getWidth;
+- (CGFloat)getHeight;
+
+- (NSPoint)getPoint: (NSInteger)index;
+
+- (void)loadFigure: (NSString*)filePath;
 
 @end
 

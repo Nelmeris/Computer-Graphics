@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mirrorFrameRefByX: (NSRect)frame matrix: (TransformMatrix*)c;
 + (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c;
 
-+ (void)scaleRefByC: (CGFloat)value matrix: (TransformMatrix*)c;
++ (void)scaleRefByC: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
 
 @end
 
