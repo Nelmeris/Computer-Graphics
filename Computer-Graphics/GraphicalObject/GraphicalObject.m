@@ -43,13 +43,11 @@
                                 encoding: NSUTF8StringEncoding
                                 error: &error];
     
-    // Intermediate
     NSString *numberString;
     
     NSScanner *scanner = [NSScanner scannerWithString:stringFromFile];
     NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
     
-    // Throw away characters before the first number.
     [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
     
     while (!scanner.atEnd) {

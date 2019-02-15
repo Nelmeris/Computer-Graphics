@@ -17,12 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreTransform : NSObject
 
-+ (void)times: (TransformMatrix*)a andB: (TransformMatrix*)b andC: (TransformMatrix*)c;
-+ (void)timesMatVec: (TransformMatrix*)a andB: (TransformVector*)b andC: (TransformVector*)c;
-+ (void)set: (TransformMatrix*)a andB: (TransformMatrix*)b;
-+ (void)point2vec: (NSPoint)a andB: (TransformVector*)b;
-+ (void)vec2point: (TransformVector*)a andB: (NSPoint*) b;
-+ (void)makeHomogenVec: (CGFloat)x andY: (CGFloat)y andC: (TransformVector*)c;
++ (TransformMatrix*)multi: (TransformMatrix*)a andB: (TransformMatrix*)b;
++ (TransformVector*)multiMatVec: (TransformMatrix*)a andB: (TransformVector*)b;
+
++ (TransformVector*)makeVector: (NSPoint)a;
++ (NSPoint)makePoint: (TransformVector*)a;
+
 + (void)move: (CGFloat)Tx andTy: (CGFloat)Ty andC: (TransformMatrix*)c;
 + (void)rotate: (CGFloat)phi andC: (TransformMatrix*)c;
 + (void)scale: (CGFloat)S andC: (TransformMatrix*)c;

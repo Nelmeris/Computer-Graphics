@@ -70,18 +70,11 @@
 - (NSPoint)getTransformedPoint: (GraphicalObject*)figure index: (NSInteger)index {
     NSPoint point = [figure getPoint:index];
     
-    TransformVector* A = [[TransformVector alloc] init];
-    [CoreTransform point2vec: point andB: A];
+    TransformVector* A = [CoreTransform makeVector:point];
     
-    [A print];
+    TransformVector* B = [CoreTransform multiMatVec: transform andB: A];
     
-    TransformVector* B = [[TransformVector alloc] init];
-    [CoreTransform timesMatVec: transform andB: A andC: B];
-    
-    [B print];
-    
-    NSPoint newPoint = NSMakePoint(0, 0);
-    [CoreTransform vec2point: B andB: &newPoint];
+    NSPoint newPoint = [CoreTransform makePoint:B];
     
     return newPoint;
 }
@@ -173,7 +166,7 @@
             andShiftIsClamped:shiftIsClamped];
     
     if (![transform isEqual:timeTransform]) {
-        [CoreTransform times: timeTransform andB: transform andC: transform];
+        transform = [CoreTransform multi: timeTransform andB: transform];
         [self setNeedsDisplay: YES];
     }
 }

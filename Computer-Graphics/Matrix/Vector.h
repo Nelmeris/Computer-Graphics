@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)init: (NSInteger)columns;
 
 - (CGFloat)getValue: (NSInteger)i;
-- (void)setValue: (CGFloat)value andI: (NSInteger)i;
+- (void)setValue: (CGFloat)value index: (NSInteger)i;
 
 - (void)makeZero;
 

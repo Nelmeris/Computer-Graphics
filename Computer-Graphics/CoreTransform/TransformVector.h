@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)getCount;
 
+- (id)init: (CGFloat)x andY: (CGFloat)y;
+
+- (void)makeHomogen: (CGFloat)x andY: (CGFloat)y;
+
 @end
 
 NS_ASSUME_NONNULL_END

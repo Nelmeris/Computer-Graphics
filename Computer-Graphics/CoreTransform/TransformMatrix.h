@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init;
 
+- (void)set:(TransformMatrix*)a;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -26,4 +26,23 @@
     return M;
 }
 
+- (id)init: (CGFloat)x andY: (CGFloat)y {
+    self = [super init];
+    vector = [[NSMutableArray alloc] init];
+    NSNumber *numX = [NSNumber numberWithDouble:x];
+    NSNumber *numY = [NSNumber numberWithDouble:y];
+    [vector addObject:numX];
+    [vector addObject:numY];
+    [vector addObject:@1];
+    return self;
+}
+
+- (void)makeHomogen: (CGFloat)x andY: (CGFloat)y {
+    NSNumber *numX = [NSNumber numberWithDouble:x];
+    NSNumber *numY = [NSNumber numberWithDouble:y];
+    [vector setObject:numX atIndexedSubscript:0];
+    [vector setObject:numY atIndexedSubscript:1];
+    [vector setObject:@1 atIndexedSubscript:2];
+}
+
 @end

@@ -14,10 +14,8 @@
     self = [super init];
     vector = [[NSMutableArray alloc] init];
     
-    for (NSInteger j = 0; j < columns; j++) {
-        NSNumber *value = @0;
-        [vector addObject: value];
-    }
+    for (NSInteger j = 0; j < columns; j++)
+        [vector addObject: @0];
     
     return self;
 }
@@ -31,7 +29,7 @@
     return [[vector objectAtIndex:i] floatValue];
 }
 
-- (void)setValue: (CGFloat)value andI: (NSInteger)i {
+- (void)setValue: (CGFloat)value index: (NSInteger)i {
     if (i > [self getCount]) {
         NSLog(@"Invalid index!");
         return;
@@ -42,9 +40,8 @@
 }
 
 - (void)makeZero {
-    for (NSInteger i = 0; i < [vector count]; i++) {
-        [vector setObject:@0 atIndexedSubscript:i];
-    }
+    for (NSInteger i = 0; i < [self getCount]; i++)
+        [self setValue:0 index:i];
 }
 
 - (NSInteger)getCount {

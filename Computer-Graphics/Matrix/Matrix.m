@@ -16,10 +16,8 @@
     matrix = [[NSMutableArray alloc] init];
     for (NSInteger i = 0; i < rows; i++) {
         NSMutableArray *vector = [[NSMutableArray alloc] init];
-        for (NSInteger j = 0; j < columns; j++) {
-            NSNumber *value = @0;
-            [vector addObject: value];
-        }
+        for (NSInteger j = 0; j < columns; j++)
+            [vector addObject: @0];
         [matrix addObject:vector];
     }
     return self;
@@ -50,10 +48,8 @@
 - (void)makeUnit {
     for (NSInteger i = 0; i < [matrix count]; i++) {
         NSMutableArray *vector = [matrix objectAtIndex: i];
-        for (NSInteger j = 0; j < [vector count]; j++) {
-            NSNumber *value = (i == j) ? @1 : @0;
-            [vector setObject:value atIndexedSubscript:j];
-        }
+        for (NSInteger j = 0; j < [vector count]; j++)
+            [vector setObject:(i == j) ? @1 : @0 atIndexedSubscript:j];
     }
 }
 
@@ -74,7 +70,7 @@
 }
 
 - (NSInteger)getColumnCount {
-    if ([matrix count] == 0)
+    if ([self getRowCount] == 0)
         return 0;
     NSMutableArray *vector = [matrix objectAtIndex: 0];
     return [vector count];
