@@ -90,21 +90,28 @@
     return [CoreTransform makePoint:B];
 }
 
-// Processing keys while holding Shift and Option keys
+// Processing keys while holding Shift & Option keys
 - (void)shuffleDependentOnTheShiftAndOptionKeys: (unsigned short)key
             transformMatrix: (TransformMatrix*)transform
             shiftIsClamped: (BOOL)shiftIsClamped
             optionIsClamped: (BOOL)optionIsClamped{
-    if ((shiftIsClamped && optionIsClamped)) { // The Shift & Option is clamped
+    if ((shiftIsClamped && optionIsClamped)) { // The Shift & Option keys is clamped
         switch (key) {
-            case kVK_ANSI_X: // Zoom in
-                [CoreTransform scaleRefByC:1.5 frame:self.frame matrix:transform];
+            case kVK_ANSI_X: // Rapid Increase frame
+                [CoreTransform scaleFrame:1.5 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_Z: // Zoom out
-                [CoreTransform scaleRefByC:(1 / 1.5) frame:self.frame matrix:transform];
+            case kVK_ANSI_Z: // Rapid Decrease frame
+                [CoreTransform scaleFrame:(1 / 1.5) frame:self.frame matrix:transform];
+                break;
+                
+            case kVK_ANSI_Q: // Rapid Rotate frame counter-clockwise
+                [CoreTransform rotateFrame:-0.25 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_E: // Rapid Rotate frame clockwise
+                [CoreTransform rotateFrame:0.25 frame:self.frame matrix:transform];
                 break;
         }
-    } else { // The Shift & Option is not clamped at the same time
+    } else { // The Shift & Option keys isn't clamped at the same time
         [self shuffleDependentOnTheShiftKeys:key transformMatrix:transform shiftIsClamped:shiftIsClamped];
         [self shuffleDependentOnTheOptionKeys:key transformMatrix:transform optionIsClamped:optionIsClamped];
     }
@@ -114,7 +121,7 @@
 - (void)shuffleDependentOnTheShiftKeys: (unsigned short)key
             transformMatrix: (TransformMatrix*)transform
             shiftIsClamped: (BOOL)shiftIsClamped {
-    if (!shiftIsClamped) { // The Shift isn't clamped
+    if (!shiftIsClamped) { // The Shift key isn't clamped
         switch (key) {
             case kVK_ANSI_W: // Move up
                 [CoreTransform move:0 byY:1 matrix:transform];
@@ -129,73 +136,73 @@
                 [CoreTransform move:1 byY:0 matrix:transform];
                 break;
                 
-            case kVK_ANSI_Q: // Rotate counterclockwise
+            case kVK_ANSI_Q: // Rotate counter-clockwise
                 [CoreTransform rotate:-0.05 matrix:transform];
                 break;
             case kVK_ANSI_E: // Rotate clockwise
                 [CoreTransform rotate:0.05 matrix:transform];
                 break;
                 
-            case kVK_ANSI_X: // Zoom in
+            case kVK_ANSI_X: // Increase
                 [CoreTransform scale:1.1 matrix:transform];
                 break;
-            case kVK_ANSI_Z: // Zoom out
+            case kVK_ANSI_Z: // Decrease
                 [CoreTransform scale:(1 / 1.1) matrix:transform];
                 break;
                 
-            case kVK_ANSI_I:
+            case kVK_ANSI_I: // Increase relative to Ox
                 [CoreTransform scaleRefByX:1.1 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_O:
+            case kVK_ANSI_O: // Decrease relative to Ox
                 [CoreTransform scaleRefByX:1 / 1.1 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_K:
+            case kVK_ANSI_K: // Increase relative to Oy
                 [CoreTransform scaleRefByY:1.1 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_L:
+            case kVK_ANSI_L: // Decrease relative to Oy
                 [CoreTransform scaleRefByY:1 / 1.1 frame:self.frame matrix:transform];
                 break;
         }
-    } else { // The Shift is clamped
+    } else { // The Shift key is clamped
         switch (key) {
                 
-            case kVK_ANSI_W: // Fast move up
+            case kVK_ANSI_W: // Rapid Move up
                 [CoreTransform move:0 byY:10 matrix:transform];
                 break;
-            case kVK_ANSI_S: // Fast move down
+            case kVK_ANSI_S: // Rapid Move down
                 [CoreTransform move:0 byY:-10 matrix:transform];
                 break;
-            case kVK_ANSI_A: // Fast move left
+            case kVK_ANSI_A: // Rapid Move left
                 [CoreTransform move:-10 byY:0 matrix:transform];
                 break;
-            case kVK_ANSI_D: // Fast move right
+            case kVK_ANSI_D: // Rapid Move right
                 [CoreTransform move:10 byY:0 matrix:transform];
                 break;
                 
-            case kVK_ANSI_Q: // Fast rotate counterclockwise
+            case kVK_ANSI_Q: // Rapid Rotate counter-clockwise
                 [CoreTransform rotate:-0.25 matrix:transform];
                 break;
-            case kVK_ANSI_E: // Fast rotate clockwise
+            case kVK_ANSI_E: // Rapid Rotate clockwise
                 [CoreTransform rotate:0.25 matrix:transform];
                 break;
                 
-            case kVK_ANSI_X: // Fast zoom in
+            case kVK_ANSI_X: // Rapid Increase
                 [CoreTransform scale:1.5 matrix:transform];
                 break;
-            case kVK_ANSI_Z: // Fast zoom out
+            case kVK_ANSI_Z: // Rapid Decrease
                 [CoreTransform scale:1 / 1.5 matrix:transform];
                 break;
                 
-            case kVK_ANSI_I:
+            case kVK_ANSI_I: // Rapid Increase relative to Ox
                 [CoreTransform scaleRefByX:1.5 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_O:
+            case kVK_ANSI_O: // Rapid Decrease relative to Ox
                 [CoreTransform scaleRefByX:1 / 1.5 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_K:
+            case kVK_ANSI_K: // Rapid Increase relative to Oy
                 [CoreTransform scaleRefByY:1.5 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_L:
+            case kVK_ANSI_L: // Rapid Decrease relative to Oy
                 [CoreTransform scaleRefByY:1 / 1.5 frame:self.frame matrix:transform];
                 break;
         }
@@ -207,13 +214,20 @@
             transformMatrix: (TransformMatrix*)transform
             optionIsClamped: (BOOL)optionIsClamped {
     if (!optionIsClamped) { // The Option isn't clamped
-    } else { // The Option is clamped
+    } else { // The Option key is clamped
         switch (key) {
-            case kVK_ANSI_X: // Zoom in
-                [CoreTransform scaleRefByC:1.1 frame:self.frame matrix:transform];
+            case kVK_ANSI_X: // Increase frame
+                [CoreTransform scaleFrame:1.1 frame:self.frame matrix:transform];
                 break;
-            case kVK_ANSI_Z: // Zoom out
-                [CoreTransform scaleRefByC:(1 / 1.1) frame:self.frame matrix:transform];
+            case kVK_ANSI_Z: // Decrease frame
+                [CoreTransform scaleFrame:(1 / 1.1) frame:self.frame matrix:transform];
+                break;
+                
+            case kVK_ANSI_Q: // Rotate frame counter-clockwise
+                [CoreTransform rotateFrame:-0.05 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_E: // Rotate frame clockwise
+                [CoreTransform rotateFrame:0.05 frame:self.frame matrix:transform];
                 break;
         }
     }
@@ -225,10 +239,10 @@
             modifierFlags: (NSEventModifierFlags) modifierFlags {
     
     switch (key) { // Universal keys
-        case kVK_ANSI_U:
+        case kVK_ANSI_U: // Mirror frame relative to Ox
             [CoreTransform mirrorFrameRefByX:self.frame matrix:transform];
             return;
-        case kVK_ANSI_J:
+        case kVK_ANSI_J: // Mirror frame relative to Oy
             [CoreTransform mirrorFrameRefByY:self.frame matrix:transform];
             return;
     }
@@ -244,7 +258,7 @@
 }
 
 - (void)keyUp:(NSEvent *)theEvent {
-    if ([theEvent keyCode] == kVK_Escape) {
+    if ([theEvent keyCode] == kVK_Escape) { // Reset all transformations
         [self->transform makeUnit];
         [self setNeedsDisplay: YES];
         return;

@@ -18,22 +18,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreTransform : NSObject
 
-+ (TransformMatrix*)multi: (TransformMatrix*)a andB: (TransformMatrix*)b;
-+ (TransformVector*)multiMatVec: (TransformMatrix*)a andB: (TransformVector*)b;
++ (TransformMatrix*)multi:(TransformMatrix*)a andB:(TransformMatrix*)b;
++ (TransformVector*)multiMatVec:(TransformMatrix*)a andB:(TransformVector*)b;
 
-+ (TransformVector*)makeVector: (NSPoint)a;
-+ (NSPoint)makePoint: (TransformVector*)a;
++ (TransformVector*)makeVector:(NSPoint)a;
++ (NSPoint)makePoint:(TransformVector*)a;
 
-+ (void)move: (CGFloat)x byY: (CGFloat)y matrix: (TransformMatrix*)c;
-+ (void)rotate: (CGFloat)phi matrix: (TransformMatrix*)c;
-+ (void)scale: (CGFloat)value matrix: (TransformMatrix*)c;
++ (void)move:(CGFloat)x byY:(CGFloat)y matrix:(TransformMatrix*)c;
++ (void)rotate:(CGFloat)phi matrix:(TransformMatrix*)c;
++ (void)scale:(CGFloat)value matrix:(TransformMatrix*)c;
 
-+ (void)mirrorFrameRefByX: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c;
++ (void)rotateFrame:(CGFloat)phi frame:(NSRect)frame matrix:(TransformMatrix*)c;
 
-+ (void)scaleRefByC: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
++ (void)mirrorFrameRefByX:(NSRect)frame matrix:(TransformMatrix*)c;
++ (void)mirrorFrameRefByY:(NSRect)frame matrix:(TransformMatrix*)c;
+
++ (void)scaleFrame:(CGFloat)value frame:(NSRect)frame matrix:(TransformMatrix*)c;
++ (void)scaleRefByX:(CGFloat)value frame:(NSRect)frame matrix:(TransformMatrix*)c;
++ (void)scaleRefByY:(CGFloat)value frame:(NSRect)frame matrix:(TransformMatrix*)c;
 
 @end
 
