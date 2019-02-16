@@ -48,7 +48,7 @@
     return [vector count];
 }
 
-- (BOOL)isEqual:(Vector*)secondVector {
+- (BOOL)isEqual: (Vector*)secondVector {
     if ([self getCount] != [secondVector getCount])
         return NO;
     

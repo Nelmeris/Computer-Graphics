@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)getCount;
 
-- (BOOL)isEqual:(Vector*)secondVector;
+- (BOOL)isEqual: (Vector*)secondVector;
 
 - (void)print;
 

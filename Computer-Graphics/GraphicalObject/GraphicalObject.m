@@ -13,33 +13,33 @@
 
 @implementation GraphicalObject
 
-- (id) init {
+- (id)init {
     self = [super init];
     points = [[NSMutableArray alloc] init];
     return self;
 }
 
-- (NSInteger) getPointsCount {
+- (NSInteger)getPointsCount {
     return [points count];
 }
 
-- (CGFloat) getThickness {
+- (CGFloat)getThickness {
     return thickness;
 }
 
-- (NSPoint) getPoint:(NSInteger)index {
-    MyPoint *point = [points objectAtIndex: index];
+- (NSPoint)getPoint: (NSInteger)index {
+    MyPoint *point = [points objectAtIndex:index];
     NSPoint nsPoint = NSMakePoint(point.x, point.y);
     return nsPoint;
 }
 
-- (void) loadFigure:(NSString *)filePath {
+- (void)loadFigure: (NSString *)filePath {
     NSError *error = nil;
     
     NSString *stringFromFile = [[NSString alloc]
-                                initWithContentsOfFile: filePath
-                                encoding: NSUTF8StringEncoding
-                                error: &error];
+                                initWithContentsOfFile:filePath
+                                encoding:NSUTF8StringEncoding
+                                error:&error];
     
     NSString *numberString;
     
@@ -58,7 +58,7 @@
         NSInteger y = [numberString integerValue];
         
         MyPoint *point = [[MyPoint alloc] init:x andY:y];
-        [points addObject: point];
+        [points addObject:point];
     }
 }
 
@@ -67,7 +67,7 @@
 }
 - (void)scaling: (CGFloat)value {
     for (NSInteger i = 0; i < points.count; i++) {
-        MyPoint *point = [points objectAtIndex: i];
+        MyPoint *point = [points objectAtIndex:i];
         point.x *= value;
         point.y *= value;
         [points setObject:point atIndexedSubscript:i];

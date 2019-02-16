@@ -14,9 +14,8 @@
 		5771232E22158EF300A3C4CB /* TransformMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232D22158EF300A3C4CB /* TransformMatrix.m */; };
 		5771233122158EFE00A3C4CB /* TransformVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771233022158EFE00A3C4CB /* TransformVector.m */; };
 		577921502217FCC9008E2619 /* GraphicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5779214F2217FCC9008E2619 /* GraphicViewController.m */; };
+		57841956221891C400725034 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57841954221891C300725034 /* AppDelegate.m */; };
 		57EC40C322133640001A69AB /* CoreTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EC40C222133640001A69AB /* CoreTransform.m */; };
-		57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69342212CAA20028B0BB /* AppDelegate.m */; };
-		57FA69382212CAA20028B0BB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69372212CAA20028B0BB /* ViewController.m */; };
 		57FA693A2212CAA20028B0BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57FA69392212CAA20028B0BB /* Assets.xcassets */; };
 		57FA693D2212CAA20028B0BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57FA693B2212CAA20028B0BB /* Main.storyboard */; };
 		57FA69402212CAA20028B0BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA693F2212CAA20028B0BB /* main.m */; };
@@ -38,13 +37,11 @@
 		5771233022158EFE00A3C4CB /* TransformVector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformVector.m; sourceTree = "<group>"; };
 		5779214E2217FCC9008E2619 /* GraphicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicViewController.h; sourceTree = "<group>"; };
 		5779214F2217FCC9008E2619 /* GraphicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphicViewController.m; sourceTree = "<group>"; };
+		57841954221891C300725034 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		57841955221891C300725034 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57EC40C122133640001A69AB /* CoreTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransform.h; sourceTree = "<group>"; };
 		57EC40C222133640001A69AB /* CoreTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransform.m; sourceTree = "<group>"; };
 		57FA69302212CAA20028B0BB /* Computer Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		57FA69332212CAA20028B0BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		57FA69342212CAA20028B0BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		57FA69362212CAA20028B0BB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		57FA69372212CAA20028B0BB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		57FA69392212CAA20028B0BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57FA693C2212CAA20028B0BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57FA693E2212CAA20028B0BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -151,13 +148,11 @@
 				576AD4E2221436520007170C /* CoreTransform */,
 				576AD4E1221436480007170C /* GraphicView */,
 				577921512217FCCF008E2619 /* GraphicViewController */,
-				57FA69332212CAA20028B0BB /* AppDelegate.h */,
-				57FA69342212CAA20028B0BB /* AppDelegate.m */,
-				57FA69362212CAA20028B0BB /* ViewController.h */,
-				57FA69372212CAA20028B0BB /* ViewController.m */,
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
 				57FA693E2212CAA20028B0BB /* Info.plist */,
+				57841955221891C300725034 /* AppDelegate.h */,
+				57841954221891C300725034 /* AppDelegate.m */,
 				57FA693F2212CAA20028B0BB /* main.m */,
 				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
@@ -233,17 +228,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57841956221891C400725034 /* AppDelegate.m in Sources */,
 				5771232822157EB400A3C4CB /* Matrix.m in Sources */,
 				5771232422155E3700A3C4CB /* MyPoint.m in Sources */,
 				5771232B22157ED500A3C4CB /* Vector.m in Sources */,
 				5771233122158EFE00A3C4CB /* TransformVector.m in Sources */,
 				5771232E22158EF300A3C4CB /* TransformMatrix.m in Sources */,
 				5771232022154EE500A3C4CB /* GraphicalObject.m in Sources */,
-				57FA69382212CAA20028B0BB /* ViewController.m in Sources */,
 				57FA69492212CACC0028B0BB /* GraphicView.m in Sources */,
 				57EC40C322133640001A69AB /* CoreTransform.m in Sources */,
 				57FA69402212CAA20028B0BB /* main.m in Sources */,
-				57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */,
 				577921502217FCC9008E2619 /* GraphicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

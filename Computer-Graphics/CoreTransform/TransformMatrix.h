@@ -19,7 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init;
 
-- (void)set:(TransformMatrix*)a;
+- (void)set: (TransformMatrix*)a;
+
+- (TransformMatrix*)multi: (TransformMatrix*)mat;
+
+- (TransformVector*)multiVec: (TransformVector*)vec;
 
 @end
 

@@ -65,18 +65,6 @@
     return YES;
 }
 
-- (BOOL)isEqual:(Matrix*)secondMatrix {
-    if ([self getRowCount] != [secondMatrix getRowCount] || [self getColumnCount] != [secondMatrix getColumnCount])
-        return NO;
-    
-    for (NSInteger i = 0; i < [self getRowCount]; i++)
-        for (NSInteger j = 0; j < [self getColumnCount]; j++)
-            if ([self getValue:i andJ:j] != [secondMatrix getValue:i andJ:j])
-                return NO;
-    
-    return YES;
-}
-
 - (NSInteger)getRowCount {
     return [matrix count];
 }

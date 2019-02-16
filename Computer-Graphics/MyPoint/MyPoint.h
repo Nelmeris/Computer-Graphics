@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property CGFloat x;
 @property CGFloat y;
 
-- (id) init: (NSInteger)x andY: (NSInteger)y;
+- (id)init: (NSInteger)x andY: (NSInteger)y;
 
 @end
 

@@ -10,7 +10,7 @@
 
 @implementation MyPoint
 
-- (id) init:(NSInteger)x andY:(NSInteger)y {
+- (id)init: (NSInteger)x andY: (NSInteger)y {
     self = [super init];
     self.x = x;
     self.y = y;

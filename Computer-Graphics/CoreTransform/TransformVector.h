@@ -17,11 +17,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init;
 
-- (NSInteger)getCount;
-
+- (id)init: (NSPoint)point;
 - (id)init: (CGFloat)x andY: (CGFloat)y;
 
-- (void)makeHomogen: (CGFloat)x andY: (CGFloat)y;
+- (void)set: (NSPoint)point;
+- (void)set: (CGFloat)x andY: (CGFloat)y;
+
+- (NSInteger)getCount;
+
+- (NSPoint)makePoint;
 
 @end
 

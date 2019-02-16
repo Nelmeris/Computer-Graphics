@@ -19,10 +19,10 @@
 
 @implementation GraphicView
 
-- (id)initWithCoder:(NSCoder*)coder
+- (id)initWithCoder: (NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder])) {
-        transform = [[TransformMatrix alloc]init];
+        transform = [[TransformMatrix alloc] init];
         [transform makeUnit];
         paths = [[NSMutableArray alloc] init];
     }
@@ -36,7 +36,7 @@
     [self setNeedsDisplay: YES];
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect: (NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
     // Setting background
@@ -83,11 +83,11 @@
 // Transforming a point
 - (NSPoint)getTransformedPoint: (GraphicalObject*)figure index: (NSInteger)index {
     // Convert point to vector
-    TransformVector* A = [CoreTransform makeVector:[figure getPoint:index]];
+    TransformVector* vector = [[TransformVector alloc]init:[figure getPoint:index]];
     // Multiplying a vector by a transformation matrix
-    TransformVector* B = [CoreTransform multiMatVec: transform andB: A];
+    TransformVector* newVector = [transform multiVec:vector];
     // Return the converted point
-    return [CoreTransform makePoint:B];
+    return [newVector makePoint];
 }
 
 // Processing keys while holding Shift & Option keys
@@ -272,7 +272,7 @@
            modifierFlags:[theEvent modifierFlags]];
     
     if (![timeTransform isUnit]) {
-        transform = [CoreTransform multi: timeTransform andB: transform];
+        transform = [timeTransform multi:transform];
         [self setNeedsDisplay: YES];
     }
 }

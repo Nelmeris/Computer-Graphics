@@ -34,7 +34,7 @@
     
     if (clicked == NSModalResponseOK) {
         for (NSURL *url in [panel URLs]) {
-            GraphicalObject *figure = [[GraphicalObject alloc]init];
+            GraphicalObject *figure = [[GraphicalObject alloc] init];
             [figure loadFigure:url.relativePath];
             [figure setThickness:defaultThickness];
             [self.figures addObject:figure];
