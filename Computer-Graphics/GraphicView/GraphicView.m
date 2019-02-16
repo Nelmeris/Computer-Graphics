@@ -151,16 +151,16 @@
                 break;
                 
             case kVK_ANSI_I: // Increase relative to Ox
-                [CoreTransform scaleRefByX:1.1 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByX:1.1 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_O: // Decrease relative to Ox
-                [CoreTransform scaleRefByX:1 / 1.1 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByX:1 / 1.1 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_K: // Increase relative to Oy
-                [CoreTransform scaleRefByY:1.1 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByY:1.1 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_L: // Decrease relative to Oy
-                [CoreTransform scaleRefByY:1 / 1.1 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByY:1 / 1.1 frame:self.frame matrix:transform];
                 break;
         }
     } else { // The Shift key is clamped
@@ -194,16 +194,16 @@
                 break;
                 
             case kVK_ANSI_I: // Rapid Increase relative to Ox
-                [CoreTransform scaleRefByX:1.5 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByX:1.5 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_O: // Rapid Decrease relative to Ox
-                [CoreTransform scaleRefByX:1 / 1.5 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByX:1 / 1.5 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_K: // Rapid Increase relative to Oy
-                [CoreTransform scaleRefByY:1.5 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByY:1.5 frame:self.frame matrix:transform];
                 break;
             case kVK_ANSI_L: // Rapid Decrease relative to Oy
-                [CoreTransform scaleRefByY:1 / 1.5 frame:self.frame matrix:transform];
+                [CoreTransform scaleFrameRefByY:1 / 1.5 frame:self.frame matrix:transform];
                 break;
         }
     }

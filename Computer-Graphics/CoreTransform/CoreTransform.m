@@ -58,12 +58,12 @@
     [c setValue:value andI:1 andJ:1];
 }
 
-+ (void)scaleRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c {
++ (void)scaleFrameRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c {
     [c setValue:(frame.size.width / 2) * (1 - value) andI:0 andJ:M - 1];
     [c setValue:value andI:0 andJ:0];
 }
 
-+ (void)scaleRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c {
++ (void)scaleFrameRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c {
     [c setValue:(frame.size.height / 2) * (1 - value) andI:1 andJ:M - 1];
     [c setValue:value andI:1 andJ:1];
 }

@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c;
 
 + (void)scaleFrame: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
++ (void)scaleFrameRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
++ (void)scaleFrameRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
 
 @end
 
