@@ -13,6 +13,8 @@
 #import "TransformMatrix.h"
 #import "TransformVector.h"
 
+#import "GraphicViewController.h"
+
 #import <Carbon/Carbon.h>
 
 @implementation GraphicView
@@ -22,16 +24,14 @@
     if ((self = [super initWithCoder:coder])) {
         transform = [[TransformMatrix alloc]init];
         [transform makeUnit];
-        figures = [[NSMutableArray alloc] init];
         paths = [[NSMutableArray alloc] init];
-        defaultThickness = 2.5;
     }
     return self;
 }
 
 - (void)clearView {
     [paths removeAllObjects];
-    [figures removeAllObjects];
+    [((GraphicViewController*)self.window.contentViewController).figures removeAllObjects];
     [transform makeUnit];
     [self setNeedsDisplay: YES];
 }
@@ -47,8 +47,8 @@
     [background fill];
 
     // Pass through all shapes
-    for (NSInteger i = 0; i < figures.count; i++) {
-        GraphicalObject *figure = [figures objectAtIndex: i];
+    for (NSInteger i = 0; i < ((GraphicViewController*)self.window.contentViewController).figures.count; i++) {
+        GraphicalObject *figure = [((GraphicViewController*)self.window.contentViewController).figures objectAtIndex: i];
         [self autoScaling:figure];
         NSBezierPath *figurePath = [NSBezierPath bezierPath];
         
@@ -94,8 +94,8 @@
 - (void)shuffleDependentOnTheShiftAndOptionKeys: (unsigned short)key
             transformMatrix: (TransformMatrix*)transform
             shiftIsClamped: (BOOL)shiftIsClamped
-            OptionIsClamped: (BOOL)OptionIsClamped{
-    if ((shiftIsClamped && OptionIsClamped)) { // The Shift & Option is clamped
+            optionIsClamped: (BOOL)optionIsClamped{
+    if ((shiftIsClamped && optionIsClamped)) { // The Shift & Option is clamped
         switch (key) {
             case kVK_ANSI_X: // Zoom in
                 [CoreTransform scaleRefByC:1.5 frame:self.frame matrix:transform];
@@ -106,7 +106,7 @@
         }
     } else { // The Shift & Option is not clamped at the same time
         [self shuffleDependentOnTheShiftKeys:key transformMatrix:transform shiftIsClamped:shiftIsClamped];
-        [self shuffleDependentOnTheOptionKeys:key transformMatrix:transform OptionIsClamped:OptionIsClamped];
+        [self shuffleDependentOnTheOptionKeys:key transformMatrix:transform optionIsClamped:optionIsClamped];
     }
 }
 
@@ -142,12 +142,22 @@
             case kVK_ANSI_Z: // Zoom out
                 [CoreTransform scale:(1 / 1.1) matrix:transform];
                 break;
+                
+            case kVK_ANSI_I:
+                [CoreTransform scaleRefByX:1.1 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_O:
+                [CoreTransform scaleRefByX:1 / 1.1 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_K:
+                [CoreTransform scaleRefByY:1.1 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_L:
+                [CoreTransform scaleRefByY:1 / 1.1 frame:self.frame matrix:transform];
+                break;
         }
-    } else { // The Shift isn't clamped
+    } else { // The Shift is clamped
         switch (key) {
-            case kVK_ANSI_O: // File Open
-                [self openFile];
-                return;
                 
             case kVK_ANSI_W: // Fast move up
                 [CoreTransform move:0 byY:10 matrix:transform];
@@ -175,6 +185,19 @@
             case kVK_ANSI_Z: // Fast zoom out
                 [CoreTransform scale:1 / 1.5 matrix:transform];
                 break;
+                
+            case kVK_ANSI_I:
+                [CoreTransform scaleRefByX:1.5 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_O:
+                [CoreTransform scaleRefByX:1 / 1.5 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_K:
+                [CoreTransform scaleRefByY:1.5 frame:self.frame matrix:transform];
+                break;
+            case kVK_ANSI_L:
+                [CoreTransform scaleRefByY:1 / 1.5 frame:self.frame matrix:transform];
+                break;
         }
     }
 }
@@ -182,8 +205,8 @@
 // Processing keys while holding Option key
 - (void)shuffleDependentOnTheOptionKeys: (unsigned short)key
             transformMatrix: (TransformMatrix*)transform
-            OptionIsClamped: (BOOL)OptionIsClamped {
-    if (!OptionIsClamped) { // The Option isn't clamped
+            optionIsClamped: (BOOL)optionIsClamped {
+    if (!optionIsClamped) { // The Option isn't clamped
     } else { // The Option is clamped
         switch (key) {
             case kVK_ANSI_X: // Zoom in
@@ -199,8 +222,7 @@
 // Processing keys
 - (void)shuffleKeys: (unsigned short)key
             transformMatrix: (TransformMatrix*)transform
-            shiftIsClamped: (BOOL)shiftIsClamped
-            OptionIsClamped: (BOOL)OptionIsClamped {
+            modifierFlags: (NSEventModifierFlags) modifierFlags {
     
     switch (key) { // Universal keys
         case kVK_ANSI_U:
@@ -211,7 +233,10 @@
             return;
     }
     
-    [self shuffleDependentOnTheShiftAndOptionKeys:key transformMatrix:transform shiftIsClamped:shiftIsClamped OptionIsClamped:OptionIsClamped];
+    [self shuffleDependentOnTheShiftAndOptionKeys:key
+            transformMatrix:transform
+            shiftIsClamped:((modifierFlags & NSEventModifierFlagShift) ? YES : NO)
+            optionIsClamped:((modifierFlags & NSEventModifierFlagOption) ? YES : NO)];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -228,38 +253,13 @@
     TransformMatrix* timeTransform = [[TransformMatrix alloc] init];
     [timeTransform makeUnit];
     
-    BOOL shiftIsClamped = ([theEvent modifierFlags] & NSEventModifierFlagShift) ? YES : NO;
-    BOOL OptionIsClamped = ([theEvent modifierFlags] & NSEventModifierFlagOption) ? YES : NO;
-    
     [self shuffleKeys:[theEvent keyCode]
            transformMatrix:timeTransform
-           shiftIsClamped:shiftIsClamped
-           OptionIsClamped:OptionIsClamped];
+           modifierFlags:[theEvent modifierFlags]];
     
     if (![timeTransform isUnit]) {
         transform = [CoreTransform multi: timeTransform andB: transform];
         [self setNeedsDisplay: YES];
-    }
-}
-
-- (void)openFile {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setCanChooseFiles:YES];
-    [panel setCanChooseDirectories:NO];
-    [panel setAllowsMultipleSelection:NO];
-    NSArray* fileTypes = [NSArray arrayWithObjects:@"txt", nil];
-    [panel setAllowedFileTypes: fileTypes];
-    
-    NSInteger clicked = [panel runModal];
-    
-    if (clicked == NSModalResponseOK) {
-        for (NSURL *url in [panel URLs]) {
-            GraphicalObject *figure = [[GraphicalObject alloc]init];
-            [figure loadFigure:url.relativePath];
-            [figure setThickness:defaultThickness];
-            [figures addObject:figure];
-            [self setNeedsDisplay:YES];
-        }
     }
 }
 

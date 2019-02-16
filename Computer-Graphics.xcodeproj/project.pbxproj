@@ -13,6 +13,7 @@
 		5771232B22157ED500A3C4CB /* Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232A22157ED500A3C4CB /* Vector.m */; };
 		5771232E22158EF300A3C4CB /* TransformMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232D22158EF300A3C4CB /* TransformMatrix.m */; };
 		5771233122158EFE00A3C4CB /* TransformVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771233022158EFE00A3C4CB /* TransformVector.m */; };
+		577921502217FCC9008E2619 /* GraphicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5779214F2217FCC9008E2619 /* GraphicViewController.m */; };
 		57EC40C322133640001A69AB /* CoreTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EC40C222133640001A69AB /* CoreTransform.m */; };
 		57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69342212CAA20028B0BB /* AppDelegate.m */; };
 		57FA69382212CAA20028B0BB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69372212CAA20028B0BB /* ViewController.m */; };
@@ -35,6 +36,8 @@
 		5771232D22158EF300A3C4CB /* TransformMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformMatrix.m; sourceTree = "<group>"; };
 		5771232F22158EFE00A3C4CB /* TransformVector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransformVector.h; sourceTree = "<group>"; };
 		5771233022158EFE00A3C4CB /* TransformVector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformVector.m; sourceTree = "<group>"; };
+		5779214E2217FCC9008E2619 /* GraphicViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphicViewController.h; sourceTree = "<group>"; };
+		5779214F2217FCC9008E2619 /* GraphicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphicViewController.m; sourceTree = "<group>"; };
 		57EC40C122133640001A69AB /* CoreTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransform.h; sourceTree = "<group>"; };
 		57EC40C222133640001A69AB /* CoreTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransform.m; sourceTree = "<group>"; };
 		57FA69302212CAA20028B0BB /* Computer Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +116,16 @@
 			path = Matrix;
 			sourceTree = "<group>";
 		};
+		577921512217FCCF008E2619 /* GraphicViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5779214E2217FCC9008E2619 /* GraphicViewController.h */,
+				5779214F2217FCC9008E2619 /* GraphicViewController.m */,
+			);
+			name = GraphicViewController;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +150,7 @@
 				5771231D22154E6C00A3C4CB /* GraphicalObject */,
 				576AD4E2221436520007170C /* CoreTransform */,
 				576AD4E1221436480007170C /* GraphicView */,
+				577921512217FCCF008E2619 /* GraphicViewController */,
 				57FA69332212CAA20028B0BB /* AppDelegate.h */,
 				57FA69342212CAA20028B0BB /* AppDelegate.m */,
 				57FA69362212CAA20028B0BB /* ViewController.h */,
@@ -230,6 +244,7 @@
 				57EC40C322133640001A69AB /* CoreTransform.m in Sources */,
 				57FA69402212CAA20028B0BB /* main.m in Sources */,
 				57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */,
+				577921502217FCC9008E2619 /* GraphicViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

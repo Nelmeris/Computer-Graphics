@@ -59,12 +59,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="Was-JA-tGl">
-                                            <connections>
-                                                <action selector="newDocument:" target="Ady-hI-5gd" id="4Si-XN-c54"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
+                                        <menuItem title="Open…" keyEquivalent="s" id="IAo-SY-fd9">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="bVn-NM-KNZ"/>
                                             </connections>
@@ -684,7 +679,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Computer Graphics by Nelmeris" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -701,10 +696,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--View Controller-->
+        <!--Graphic View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="GraphicViewController" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -720,8 +715,54 @@
                             <constraint firstItem="DHL-e8-d1f" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="UbE-Ia-pBx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="graphicView" destination="DHL-e8-d1f" id="PwS-y2-9dJ"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu title="Main Menu" systemMenu="main" id="DUf-W5-M3u">
+                    <items>
+                        <menuItem title="Computer-Graphics" id="jPV-uB-T6E">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Computer-Graphics" systemMenu="apple" id="HSN-5C-A6x">
+                                <items>
+                                    <menuItem title="About Computer-Graphics" id="Vrc-tO-T4i">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="1h4-Pt-1LI"/>
+                                    <menuItem title="Preferences…" keyEquivalent="," id="Wic-uC-87K"/>
+                                    <menuItem isSeparatorItem="YES" id="zjN-bv-J7Q"/>
+                                    <menuItem title="Services" id="OWA-yD-RB3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menu key="submenu" title="Services" systemMenu="services" id="cqq-cJ-fjT"/>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="lVq-3X-8ls"/>
+                                    <menuItem title="Hide Computer-Graphics" keyEquivalent="h" id="kLG-Ca-QfY"/>
+                                    <menuItem title="Hide Others" keyEquivalent="h" id="dC2-K1-6xa">
+                                        <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                    </menuItem>
+                                    <menuItem title="Show All" id="6bM-No-nnB">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="udG-KI-X7x"/>
+                                    <menuItem title="Quit Computer-Graphics" keyEquivalent="q" id="q4o-js-DDI"/>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="File" id="Y4w-Nt-vix">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="File" id="Vhd-JB-vSf">
+                                <items>
+                                    <menuItem title="Open…" keyEquivalent="o" id="QuL-Nb-cX6">
+                                        <connections>
+                                            <action selector="fileOpen:" target="XfG-lQ-9wD" id="5pE-JI-PKw"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                    </items>
+                </menu>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>

@@ -15,9 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GraphicView : NSView {
     NSMutableArray *paths;
-    NSMutableArray *figures;
     TransformMatrix *transform;
-    CGFloat defaultThickness;
 }
 
 @end
