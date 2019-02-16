@@ -257,6 +257,13 @@
     return YES;
 }
 
+- (BOOL)performKeyEquivalent:(NSEvent *)event {
+    unsigned short key = [event keyCode];
+    BOOL commandIsClamped = [event modifierFlags] & NSEventModifierFlagCommand;
+    return (commandIsClamped && key == kVK_ANSI_O) ||
+            key == kVK_ANSI_W || key == kVK_ANSI_S || key == kVK_ANSI_A || key == kVK_ANSI_D || key == kVK_ANSI_Z || key == kVK_ANSI_X || key == kVK_ANSI_U || key == kVK_ANSI_J || key == kVK_ANSI_I || key == kVK_ANSI_K || key == kVK_ANSI_O || key == kVK_ANSI_L || key == kVK_ANSI_Q || key == kVK_ANSI_E;
+}
+
 - (void)keyUp:(NSEvent *)theEvent {
     if ([theEvent keyCode] == kVK_Escape) { // Reset all transformations
         [self->transform makeUnit];
