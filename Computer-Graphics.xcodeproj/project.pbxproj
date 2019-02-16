@@ -37,7 +37,7 @@
 		5771233022158EFE00A3C4CB /* TransformVector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformVector.m; sourceTree = "<group>"; };
 		57EC40C122133640001A69AB /* CoreTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransform.h; sourceTree = "<group>"; };
 		57EC40C222133640001A69AB /* CoreTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransform.m; sourceTree = "<group>"; };
-		57FA69302212CAA20028B0BB /* Computer-Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer-Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57FA69302212CAA20028B0BB /* Computer Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FA69332212CAA20028B0BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57FA69342212CAA20028B0BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		57FA69362212CAA20028B0BB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		57FA69312212CAA20028B0BB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				57FA69302212CAA20028B0BB /* Computer-Graphics.app */,
+				57FA69302212CAA20028B0BB /* Computer Graphics.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,7 +167,7 @@
 			);
 			name = "Computer-Graphics";
 			productName = "Computer Graphics";
-			productReference = 57FA69302212CAA20028B0BB /* Computer-Graphics.app */;
+			productReference = 57FA69302212CAA20028B0BB /* Computer Graphics.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -372,7 +372,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "artemkufaev.Computer-Graphics";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Computer Graphics";
 			};
 			name = Debug;
 		};
@@ -390,7 +390,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "artemkufaev.Computer-Graphics";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Computer Graphics";
 			};
 			name = Release;
 		};
