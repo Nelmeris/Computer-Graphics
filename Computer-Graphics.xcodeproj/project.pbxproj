@@ -41,6 +41,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57C4A21B224DFD3B0071ABAB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69332212CAA20028B0BB /* AppDelegate.h */,
+				57FA69342212CAA20028B0BB /* AppDelegate.m */,
+				57FA693F2212CAA20028B0BB /* main.m */,
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		57C4A21C224DFDD20071ABAB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69362212CAA20028B0BB /* ViewController.h */,
+				57FA69372212CAA20028B0BB /* ViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		57C4A21D224DFDD90071ABAB /* GraphicView */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69472212CACC0028B0BB /* GraphicView.h */,
+				57FA69482212CACC0028B0BB /* GraphicView.m */,
+			);
+			path = GraphicView;
+			sourceTree = "<group>";
+		};
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
@@ -60,17 +89,12 @@
 		57FA69322212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				57FA69332212CAA20028B0BB /* AppDelegate.h */,
-				57FA69342212CAA20028B0BB /* AppDelegate.m */,
-				57FA69362212CAA20028B0BB /* ViewController.h */,
-				57FA69372212CAA20028B0BB /* ViewController.m */,
+				57C4A21D224DFDD90071ABAB /* GraphicView */,
+				57C4A21C224DFDD20071ABAB /* ViewController */,
+				57C4A21B224DFD3B0071ABAB /* Application */,
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
 				57FA693E2212CAA20028B0BB /* Info.plist */,
-				57FA693F2212CAA20028B0BB /* main.m */,
-				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
-				57FA69472212CACC0028B0BB /* GraphicView.h */,
-				57FA69482212CACC0028B0BB /* GraphicView.m */,
 			);
 			path = "Computer-Graphics";
 			sourceTree = "<group>";
