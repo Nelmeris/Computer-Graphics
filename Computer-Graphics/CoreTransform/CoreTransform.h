@@ -40,17 +40,4 @@
 - (void)scaleFrameRefByX:(CGFloat)value;
 - (void)scaleFrameRefByY:(CGFloat)value;
 
-+ (void)move: (CGFloat)x byY: (CGFloat)y matrix:(TransformMatrix*)c;
-+ (void)rotate: (CGFloat)phi matrix:(TransformMatrix*)c;
-+ (void)scale: (CGFloat)value matrix:(TransformMatrix*)c;
-
-+ (void)rotateFrame: (CGFloat)phi frame: (NSRect)frame matrix: (TransformMatrix*)c;
-
-+ (void)mirrorFrameRefByX: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)mirrorFrameRefByY: (NSRect)frame matrix: (TransformMatrix*)c;
-
-+ (void)scaleFrame: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleFrameRefByX: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-+ (void)scaleFrameRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
-
 @end
