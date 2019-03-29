@@ -42,7 +42,7 @@
     TransformMatrix *matrix = [TransformMatrix new];
     [matrix setValue:x andI:0 andJ:M - 1];
     [matrix setValue:y andI:1 andJ:M - 1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)rotate:(CGFloat)phi {
@@ -51,14 +51,14 @@
     [matrix setValue:-sin(phi) andI:0 andJ:1];
     [matrix setValue:sin(phi) andI:1 andJ:0];
     [matrix setValue:cos(phi) andI:1 andJ:1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)scale: (CGFloat)value {
     TransformMatrix *matrix = [TransformMatrix new];
     [matrix setValue:value andI:0 andJ:0];
     [matrix setValue:value andI:1 andJ:1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)rotateFrame: (CGFloat)phi {
@@ -70,21 +70,21 @@
      move:x - x * cos(phi) + y * sin(phi)
      byY:y - x * sin(phi) - y * cos(phi)
      matrix:matrix];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)mirrorFrameRefByX {
     TransformMatrix *matrix = [TransformMatrix new];
     [CoreTransform move:view.frame.size.width byY:0 matrix:matrix];
     [matrix setValue:-1 andI:0 andJ:0];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)mirrorFrameRefByY {
     TransformMatrix *matrix = [TransformMatrix new];
     [CoreTransform move:0 byY:view.frame.size.height matrix:matrix];
     [matrix setValue:-1 andI:1 andJ:1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)scaleFrame: (CGFloat)value {
@@ -94,21 +94,21 @@
                  matrix:matrix];
     [matrix setValue:value andI:0 andJ:0];
     [matrix setValue:value andI:1 andJ:1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)scaleFrameRefByX: (CGFloat)value {
     TransformMatrix *matrix = [TransformMatrix new];
     [matrix setValue:(view.frame.size.width / 2) * (1 - value) andI:0 andJ:M - 1];
     [matrix setValue:value andI:0 andJ:0];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 - (void)scaleFrameRefByY: (CGFloat)value {
     TransformMatrix *matrix = [TransformMatrix new];
     [matrix setValue:(view.frame.size.height / 2) * (1 - value) andI:1 andJ:M - 1];
     [matrix setValue:value andI:1 andJ:1];
-    self->matrix = [self->matrix multi:matrix];
+    self->matrix = [matrix multi:self->matrix];
 }
 
 + (void)move: (CGFloat)x byY: (CGFloat)y matrix: (TransformMatrix*)c {
