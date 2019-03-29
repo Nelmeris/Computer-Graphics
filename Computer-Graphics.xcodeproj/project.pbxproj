@@ -123,6 +123,16 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		57C4A223224DFF2E0071ABAB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				57841955221891C300725034 /* AppDelegate.h */,
+				57841954221891C300725034 /* AppDelegate.m */,
+				57FA693F2212CAA20028B0BB /* main.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
@@ -148,12 +158,10 @@
 				576AD4E2221436520007170C /* CoreTransform */,
 				576AD4E1221436480007170C /* GraphicView */,
 				577921512217FCCF008E2619 /* GraphicViewController */,
+				57C4A223224DFF2E0071ABAB /* Application */,
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
 				57FA693E2212CAA20028B0BB /* Info.plist */,
-				57841955221891C300725034 /* AppDelegate.h */,
-				57841954221891C300725034 /* AppDelegate.m */,
-				57FA693F2212CAA20028B0BB /* main.m */,
 				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = "Computer-Graphics";
