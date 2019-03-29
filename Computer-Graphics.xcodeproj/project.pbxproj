@@ -113,24 +113,25 @@
 			path = Matrix;
 			sourceTree = "<group>";
 		};
-		577921512217FCCF008E2619 /* GraphicViewController */ = {
+		57C4A223224DFF2E0071ABAB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				57FA693E2212CAA20028B0BB /* Info.plist */,
+				57841955221891C300725034 /* AppDelegate.h */,
+				57841954221891C300725034 /* AppDelegate.m */,
+				57FA693F2212CAA20028B0BB /* main.m */,
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		57C4A226224E01E30071ABAB /* GraphicViewController */ = {
 			isa = PBXGroup;
 			children = (
 				5779214E2217FCC9008E2619 /* GraphicViewController.h */,
 				5779214F2217FCC9008E2619 /* GraphicViewController.m */,
 			);
-			name = GraphicViewController;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		57C4A223224DFF2E0071ABAB /* Application */ = {
-			isa = PBXGroup;
-			children = (
-				57841955221891C300725034 /* AppDelegate.h */,
-				57841954221891C300725034 /* AppDelegate.m */,
-				57FA693F2212CAA20028B0BB /* main.m */,
-			);
-			path = Application;
+			path = GraphicViewController;
 			sourceTree = "<group>";
 		};
 		57FA69272212CAA20028B0BB = {
@@ -157,12 +158,10 @@
 				5771231D22154E6C00A3C4CB /* GraphicalObject */,
 				576AD4E2221436520007170C /* CoreTransform */,
 				576AD4E1221436480007170C /* GraphicView */,
-				577921512217FCCF008E2619 /* GraphicViewController */,
+				57C4A226224E01E30071ABAB /* GraphicViewController */,
 				57C4A223224DFF2E0071ABAB /* Application */,
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
-				57FA693E2212CAA20028B0BB /* Info.plist */,
-				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = "Computer-Graphics";
 			sourceTree = "<group>";
@@ -379,11 +378,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Application/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer-Graphics/Info.plist";
+				INFOPLIST_FILE = "Computer-Graphics/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -397,11 +396,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Application/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer-Graphics/Info.plist";
+				INFOPLIST_FILE = "Computer-Graphics/Application/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
