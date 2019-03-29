@@ -7,7 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GraphicViewController.h"
+#import "CoreTransform.h"
 
-@interface GraphicView : NSView
+@interface GraphicView : NSView {
+    GraphicViewController* controller;
+    CoreTransform *transform;
+}
 
 @end

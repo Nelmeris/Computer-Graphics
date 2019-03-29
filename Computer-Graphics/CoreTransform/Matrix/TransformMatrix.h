@@ -17,10 +17,10 @@
 
 - (id)init;
 
-- (void)set: (TransformMatrix*)a;
+- (void)set:(TransformMatrix*)a;
 
-- (TransformMatrix*)multi: (TransformMatrix*)mat;
+- (TransformMatrix*)multi:(TransformMatrix*)mat;
 
-- (TransformVector*)multiVec: (TransformVector*)vec;
+- (TransformVector*)multiVec:(TransformVector*)vec;
 
 @end

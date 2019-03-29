@@ -10,6 +10,8 @@
 #import "GraphicView.h"
 #import "Shape.h"
 
+#define FILE_TYPES @"json"
+
 @interface GraphicViewController () <NSTableViewDelegate, NSTableViewDataSource>
 
 @end
@@ -20,7 +22,6 @@
 {
     [_logTableView setDelegate:self];
     [_logTableView setDataSource:self];
-    defaultThickness = 2.5;
 }
 
 - (void)viewDidLoad {
@@ -61,7 +62,7 @@
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:NO];
-    NSArray* fileTypes = [NSArray arrayWithObjects:@"txt", nil];
+    NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
     [panel setAllowedFileTypes: fileTypes];
     
     NSInteger clicked = [panel runModal];
@@ -69,8 +70,7 @@
     if (clicked == NSModalResponseOK) {
         for (NSURL *url in [panel URLs]) {
             Shape *shape = [Shape new];
-            [shape loadShapeFromFile:url.relativePath];
-            [shape setThickness:defaultThickness];
+            [shape loadShapeFromJSON:url.relativePath];
             [self.shapes addObject:shape];
             [graphicView setNeedsDisplay:YES];
         }

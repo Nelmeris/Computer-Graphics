@@ -13,12 +13,11 @@
 @class GraphicView;
 
 @interface GraphicViewController : NSViewController  <NSTableViewDelegate, NSTableViewDataSource> {
-    CGFloat defaultThickness;
-    __weak IBOutlet GraphicView *graphicView;
+    __weak IBOutlet GraphicView* graphicView;
 }
 
 @property (weak) IBOutlet NSTableView *logTableView;
-@property NSMutableArray<Shape *> *shapes;
-@property NSMutableArray<KeyInfo*> *keys;
+@property NSMutableArray<Shape*>* shapes;
+@property NSMutableArray<KeyInfo*>* keys;
 
 @end

@@ -34,13 +34,13 @@
     return M;
 }
 
-- (void)set: (TransformMatrix*)a {
+- (void)set:(TransformMatrix*)a {
     for (int i = 0; i < M; i++)
         for (int j = 0; j < M; j++)
             [self setValue:[a getValue:i andJ:j] andI:i andJ:j];
 }
 
-- (TransformMatrix*)multi: (TransformMatrix*)mat {
+- (TransformMatrix*)multi:(TransformMatrix*)mat {
     TransformMatrix* c = [TransformMatrix new];
     for (NSInteger i = 0; i < M; i++) {
         for (NSInteger j = 0; j < M; j++) {

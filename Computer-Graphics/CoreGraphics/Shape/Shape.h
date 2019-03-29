@@ -13,12 +13,13 @@
     NSMutableArray<Line *> *lines;
 }
 
-@property CGFloat thickness;
+@property (nonatomic, strong) NSColor* color;
+@property (nonatomic) CGFloat thickness;
 
 - (instancetype)init;
-- (instancetype)initFromFile:(NSString *)filePath;
+- (instancetype)initFromJSON:(NSString *)filePath;
 
-- (void)loadShapeFromFile:(NSString *)filePath;
+- (void)loadShapeFromJSON:(NSString *)filePath;
 
 - (NSInteger)getLinesCount;
 

@@ -34,20 +34,14 @@
     NSPoint Pmin = NSMakePoint(margin, margin);
     NSPoint Pmax = NSMakePoint(view.frame.size.width - margin, view.frame.size.height - margin);
     
-    return [CoreTransform clipLine:line andPMin:Pmin andPMax:Pmax];
-}
-
-+ (bool)clipLine: (Line *)line andPMin: (NSPoint)Pmin andPMax: (NSPoint)Pmax {
     NSPoint from = line.from;
     NSPoint to = line.to;
-    //Øàã 1
+    
     float tmin = 0, tmax = 1, P = 0.0, Q = 0.0;
     int i = 1;
     
-    //Øàã 2
     while (true)
     {
-        //Øàã 3
         if (i > 4)
         {
             float x = from.x + (to.x - from.x) * tmin;
@@ -60,7 +54,6 @@
             return true;
         }
         
-        //Øàã 4
         switch (i)
         {
             case 1: P = from.x - to.x; Q = from.x - Pmin.x; break;

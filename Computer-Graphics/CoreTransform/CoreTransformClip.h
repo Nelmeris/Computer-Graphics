@@ -17,6 +17,5 @@
 - (NSRect)makeClipRectangle;
 
 - (bool)clipLine:(Line*)line;
-+ (bool)clipLine: (Line *)line andPMin: (NSPoint)Pmin andPMax: (NSPoint)Pmax;
 
 @end

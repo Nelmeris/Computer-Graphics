@@ -37,7 +37,7 @@
 }
 
 - (void)erase {
-    
+    path = nil;
 }
 
 @end
