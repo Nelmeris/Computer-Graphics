@@ -44,7 +44,6 @@
 				57FA69332212CAA20028B0BB /* AppDelegate.h */,
 				57FA69342212CAA20028B0BB /* AppDelegate.m */,
 				57FA693F2212CAA20028B0BB /* main.m */,
-				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -82,6 +81,7 @@
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
 				57FA693E2212CAA20028B0BB /* Info.plist */,
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = "Computer-Graphics";
 			sourceTree = "<group>";
