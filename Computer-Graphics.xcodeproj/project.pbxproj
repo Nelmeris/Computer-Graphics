@@ -14,7 +14,9 @@
 		5771233122158EFE00A3C4CB /* TransformVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771233022158EFE00A3C4CB /* TransformVector.m */; };
 		577921502217FCC9008E2619 /* GraphicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5779214F2217FCC9008E2619 /* GraphicViewController.m */; };
 		57841956221891C400725034 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57841954221891C300725034 /* AppDelegate.m */; };
+		57C4A229224E09B10071ABAB /* CoreTransformClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C4A228224E09B10071ABAB /* CoreTransformClip.m */; };
 		57C4A22D224E20680071ABAB /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C4A22C224E20680071ABAB /* Line.m */; };
+		57C4A235224E61A50071ABAB /* KeyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C4A234224E61A50071ABAB /* KeyInfo.m */; };
 		57EC40C322133640001A69AB /* CoreTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 57EC40C222133640001A69AB /* CoreTransform.m */; };
 		57FA693A2212CAA20028B0BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57FA69392212CAA20028B0BB /* Assets.xcassets */; };
 		57FA693D2212CAA20028B0BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57FA693B2212CAA20028B0BB /* Main.storyboard */; };
@@ -37,8 +39,12 @@
 		5779214F2217FCC9008E2619 /* GraphicViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphicViewController.m; sourceTree = "<group>"; };
 		57841954221891C300725034 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		57841955221891C300725034 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		57C4A227224E09B10071ABAB /* CoreTransformClip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransformClip.h; sourceTree = "<group>"; };
+		57C4A228224E09B10071ABAB /* CoreTransformClip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransformClip.m; sourceTree = "<group>"; };
 		57C4A22B224E20680071ABAB /* Line.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		57C4A22C224E20680071ABAB /* Line.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
+		57C4A233224E61A50071ABAB /* KeyInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyInfo.h; sourceTree = "<group>"; };
+		57C4A234224E61A50071ABAB /* KeyInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyInfo.m; sourceTree = "<group>"; };
 		57EC40C122133640001A69AB /* CoreTransform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTransform.h; sourceTree = "<group>"; };
 		57EC40C222133640001A69AB /* CoreTransform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreTransform.m; sourceTree = "<group>"; };
 		57FA69302212CAA20028B0BB /* Computer Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +86,8 @@
 				5771232D22158EF300A3C4CB /* TransformMatrix.m */,
 				5771232F22158EFE00A3C4CB /* TransformVector.h */,
 				5771233022158EFE00A3C4CB /* TransformVector.m */,
+				57C4A227224E09B10071ABAB /* CoreTransformClip.h */,
+				57C4A228224E09B10071ABAB /* CoreTransformClip.m */,
 			);
 			path = CoreTransform;
 			sourceTree = "<group>";
@@ -134,6 +142,24 @@
 			path = Line;
 			sourceTree = "<group>";
 		};
+		57C4A22E224E495C0071ABAB /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				5771231D22154E6C00A3C4CB /* Shape */,
+				57C4A22A224E205E0071ABAB /* Line */,
+			);
+			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		57C4A232224E61950071ABAB /* KeyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				57C4A233224E61A50071ABAB /* KeyInfo.h */,
+				57C4A234224E61A50071ABAB /* KeyInfo.m */,
+			);
+			path = KeyInfo;
+			sourceTree = "<group>";
+		};
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
@@ -153,9 +179,9 @@
 		57FA69322212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				57C4A22A224E205E0071ABAB /* Line */,
+				57C4A232224E61950071ABAB /* KeyInfo */,
+				57C4A22E224E495C0071ABAB /* CoreGraphics */,
 				5771232522157E7500A3C4CB /* Matrix */,
-				5771231D22154E6C00A3C4CB /* Shape */,
 				576AD4E2221436520007170C /* CoreTransform */,
 				576AD4E1221436480007170C /* GraphicView */,
 				57C4A226224E01E30071ABAB /* GraphicViewController */,
@@ -244,8 +270,10 @@
 				5771232022154EE500A3C4CB /* Shape.m in Sources */,
 				57FA69492212CACC0028B0BB /* GraphicView.m in Sources */,
 				57EC40C322133640001A69AB /* CoreTransform.m in Sources */,
+				57C4A235224E61A50071ABAB /* KeyInfo.m in Sources */,
 				57FA69402212CAA20028B0BB /* main.m in Sources */,
 				577921502217FCC9008E2619 /* GraphicViewController.m in Sources */,
+				57C4A229224E09B10071ABAB /* CoreTransformClip.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

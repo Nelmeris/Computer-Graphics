@@ -6,7 +6,7 @@
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 
 @interface Line : NSObject
 
@@ -15,7 +15,7 @@
 
 - (instancetype)initWithFromPoint: (NSPoint)from toPoint: (NSPoint)to;
 
-- (NSPoint *)getPointFrom;
-- (NSPoint *)getPointTo;
+- (void)drawWithColor:(NSColor*)color width:(CGFloat)width;
+- (void)erase;
 
 @end

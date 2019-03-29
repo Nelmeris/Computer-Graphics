@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Line.h"
+#import <AppKit/AppKit.h>
 
 @class TransformMatrix;
 @class TransformVector;
@@ -14,11 +16,33 @@
 
 #define M 3
 
-@interface CoreTransform : NSObject
+@interface CoreTransform : NSObject {
+    TransformMatrix *matrix;
+    NSView *view;
+    CGFloat margin;
+}
 
-+ (void)move: (CGFloat)x byY: (CGFloat)y matrix: (TransformMatrix*)c;
-+ (void)rotate: (CGFloat)phi matrix: (TransformMatrix*)c;
-+ (void)scale: (CGFloat)value matrix: (TransformMatrix*)c;
+- (instancetype)initWithView:(NSView *)view;
+- (void)reset;
+
+- (Line *)transformLine: (Line *)line;
+
+- (void)move:(CGFloat)x byY:(CGFloat)y;
+- (void)rotate:(CGFloat)phi;
+- (void)scale:(CGFloat)value;
+
+- (void)rotateFrame:(CGFloat)phi;
+
+- (void)mirrorFrameRefByX;
+- (void)mirrorFrameRefByY;
+
+- (void)scaleFrame:(CGFloat)value;
+- (void)scaleFrameRefByX:(CGFloat)value;
+- (void)scaleFrameRefByY:(CGFloat)value;
+
++ (void)move: (CGFloat)x byY: (CGFloat)y matrix:(TransformMatrix*)c;
++ (void)rotate: (CGFloat)phi matrix:(TransformMatrix*)c;
++ (void)scale: (CGFloat)value matrix:(TransformMatrix*)c;
 
 + (void)rotateFrame: (CGFloat)phi frame: (NSRect)frame matrix: (TransformMatrix*)c;
 

@@ -22,6 +22,7 @@
         }
         [matrix addObject:vector];
     }
+    [self makeUnit];
     return self;
 }
 

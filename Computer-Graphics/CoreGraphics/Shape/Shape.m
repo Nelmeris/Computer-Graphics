@@ -40,24 +40,24 @@
     NSString *numberString;
     
     NSScanner *scanner = [NSScanner scannerWithString:stringFromFile];
-    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
+    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
     
     [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
     
     while (!scanner.atEnd) {
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
-        NSInteger x = [numberString integerValue];
+        CGFloat x = [numberString floatValue];
         
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
-        NSInteger y = [numberString integerValue];
+        CGFloat y = [numberString floatValue];
         
         NSPoint from = NSMakePoint(x, y);
         
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
-        x = [numberString integerValue];
+        x = [numberString floatValue];
         
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
-        y = [numberString integerValue];
+        y = [numberString floatValue];
         
         NSPoint to = NSMakePoint(x, y);
         

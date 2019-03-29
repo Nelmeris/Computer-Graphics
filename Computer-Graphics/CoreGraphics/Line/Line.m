@@ -6,7 +6,14 @@
 //  Copyright © 2019 Artem Kufaev. All rights reserved.
 //
 
+#import <AppKit/AppKit.h>
 #import "Line.h"
+
+@interface Line () {
+    NSBezierPath *path;
+}
+
+@end
 
 @implementation Line
 
@@ -19,12 +26,18 @@
     return self;
 }
 
-- (NSPoint *)getPointFrom {
-    return &_from;
+- (void)drawWithColor:(NSColor*)color width:(CGFloat)width {
+    path = [NSBezierPath bezierPath];
+    [path moveToPoint:_from];
+    [path lineToPoint:_to];
+    [path closePath];
+    [path setLineWidth:width];
+    [color setStroke];
+    [path stroke];
 }
 
-- (NSPoint *)getPointTo {
-    return &_to;
+- (void)erase {
+    
 }
 
 @end
