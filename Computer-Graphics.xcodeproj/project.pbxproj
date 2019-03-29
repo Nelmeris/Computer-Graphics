@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69342212CAA20028B0BB /* AppDelegate.m */; };
-		57FA69382212CAA20028B0BB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA69372212CAA20028B0BB /* ViewController.m */; };
 		57FA693A2212CAA20028B0BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57FA69392212CAA20028B0BB /* Assets.xcassets */; };
 		57FA693D2212CAA20028B0BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57FA693B2212CAA20028B0BB /* Main.storyboard */; };
 		57FA69402212CAA20028B0BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57FA693F2212CAA20028B0BB /* main.m */; };
@@ -16,11 +15,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		57FA69302212CAA20028B0BB /* Computer Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57FA69302212CAA20028B0BB /* Computer-Graphics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Computer-Graphics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57FA69332212CAA20028B0BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57FA69342212CAA20028B0BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		57FA69362212CAA20028B0BB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		57FA69372212CAA20028B0BB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		57FA69392212CAA20028B0BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		57FA693C2212CAA20028B0BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57FA693E2212CAA20028B0BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,18 +44,8 @@
 				57FA69332212CAA20028B0BB /* AppDelegate.h */,
 				57FA69342212CAA20028B0BB /* AppDelegate.m */,
 				57FA693F2212CAA20028B0BB /* main.m */,
-				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		57C4A21F224DFE260071ABAB /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				57FA69362212CAA20028B0BB /* ViewController.h */,
-				57FA69372212CAA20028B0BB /* ViewController.m */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		57C4A220224DFE2E0071ABAB /* GraphicView */ = {
@@ -73,7 +60,7 @@
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
-				57FA69322212CAA20028B0BB /* Computer Graphics */,
+				57FA69322212CAA20028B0BB /* Computer-Graphics */,
 				57FA69312212CAA20028B0BB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,30 +68,30 @@
 		57FA69312212CAA20028B0BB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				57FA69302212CAA20028B0BB /* Computer Graphics.app */,
+				57FA69302212CAA20028B0BB /* Computer-Graphics.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		57FA69322212CAA20028B0BB /* Computer Graphics */ = {
+		57FA69322212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXGroup;
 			children = (
 				57C4A220224DFE2E0071ABAB /* GraphicView */,
-				57C4A21F224DFE260071ABAB /* ViewController */,
 				57C4A21E224DFE140071ABAB /* Application */,
 				57FA69392212CAA20028B0BB /* Assets.xcassets */,
 				57FA693B2212CAA20028B0BB /* Main.storyboard */,
 				57FA693E2212CAA20028B0BB /* Info.plist */,
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
-			path = "Computer Graphics";
+			path = "Computer-Graphics";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		57FA692F2212CAA20028B0BB /* Computer Graphics */ = {
+		57FA692F2212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 57FA69442212CAA20028B0BB /* Build configuration list for PBXNativeTarget "Computer Graphics" */;
+			buildConfigurationList = 57FA69442212CAA20028B0BB /* Build configuration list for PBXNativeTarget "Computer-Graphics" */;
 			buildPhases = (
 				57FA692C2212CAA20028B0BB /* Sources */,
 				57FA692D2212CAA20028B0BB /* Frameworks */,
@@ -114,9 +101,9 @@
 			);
 			dependencies = (
 			);
-			name = "Computer Graphics";
+			name = "Computer-Graphics";
 			productName = "Computer Graphics";
-			productReference = 57FA69302212CAA20028B0BB /* Computer Graphics.app */;
+			productReference = 57FA69302212CAA20028B0BB /* Computer-Graphics.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 57FA692B2212CAA20028B0BB /* Build configuration list for PBXProject "Computer Graphics" */;
+			buildConfigurationList = 57FA692B2212CAA20028B0BB /* Build configuration list for PBXProject "Computer-Graphics" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -146,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				57FA692F2212CAA20028B0BB /* Computer Graphics */,
+				57FA692F2212CAA20028B0BB /* Computer-Graphics */,
 			);
 		};
 /* End PBXProject section */
@@ -168,7 +155,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FA69382212CAA20028B0BB /* ViewController.m in Sources */,
 				57FA69492212CACC0028B0BB /* GraphicView.m in Sources */,
 				57FA69402212CAA20028B0BB /* main.m in Sources */,
 				57FA69352212CAA20028B0BB /* AppDelegate.m in Sources */,
@@ -304,11 +290,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer Graphics/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer Graphics/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Computer-Graphics/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -322,11 +308,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer Graphics/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer Graphics/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Computer-Graphics/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -339,7 +325,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		57FA692B2212CAA20028B0BB /* Build configuration list for PBXProject "Computer Graphics" */ = {
+		57FA692B2212CAA20028B0BB /* Build configuration list for PBXProject "Computer-Graphics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57FA69422212CAA20028B0BB /* Debug */,
@@ -348,7 +334,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57FA69442212CAA20028B0BB /* Build configuration list for PBXNativeTarget "Computer Graphics" */ = {
+		57FA69442212CAA20028B0BB /* Build configuration list for PBXNativeTarget "Computer-Graphics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57FA69452212CAA20028B0BB /* Debug */,
