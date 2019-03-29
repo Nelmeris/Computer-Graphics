@@ -13,8 +13,6 @@
 
 #define M 3
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface TransformMatrix : Matrix
 
 - (id)init;
@@ -26,5 +24,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (TransformVector*)multiVec: (TransformVector*)vec;
 
 @end
-
-NS_ASSUME_NONNULL_END

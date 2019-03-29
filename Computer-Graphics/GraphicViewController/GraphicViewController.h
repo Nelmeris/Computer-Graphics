@@ -7,18 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Shape.h"
 
 @class GraphicView;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface GraphicViewController : NSViewController {
     CGFloat defaultThickness;
     __weak IBOutlet GraphicView *graphicView;
 }
 
-@property NSMutableArray *figures;
+@property NSMutableArray<Shape *> *shapes;
 
 @end
-
-NS_ASSUME_NONNULL_END

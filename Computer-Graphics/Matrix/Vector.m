@@ -10,9 +10,9 @@
 
 @implementation Vector
 
-- (id)init: (NSInteger)columns {
+- (id)initWithPoint: (NSInteger)columns {
     self = [super init];
-    vector = [[NSMutableArray alloc] init];
+    vector = [NSMutableArray new];
     
     for (NSInteger j = 0; j < columns; j++)
         [vector addObject: @0];

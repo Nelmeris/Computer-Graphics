@@ -10,11 +10,9 @@
 
 @class TransformMatrix;
 @class TransformVector;
-@class GraphicalObject;
+@class Shape;
 
 #define M 3
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreTransform : NSObject
 
@@ -32,5 +30,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)scaleFrameRefByY: (CGFloat)value frame: (NSRect)frame matrix: (TransformMatrix*)c;
 
 @end
-
-NS_ASSUME_NONNULL_END

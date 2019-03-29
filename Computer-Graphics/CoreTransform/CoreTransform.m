@@ -9,7 +9,7 @@
 #import "CoreTransform.h"
 #import "TransformMatrix.h"
 #import "TransformVector.h"
-#import "GraphicalObject.h"
+#import "Shape.h"
 
 @implementation CoreTransform
 

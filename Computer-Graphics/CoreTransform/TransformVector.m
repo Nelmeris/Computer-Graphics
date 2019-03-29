@@ -12,7 +12,7 @@
 
 - (id)init {
     self = [super init];
-    vector = [[NSMutableArray alloc] init];
+    vector = [NSMutableArray new];
     
     for (NSInteger j = 0; j < M; j++) {
         NSNumber *value = @0;
@@ -22,8 +22,8 @@
     return self;
 }
 
-- (id)init: (NSPoint)point {
-    vector = [[NSMutableArray alloc] init];
+- (id)initWithPoint: (NSPoint)point {
+    vector = [NSMutableArray new];
     NSNumber *numX = [NSNumber numberWithDouble:point.x];
     NSNumber *numY = [NSNumber numberWithDouble:point.y];
     [vector addObject:numX];
@@ -32,9 +32,9 @@
     return self;
 }
 
-- (id)init: (CGFloat)x andY: (CGFloat)y {
+- (id)initWithX: (CGFloat)x andY: (CGFloat)y {
     self = [super init];
-    vector = [[NSMutableArray alloc] init];
+    vector = [NSMutableArray new];
     NSNumber *numX = [NSNumber numberWithDouble:x];
     NSNumber *numY = [NSNumber numberWithDouble:y];
     [vector addObject:numX];
@@ -43,11 +43,11 @@
     return self;
 }
 
-- (void)set: (NSPoint)point {
-    [self set:point.x andY:point.y];
+- (void)setPoint: (NSPoint)point {
+    [self setX:point.x andY:point.y];
 }
 
-- (void)set: (CGFloat)x andY: (CGFloat)y {
+- (void)setX: (CGFloat)x andY: (CGFloat)y {
     [self setValue:x index:0];
     [self setValue:y index:1];
     [self setValue:1 index:2];

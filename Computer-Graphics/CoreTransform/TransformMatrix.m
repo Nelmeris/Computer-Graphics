@@ -13,9 +13,9 @@
 
 - (id)init {
     self = [super init];
-    matrix = [[NSMutableArray alloc] init];
+    matrix = [NSMutableArray new];
     for (NSInteger i = 0; i < M; i++) {
-        NSMutableArray *vector = [[NSMutableArray alloc] init];
+        NSMutableArray *vector = [NSMutableArray new];
         for (NSInteger j = 0; j < M; j++) {
             NSNumber *value = @0;
             [vector addObject:value];
@@ -40,7 +40,7 @@
 }
 
 - (TransformMatrix*)multi: (TransformMatrix*)mat {
-    TransformMatrix* c = [[TransformMatrix alloc] init];
+    TransformMatrix* c = [TransformMatrix new];
     for (NSInteger i = 0; i < M; i++) {
         for (NSInteger j = 0; j < M; j++) {
             CGFloat skalaar = 0.0;
@@ -53,7 +53,7 @@
 }
 
 - (TransformVector*)multiVec: (TransformVector*)vec {
-    TransformVector* c = [[TransformVector alloc] init];
+    TransformVector* c = [TransformVector new];
     for (int i = 0; i < M; i++) {
         CGFloat skalaar = 0;
         for (int j = 0; j < M; j++)

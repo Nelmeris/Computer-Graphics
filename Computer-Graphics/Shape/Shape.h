@@ -7,20 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Line.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface GraphicalObject : NSObject {
-    NSMutableArray *points;
-    CGFloat thickness;
+@interface Shape : NSObject {
+    NSMutableArray<Line *> *lines;
 }
 
-- (id)init;
+@property CGFloat thickness;
 
-- (NSInteger)getPointsCount;
-- (CGFloat)getThickness;
+- (instancetype)init;
+- (instancetype)initFromFile:(NSString *)filePath;
 
-- (void)setThickness: (CGFloat)value;
+- (void)loadShapeFromFile:(NSString *)filePath;
+
+- (NSInteger)getLinesCount;
+
 - (void)scaling: (CGFloat)value;
 
 - (CGFloat)getMinX;
@@ -31,10 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)getWidth;
 - (CGFloat)getHeight;
 
-- (NSPoint)getPoint: (NSInteger)index;
-
-- (void)loadFigure: (NSString*)filePath;
+- (NSMutableArray<Line *> *)getLines;
 
 @end
-
-NS_ASSUME_NONNULL_END

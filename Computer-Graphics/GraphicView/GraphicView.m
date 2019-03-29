@@ -8,7 +8,7 @@
 
 #import "GraphicView.h"
 #import "CoreTransform.h"
-#import "GraphicalObject.h"
+#import "Shape.h"
 
 #import "TransformMatrix.h"
 #import "TransformVector.h"
@@ -17,21 +17,32 @@
 
 #import <Carbon/Carbon.h>
 
+#define VIEW_WIDTH self.frame.size.width
+#define VIEW_HEIGHT self.frame.size.height
+
+@interface GraphicView () {
+    NSMutableArray *paths;
+    TransformMatrix *transform;
+}
+
+@end
+
 @implementation GraphicView
 
 - (id)initWithCoder: (NSCoder*)coder
 {
-    if ((self = [super initWithCoder:coder])) {
-        transform = [[TransformMatrix alloc] init];
+    self = [super initWithCoder:coder];
+    if (self) {
+        transform = [TransformMatrix new];
         [transform makeUnit];
-        paths = [[NSMutableArray alloc] init];
+        paths = [NSMutableArray new];
     }
     return self;
 }
 
 - (void)clearView {
     [paths removeAllObjects];
-    [((GraphicViewController*)self.window.contentViewController).figures removeAllObjects];
+    [((GraphicViewController*)self.window.contentViewController).shapes removeAllObjects];
     [transform makeUnit];
     [self setNeedsDisplay: YES];
 }
@@ -41,53 +52,62 @@
     
     // Setting background
     NSBezierPath *background = [NSBezierPath bezierPath];
-    [background appendBezierPathWithRect: NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height)];
+    [background appendBezierPathWithRect: NSMakeRect(0, 0, VIEW_WIDTH, VIEW_HEIGHT)];
 
     [[NSColor whiteColor] setFill];
     [background fill];
 
     // Pass through all shapes
-    for (NSInteger i = 0; i < ((GraphicViewController*)self.window.contentViewController).figures.count; i++) {
-        GraphicalObject *figure = [((GraphicViewController*)self.window.contentViewController).figures objectAtIndex: i];
-        [self autoScaling:figure];
-        NSBezierPath *figurePath = [NSBezierPath bezierPath];
+    for (NSInteger i = 0; i < ((GraphicViewController*)self.window.contentViewController).shapes.count; i++) {
+        Shape *shape = [((GraphicViewController*)self.window.contentViewController).shapes objectAtIndex: i];
+        [self autoScaling:shape];
         
-        NSInteger pointsCount = [figure getPointsCount];
-        if (pointsCount == 0) continue;
+        NSInteger linesCount = [shape getLinesCount];
+        if (linesCount == 0) continue;
         
         // Drawing the transformed points
-        [figurePath moveToPoint: [self getTransformedPoint:figure index:pointsCount - 1]];
+        NSMutableArray<Line *> *lines = [shape getLines];
         for (NSInteger i = 0; i < pointsCount; i++)
             [figurePath lineToPoint: [self getTransformedPoint:figure index:i]];
         
-        // Figure settings
-        [figurePath setLineWidth: [figure getThickness]];
-        [[NSColor blackColor] setStroke];
+        for (NSInteger i = 0; i < linesCount; i++)
+        {
+            Line *transformedLine = [self getTransformedLine:lines[i]];
         
-        [figurePath closePath];
+                [self drawLine:transformedLine width:shape.thickness];
         
-        // Drawing a shape and saving a path
-        [figurePath stroke];
-        [paths setObject:figurePath atIndexedSubscript:i];
+        }
     }
 }
 
-- (GraphicalObject*)autoScaling: (GraphicalObject*)figure {
-    CGFloat scalarX = (self.frame.size.width / 4) / [figure getWidth];
-    CGFloat scalarY = (self.frame.size.height / 4) / [figure getHeight];
-    
-    [figure scaling:(1 - scalarX > 1 - scalarY) ? scalarX : scalarY];
-    return figure;
+- (void)drawLine: (Line *)line width: (CGFloat)width {
+    NSBezierPath *linePath = [NSBezierPath bezierPath];
+    [linePath moveToPoint:line.from];
+    [linePath lineToPoint:line.to];
+    [linePath closePath];
+    [linePath setLineWidth:width];
+    [linePath stroke];
+    [paths setObject:line atIndexedSubscript:paths.count];
 }
 
-// Transforming a point
-- (NSPoint)getTransformedPoint: (GraphicalObject*)figure index: (NSInteger)index {
+- (Shape*)autoScaling: (Shape*)shape {
+    CGFloat scalarX = (VIEW_WIDTH / 4) / [shape getWidth];
+    CGFloat scalarY = (VIEW_HEIGHT / 4) / [shape getHeight];
+    
+    [shape scaling:(1 - scalarX > 1 - scalarY) ? scalarX : scalarY];
+    return shape;
+}
+
+// Transforming a line
+- (Line *)getTransformedLine: (Line *)line {
     // Convert point to vector
-    TransformVector* vector = [[TransformVector alloc]init:[figure getPoint:index]];
+    TransformVector* vectorFrom = [[TransformVector alloc]initWithPoint:line.from];
+    TransformVector* vectorTo = [[TransformVector alloc]initWithPoint:line.to];
     // Multiplying a vector by a transformation matrix
-    TransformVector* newVector = [transform multiVec:vector];
-    // Return the converted point
-    return [newVector makePoint];
+    TransformVector* newVectorFrom = [transform multiVec:vectorFrom];
+    TransformVector* newVectorTo = [transform multiVec:vectorTo];
+    // Return the converted line
+    return [[Line alloc] initWithFromPoint:[newVectorFrom makePoint] toPoint:[newVectorTo makePoint]];
 }
 
 // Processing keys while holding Shift & Option keys
@@ -271,7 +291,7 @@
         return;
     }
     
-    TransformMatrix* timeTransform = [[TransformMatrix alloc] init];
+    TransformMatrix* timeTransform = [TransformMatrix new];
     [timeTransform makeUnit];
     
     [self shuffleKeys:[theEvent keyCode]

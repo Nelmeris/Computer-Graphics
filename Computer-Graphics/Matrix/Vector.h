@@ -9,13 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "Matrix.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface Vector : NSObject {
     NSMutableArray *vector;
 }
 
-- (id)init: (NSInteger)columns;
+- (id)initWithPoint: (NSInteger)columns;
 
 - (CGFloat)getValue: (NSInteger)i;
 - (void)setValue: (CGFloat)value index: (NSInteger)i;
@@ -29,5 +27,3 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)print;
 
 @end
-
-NS_ASSUME_NONNULL_END

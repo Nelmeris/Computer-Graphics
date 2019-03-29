@@ -11,11 +11,11 @@
 
 @implementation Matrix
 
-- (id)init: (NSInteger)rows andColumns: (NSInteger)columns {
+- (id)initWithRows: (NSInteger)rows andColumns: (NSInteger)columns {
     self = [super init];
-    matrix = [[NSMutableArray alloc] init];
+    matrix = [NSMutableArray new];
     for (NSInteger i = 0; i < rows; i++) {
-        NSMutableArray *vector = [[NSMutableArray alloc] init];
+        NSMutableArray *vector = [NSMutableArray new];
         for (NSInteger j = 0; j < columns; j++)
             [vector addObject: @0];
         [matrix addObject:vector];

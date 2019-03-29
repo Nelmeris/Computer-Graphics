@@ -11,22 +11,18 @@
 
 #import "Vector.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface TransformVector : Vector
 
 - (id)init;
 
-- (id)init: (NSPoint)point;
-- (id)init: (CGFloat)x andY: (CGFloat)y;
+- (id)initWithPoint: (NSPoint)point;
+- (id)initWithX: (CGFloat)x andY: (CGFloat)y;
 
-- (void)set: (NSPoint)point;
-- (void)set: (CGFloat)x andY: (CGFloat)y;
+- (void)setPoint: (NSPoint)point;
+- (void)setX: (CGFloat)x andY: (CGFloat)y;
 
 - (NSInteger)getCount;
 
 - (NSPoint)makePoint;
 
 @end
-
-NS_ASSUME_NONNULL_END

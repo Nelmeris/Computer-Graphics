@@ -7,17 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CoreTransform.h"
 
-@class TransformMatrix;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface GraphicView : NSView {
-    NSMutableArray *paths;
-    TransformMatrix *transform;
-}
+@interface GraphicView : NSView
 
 @end
-
-NS_ASSUME_NONNULL_END

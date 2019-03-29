@@ -8,7 +8,7 @@
 
 #import "GraphicViewController.h"
 #import "GraphicView.h"
-#import "GraphicalObject.h"
+#import "Shape.h"
 
 @interface GraphicViewController ()
 
@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     defaultThickness = 2.5;
-    _figures = [[NSMutableArray alloc] init];
+    _shapes = [NSMutableArray new];
 }
 
 - (IBAction)fileOpen:(id)sender {
@@ -34,10 +34,10 @@
     
     if (clicked == NSModalResponseOK) {
         for (NSURL *url in [panel URLs]) {
-            GraphicalObject *figure = [[GraphicalObject alloc] init];
-            [figure loadFigure:url.relativePath];
-            [figure setThickness:defaultThickness];
-            [self.figures addObject:figure];
+            Shape *shape = [Shape new];
+            [shape loadShapeFromFile:url.relativePath];
+            [shape setThickness:defaultThickness];
+            [self.shapes addObject:shape];
             [graphicView setNeedsDisplay:YES];
         }
     }
