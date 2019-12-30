@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     defaultThickness = 2.5;
-    _figures = [[NSMutableArray alloc] init];
+    _figure = NULL;
 }
 
 - (IBAction)fileOpen:(id)sender {
@@ -27,7 +27,7 @@
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:NO];
-    NSArray* fileTypes = [NSArray arrayWithObjects:@"txt", nil];
+    NSArray* fileTypes = [NSArray arrayWithObjects:@"nfg", nil];
     [panel setAllowedFileTypes: fileTypes];
     
     NSInteger clicked = [panel runModal];
@@ -37,7 +37,7 @@
             GraphicalObject *figure = [[GraphicalObject alloc] init];
             [figure loadFigure:url.relativePath];
             [figure setThickness:defaultThickness];
-            [self.figures addObject:figure];
+            self.figure = figure;
             [graphicView setNeedsDisplay:YES];
         }
     }

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GraphicalObject.h"
 
 @class GraphicView;
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
     __weak IBOutlet GraphicView *graphicView;
 }
 
-@property NSMutableArray *figures;
+@property (nullable) GraphicalObject *figure;
 
 @end
 

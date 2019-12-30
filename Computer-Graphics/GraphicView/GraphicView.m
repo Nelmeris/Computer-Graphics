@@ -31,7 +31,7 @@
 
 - (void)clearView {
     [paths removeAllObjects];
-    [((GraphicViewController*)self.window.contentViewController).figures removeAllObjects];
+    ((GraphicViewController*)self.window.contentViewController).figure = NULL;
     [transform makeUnit];
     [self setNeedsDisplay: YES];
 }
@@ -47,29 +47,30 @@
     [background fill];
 
     // Pass through all shapes
-    for (NSInteger i = 0; i < ((GraphicViewController*)self.window.contentViewController).figures.count; i++) {
-        GraphicalObject *figure = [((GraphicViewController*)self.window.contentViewController).figures objectAtIndex: i];
-        [self autoScaling:figure];
-        NSBezierPath *figurePath = [NSBezierPath bezierPath];
-        
-        NSInteger pointsCount = [figure getPointsCount];
-        if (pointsCount == 0) continue;
-        
-        // Drawing the transformed points
-        [figurePath moveToPoint: [self getTransformedPoint:figure index:pointsCount - 1]];
-        for (NSInteger i = 0; i < pointsCount; i++)
-            [figurePath lineToPoint: [self getTransformedPoint:figure index:i]];
-        
-        // Figure settings
-        [figurePath setLineWidth: [figure getThickness]];
-        [[NSColor blackColor] setStroke];
-        
-        [figurePath closePath];
-        
-        // Drawing a shape and saving a path
-        [figurePath stroke];
-        [paths setObject:figurePath atIndexedSubscript:i];
+    GraphicalObject *figure = ((GraphicViewController*)self.window.contentViewController).figure;
+    [self autoScaling:figure];
+    NSBezierPath *figurePath = [NSBezierPath bezierPath];
+    
+    NSInteger pointsCount = [figure getPointsCount];
+    if (pointsCount == 0) return;
+    
+    // Drawing the transformed points
+    [figurePath moveToPoint: [self getTransformedPoint:figure index:pointsCount - 1]];
+    for (NSInteger i = 0; i < pointsCount; i++) {
+        NSPoint point = [self getTransformedPoint:figure index:i];
+        [figurePath lineToPoint: point];
     }
+    
+    // Figure settings
+    [figurePath setLineWidth: [figure getThickness]];
+    [[NSColor blackColor] setStroke];
+    
+    [figurePath closePath];
+    
+    // Drawing a shape and saving a path
+    [figurePath stroke];
+    
+    [paths setObject:figurePath atIndexedSubscript:0];
 }
 
 - (GraphicalObject*)autoScaling: (GraphicalObject*)figure {

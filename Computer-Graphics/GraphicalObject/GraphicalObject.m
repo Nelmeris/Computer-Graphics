@@ -44,21 +44,23 @@
     NSString *numberString;
     
     NSScanner *scanner = [NSScanner scannerWithString:stringFromFile];
-    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"0123456789"];
-    
-    [scanner scanUpToCharactersFromSet:numbers intoString:NULL];
+    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"-0123456789."];
     
     while (!scanner.atEnd) {
+        [scanner scanUpToCharactersFromSet:numbers intoString:&numberString];
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
         
-        NSInteger x = [numberString integerValue];
+        double x = [numberString doubleValue];
         
+        [scanner scanUpToCharactersFromSet:numbers intoString:&numberString];
         [scanner scanCharactersFromSet:numbers intoString:&numberString];
         
-        NSInteger y = [numberString integerValue];
+        double y = [numberString doubleValue];
         
         MyPoint *point = [[MyPoint alloc] init:x andY:y];
         [points addObject:point];
+        
+        [scanner scanUpToCharactersFromSet:numbers intoString:&numberString];
     }
 }
 
