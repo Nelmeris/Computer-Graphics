@@ -15,6 +15,8 @@
 
 @interface GraphicViewController () <NSTableViewDelegate, NSTableViewDataSource>
 
+@property NSString* fileURL;
+
 @end
 
 @implementation GraphicViewController
@@ -56,16 +58,34 @@
     
     if (clicked == NSModalResponseOK) {
         for (NSURL *url in [panel URLs]) {
-            Shape *shape = [Shape new];
-            [shape loadShapeFromJSON:url.relativePath];
+            Shape *shape = [[Shape alloc] initFromJSON:url.relativePath];
             [graphicView addShape:shape];
-            [graphicView setNeedsDisplay:YES];
         }
     }
 }
 
 - (IBAction)fileClose:(id)sender {
     [graphicView clear];
+}
+
+- (IBAction)fileSave:(NSMenuItem *)sender {
+}
+
+- (IBAction)fileSaveAs:(NSMenuItem *)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:NO];
+    [panel setCanChooseDirectories:NO];
+    [panel setAllowsMultipleSelection:NO];
+    NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
+    [panel setAllowedFileTypes: fileTypes];
+    
+    NSInteger clicked = [panel runModal];
+    
+    if (clicked == NSModalResponseOK) {
+        for (NSURL *url in [panel URLs]) {
+            NSLog(@"%@", url.relativePath);
+        }
+    }
 }
 
 - (IBAction)openThicknessPicker:(NSMenuItem *)sender {
@@ -85,7 +105,7 @@
     if ([segue.destinationController isKindOfClass:[ColorPickerViewController class]]) {
         ColorPickerViewController *controller = segue.destinationController;
         if (graphicView.selectedShape) {
-            NSColor *color = graphicView.selectedShape.color;
+            NSColor *color = graphicView.selectedShape.shape.color;
             [controller setColor:color];
         }
     }

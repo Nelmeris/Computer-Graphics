@@ -8,6 +8,7 @@
 
 #import "GraphicView.h"
 #import "CoreTransformClip.h"
+#import "TransformShape.h"
 
 #define VIEW_WIDTH self.frame.size.width
 #define VIEW_HEIGHT self.frame.size.height
@@ -18,22 +19,27 @@
 #define CLIP_AREA_COLOR 0x000000
 #define CLIP_AREA_MARGIN 30.0
 
+@interface GraphicView () {
+}
+
+@end
+
 @implementation GraphicView
 
 - (id)initWithCoder: (NSCoder*)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
-        transform = [[CoreTransform alloc]initWithView:self clipAreaMargin:CLIP_AREA_MARGIN];
         shapes = [NSMutableArray new];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"ColorPicked" object:NULL];
+        selectedShapeIndex = -1;
     }
     return self;
 }
 
 - (void)changeColor:(NSNotification *) notification {
     NSDictionary *dict = notification.userInfo;
-    _selectedShape.color = dict[@"color"];
+    [[self selectedShape].shape setColor:dict[@"color"]];
     [self setNeedsDisplay:YES];
 }
 
@@ -51,17 +57,19 @@
     [NSColorFromHEX(BACKGROUND_COLOR) setFill];
     [background fill];
     
-    // Setting clip area
-    NSBezierPath *clipRectangle = [NSBezierPath bezierPath];
-    [clipRectangle appendBezierPathWithRect:[transform makeClipRectangle]];
-    
-    [NSColorFromHEX(CLIP_AREA_COLOR) setStroke];
-    [clipRectangle setLineWidth:5];
-    [clipRectangle stroke];
-    
     // Pass through all shapes
-    for (NSInteger i = 0; i < shapes.count; i++) {
-        Shape *shape = [shapes objectAtIndex: i];
+    for (TransformShape *tShape in shapes) {
+        CoreTransform* transform = tShape.transform;
+        Shape* shape = tShape.shape;
+        
+        // Setting clip area
+        NSBezierPath *clipRectangle = [NSBezierPath bezierPath];
+        [clipRectangle appendBezierPathWithRect:[transform makeClipRectangle]];
+        
+        [NSColorFromHEX(CLIP_AREA_COLOR) setStroke];
+        [clipRectangle setLineWidth:5];
+        [clipRectangle stroke];
+        
         [self autoScaling:shape];
         [shape.color setStroke];
         
@@ -69,11 +77,8 @@
         if (linesCount == 0) continue;
         
         // Drawing the transformed points
-        NSMutableArray<Line *> *lines = [shape getLines];
-        
-        for (NSInteger i = 0; i < linesCount; i++)
-        {
-            Line *transformedLine = [transform transformLine:lines[i]];
+        for (Line *line in [shape getLines]) {
+            Line *transformedLine = [transform transformLine:line];
             if ([transform clipLine:transformedLine]) {
                 [transformedLine drawWithColor:shape.color width:shape.thickness];
             }
@@ -96,8 +101,29 @@
 }
 
 - (void)addShape:(Shape *)shape {
-    [shapes addObject:shape];
-    _selectedShape = shape;
+    CoreTransform* transform = [[CoreTransform alloc]initWithView:self clipAreaMargin:CLIP_AREA_MARGIN];
+    TransformShape* tShape = [[TransformShape alloc] init];
+    tShape.shape = shape;
+    tShape.transform = transform;
+    [shapes addObject:tShape];
+    [self nextShape];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)nextShape {
+    if (shapes.count == 0) return;
+    if (selectedShapeIndex != -1)
+        self.selectedShape.shape.thickness /= 1.5;
+    if (selectedShapeIndex == shapes.count - 1) {
+        selectedShapeIndex = 0;
+    } else {
+        selectedShapeIndex++;
+    }
+    self.selectedShape.shape.thickness *= 1.5;
+}
+
+- (TransformShape *)selectedShape {
+    return shapes[selectedShapeIndex];
 }
 
 @end

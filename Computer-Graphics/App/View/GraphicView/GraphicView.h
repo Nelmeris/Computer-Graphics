@@ -8,17 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GraphicViewController.h"
-#import "CoreTransform.h"
+#import "TransformShape.h"
 
 @interface GraphicView : NSView {
     GraphicViewController* controller;
-    CoreTransform *transform;
-    NSMutableArray<Shape*>* shapes;
+    NSMutableArray<TransformShape*> *shapes;
+    NSUInteger selectedShapeIndex;
 }
 
-@property Shape* selectedShape;
+@property (readonly) TransformShape* selectedShape;
 
 - (void)addShape:(Shape*)shape;
 - (void)clear;
+- (void)nextShape;
 
 @end

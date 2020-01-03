@@ -66,6 +66,7 @@
             // Decrease relative to Oy
             [[KeyInfo alloc] initWithKeyCode:kVK_ANSI_L modifiedFlags:0 description:@"Decrease relative to Oy"],
             [[KeyInfo alloc] initWithKeyCode:kVK_ANSI_L modifiedFlags:NSEventModifierFlagShift description:@"Rapid Decrease relative to Oy"],
+            [[KeyInfo alloc] initWithKeyCode:kVK_Tab modifiedFlags:0 description:@"Change shape"],
             nil
             ];
 }
@@ -79,19 +80,22 @@
         {
             [controller.keys addObject:(KeyInfo*)[[self keyInfoArray] objectAtIndex:i]];
             [controller.logTableView reloadData];
+            if (!self.selectedShape)
+                return;
+            CoreTransform* transform = self.selectedShape.transform;
             if (keyInfo.code == kVK_Escape) { // Reset all transformations
-                [self->transform reset];
+                [transform reset];
                 [self setNeedsDisplay: YES];
                 return;
             }
-            [self shufflekeyInfoArray:keyInfo];
+            [self shufflekeyInfoArray:keyInfo transform:transform];
             [self setNeedsDisplay: YES];
         }
     }
 }
 
 // Processing keyInfoArray
-- (void)shufflekeyInfoArray:(KeyInfo*)keyInfo {
+- (void)shufflekeyInfoArray:(KeyInfo*)keyInfo transform:(CoreTransform*)transform {
     
     switch (keyInfo.code) { // Universal keyInfoArray
         case kVK_ANSI_U: // Mirror frame relative to Ox
@@ -100,13 +104,16 @@
         case kVK_ANSI_J: // Mirror frame relative to Oy
             [transform mirrorFrameRefByY];
             return;
+        case kVK_Tab:
+            [self nextShape];
+            return;
     }
     
-    [self shuffleDependentOnTheShiftAndOptionkeyInfoArray:keyInfo];
+    [self shuffleDependentOnTheShiftAndOptionkeyInfoArray:keyInfo transform:transform];
 }
 
 // Processing keyInfoArray while holding Shift & Option keyInfoArray
-- (void)shuffleDependentOnTheShiftAndOptionkeyInfoArray:(KeyInfo*)keyInfo {
+- (void)shuffleDependentOnTheShiftAndOptionkeyInfoArray:(KeyInfo*)keyInfo transform:(CoreTransform*)transform {
     if (keyInfo.shiftIsClamped && keyInfo.optionIsClamped) { // The Shift & Option keyInfoArray is clamped
         switch (keyInfo.code) {
             case kVK_ANSI_X: // Rapid Increase frame
@@ -124,13 +131,13 @@
                 break;
         }
     } else { // The Shift & Option keyInfoArray isn't clamped at the same time
-        [self shuffleDependentOnTheShiftkeyInfoArray:keyInfo];
-        [self shuffleDependentOnTheOptionkeyInfoArray:keyInfo];
+        [self shuffleDependentOnTheShiftkeyInfoArray:keyInfo transform:transform];
+        [self shuffleDependentOnTheOptionkeyInfoArray:keyInfo transform:transform];
     }
 }
 
 // Processing keyInfoArray while holding Shift key
-- (void)shuffleDependentOnTheShiftkeyInfoArray:(KeyInfo*)keyInfo {
+- (void)shuffleDependentOnTheShiftkeyInfoArray:(KeyInfo*)keyInfo transform:(CoreTransform*)transform {
     if (!keyInfo.shiftIsClamped) { // The Shift key isn't clamped
         switch (keyInfo.code) {
             case kVK_ANSI_W: // Move up
@@ -220,7 +227,7 @@
 }
 
 // Processing keyInfoArray while holding Option key
-- (void)shuffleDependentOnTheOptionkeyInfoArray:(KeyInfo*)keyInfo {
+- (void)shuffleDependentOnTheOptionkeyInfoArray:(KeyInfo*)keyInfo transform:(CoreTransform*)transform {
     if (!keyInfo.optionIsClamped) { // The Option isn't clamped
     } else { // The Option key is clamped
         switch (keyInfo.code) {
