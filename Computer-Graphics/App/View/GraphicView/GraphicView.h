@@ -13,6 +13,12 @@
 @interface GraphicView : NSView {
     GraphicViewController* controller;
     CoreTransform *transform;
+    NSMutableArray<Shape*>* shapes;
 }
+
+@property Shape* selectedShape;
+
+- (void)addShape:(Shape*)shape;
+- (void)clear;
 
 @end

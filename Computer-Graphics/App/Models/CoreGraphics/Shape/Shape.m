@@ -33,11 +33,7 @@
 - (void)loadShapeFromJSON:(NSString *)filePath {
     NSError *error = nil;
     
-    NSData *returnedData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&error];;
-    
-    // probably check here that returnedData isn't nil; attempting
-    // NSJSONSerialization with nil data raises an exception, and who
-    // knows how your third-party library intends to react?
+    NSData *returnedData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingUncached error:&error];
     
     if(NSClassFromString(@"NSJSONSerialization"))
     {
@@ -48,9 +44,6 @@
                      error:&error];
         
         if(error) { NSLog(@"%@", error); }
-        // the originating poster wants to deal with dictionaries;
-        // assuming you do too then something like this is the first
-        // validation step:
         if([object isKindOfClass:[NSDictionary class]])
         {
             NSDictionary *results = object;
@@ -67,30 +60,15 @@
                 Line* line = [[Line alloc] initWithFromPoint:from toPoint:to];
                 [lines addObject:line];
             }
-            /* proceed with results as you like; the assignment to
-             an explicit NSDictionary * is artificial step to get
-             compile-time checking from here on down (and better autocompletion
-             when editing). You could have just made object an NSDictionary *
-             in the first place but stylistically you might prefer to keep
-             the question of type open until it's confirmed */
         }
         else
         {
             NSLog(@"?");
-            /* there's no guarantee that the outermost object in a JSON
-             packet will be a dictionary; if we get here then it wasn't,
-             so 'object' shouldn't be treated as an NSDictionary; probably
-             you need to report a suitable error condition */
         }
     }
     else
     {
         NSLog(@"!");
-        // the user is using iOS 4; we'll need to use a third-party solution.
-        // If you don't intend to support iOS 4 then get rid of this entire
-        // conditional and just jump straight to
-        // NSError *error = nil;
-        // [NSJSONSerialization JSONObjectWithData:...
     }
 }
 

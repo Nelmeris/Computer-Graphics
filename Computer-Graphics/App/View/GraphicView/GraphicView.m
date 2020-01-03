@@ -25,8 +25,16 @@
     self = [super initWithCoder:coder];
     if (self) {
         transform = [[CoreTransform alloc]initWithView:self clipAreaMargin:CLIP_AREA_MARGIN];
+        shapes = [NSMutableArray new];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"ColorPicked" object:NULL];
     }
     return self;
+}
+
+- (void)changeColor:(NSNotification *) notification {
+    NSDictionary *dict = notification.userInfo;
+    _selectedShape.color = dict[@"color"];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)viewWillDraw {
@@ -52,8 +60,8 @@
     [clipRectangle stroke];
     
     // Pass through all shapes
-    for (NSInteger i = 0; i < controller.shapes.count; i++) {
-        Shape *shape = [controller.shapes objectAtIndex: i];
+    for (NSInteger i = 0; i < shapes.count; i++) {
+        Shape *shape = [shapes objectAtIndex: i];
         [self autoScaling:shape];
         [shape.color setStroke];
         
@@ -73,12 +81,23 @@
     }
 }
 
+- (void)clear {
+    [shapes removeAllObjects];
+    [self setNeedsDisplay:YES];
+}
+
 - (Shape*)autoScaling: (Shape*)shape {
     CGFloat scalarX = (VIEW_WIDTH / 4) / [shape getWidth];
     CGFloat scalarY = (VIEW_HEIGHT / 4) / [shape getHeight];
     
     [shape scaling:(1 - scalarX > 1 - scalarY) ? scalarX : scalarY];
+    
     return shape;
+}
+
+- (void)addShape:(Shape *)shape {
+    [shapes addObject:shape];
+    _selectedShape = shape;
 }
 
 @end

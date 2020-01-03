@@ -9,6 +9,7 @@
 #import "GraphicViewController.h"
 #import "GraphicView.h"
 #import "Shape.h"
+#import "ColorPickerViewController.h"
 
 #define FILE_TYPES @"json"
 
@@ -25,22 +26,8 @@
 }
 
 - (void)viewDidLoad {
-    _shapes = [NSMutableArray new];
     _keys = [NSMutableArray new];
 }
-
-//- (void)tableView:(NSTableView *)tableView didAddRowView:(NSTableRowView *)rowView forRow:(NSInteger)row {
-//    [NSTimer scheduledTimerWithTimeInterval:5.0
-//                                     target:self
-//                                   selector:@selector(deleteRowWhithIndex:)
-//                                   userInfo:nil
-//                                    repeats:NO];
-//}
-
-//- (void)deleteRowWhithIndex:(NSInteger)index {
-//    [_logTableView removeRowsAtIndexes:[[NSIndexSet alloc]initWithIndex:_logTableView.numberOfRows - 1] withAnimation:YES];
-//    [_keys removeObjectAtIndex:0];
-//}
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return _keys.count;
@@ -71,8 +58,35 @@
         for (NSURL *url in [panel URLs]) {
             Shape *shape = [Shape new];
             [shape loadShapeFromJSON:url.relativePath];
-            [self.shapes addObject:shape];
+            [graphicView addShape:shape];
             [graphicView setNeedsDisplay:YES];
+        }
+    }
+}
+
+- (IBAction)fileClose:(id)sender {
+    [graphicView clear];
+}
+
+- (IBAction)openThicknessPicker:(NSMenuItem *)sender {
+    [self performSegueWithIdentifier:@"ThicknessPickerSegue" sender:self];
+}
+
+- (IBAction)openColorPicker:(NSMenuItem *)sender {
+    [self performSegueWithIdentifier:@"ColorPickerSegue" sender:self];
+}
+
+- (void)colorUpdate:(NSColorPanel*)colorPanel{
+    NSColor* theColor = colorPanel.color;
+    NSLog(@"%f", theColor.blueComponent);
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationController isKindOfClass:[ColorPickerViewController class]]) {
+        ColorPickerViewController *controller = segue.destinationController;
+        if (graphicView.selectedShape) {
+            NSColor *color = graphicView.selectedShape.color;
+            [controller setColor:color];
         }
     }
 }

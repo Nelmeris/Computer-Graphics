@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		572A433F23BF8DA1003503DE /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A433E23BF8DA1003503DE /* ColorPickerViewController.m */; };
+		572A434223BF98B0003503DE /* ColorHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A434123BF98B0003503DE /* ColorHex.m */; };
 		5771232022154EE500A3C4CB /* Shape.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771231F22154EE500A3C4CB /* Shape.m */; };
 		5771232822157EB400A3C4CB /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232722157EB400A3C4CB /* Matrix.m */; };
 		5771232B22157ED500A3C4CB /* Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232A22157ED500A3C4CB /* Vector.m */; };
@@ -26,6 +28,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		572A433D23BF8DA1003503DE /* ColorPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorPickerViewController.h; sourceTree = "<group>"; };
+		572A433E23BF8DA1003503DE /* ColorPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorPickerViewController.m; sourceTree = "<group>"; };
+		572A434123BF98B0003503DE /* ColorHex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorHex.m; sourceTree = "<group>"; };
+		572A434323BF9A35003503DE /* ColorHex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorHex.h; sourceTree = "<group>"; };
 		5771231E22154EE500A3C4CB /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
 		5771231F22154EE500A3C4CB /* Shape.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shape.m; sourceTree = "<group>"; };
 		5771232622157EB400A3C4CB /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
@@ -71,6 +77,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		572A433523BF8AAC003503DE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69392212CAA20028B0BB /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		572A433623BF8AC2003503DE /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
+				57FA693E2212CAA20028B0BB /* Info.plist */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		572A433723BF8AD4003503DE /* App */ = {
+			isa = PBXGroup;
+			children = (
+				57C4A223224DFF2E0071ABAB /* Application */,
+				572A433923BF8AEE003503DE /* BusinessLogic */,
+				572A433823BF8AE7003503DE /* Models */,
+				572A433A23BF8B8E003503DE /* View */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		572A433823BF8AE7003503DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				57C4A232224E61950071ABAB /* KeyInfo */,
+				57C4A22E224E495C0071ABAB /* CoreGraphics */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		572A433923BF8AEE003503DE /* BusinessLogic */ = {
+			isa = PBXGroup;
+			children = (
+				576AD4E2221436520007170C /* CoreTransform */,
+			);
+			path = BusinessLogic;
+			sourceTree = "<group>";
+		};
+		572A433A23BF8B8E003503DE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				572A433B23BF8CEA003503DE /* FigureSettings */,
+				57FA693B2212CAA20028B0BB /* Main.storyboard */,
+				57C4A226224E01E30071ABAB /* GraphicViewController */,
+				576AD4E1221436480007170C /* GraphicView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		572A433B23BF8CEA003503DE /* FigureSettings */ = {
+			isa = PBXGroup;
+			children = (
+				572A433C23BF8D7A003503DE /* ColorPickerViewController */,
+			);
+			path = FigureSettings;
+			sourceTree = "<group>";
+		};
+		572A433C23BF8D7A003503DE /* ColorPickerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				572A433D23BF8DA1003503DE /* ColorPickerViewController.h */,
+				572A433E23BF8DA1003503DE /* ColorPickerViewController.m */,
+			);
+			path = ColorPickerViewController;
+			sourceTree = "<group>";
+		};
+		572A434023BF9883003503DE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				572A434323BF9A35003503DE /* ColorHex.h */,
+				572A434123BF98B0003503DE /* ColorHex.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		576AD4E1221436480007170C /* GraphicView */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,11 +206,9 @@
 		57C4A223224DFF2E0071ABAB /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				57FA693E2212CAA20028B0BB /* Info.plist */,
 				57841955221891C300725034 /* AppDelegate.h */,
 				57841954221891C300725034 /* AppDelegate.m */,
 				57FA693F2212CAA20028B0BB /* main.m */,
-				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -193,14 +279,10 @@
 		57FA69322212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXGroup;
 			children = (
-				57C4A232224E61950071ABAB /* KeyInfo */,
-				57C4A22E224E495C0071ABAB /* CoreGraphics */,
-				576AD4E2221436520007170C /* CoreTransform */,
-				576AD4E1221436480007170C /* GraphicView */,
-				57C4A226224E01E30071ABAB /* GraphicViewController */,
-				57C4A223224DFF2E0071ABAB /* Application */,
-				57FA69392212CAA20028B0BB /* Assets.xcassets */,
-				57FA693B2212CAA20028B0BB /* Main.storyboard */,
+				572A434023BF9883003503DE /* Core */,
+				572A433723BF8AD4003503DE /* App */,
+				572A433523BF8AAC003503DE /* Resources */,
+				572A433623BF8AC2003503DE /* Environment */,
 			);
 			path = "Computer-Graphics";
 			sourceTree = "<group>";
@@ -275,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57C4A23F224EAD0F0071ABAB /* GraphicViewProcessingHotKeys.m in Sources */,
+				572A433F23BF8DA1003503DE /* ColorPickerViewController.m in Sources */,
 				57C4A22D224E20680071ABAB /* Line.m in Sources */,
 				57841956221891C400725034 /* AppDelegate.m in Sources */,
 				5771232822157EB400A3C4CB /* Matrix.m in Sources */,
@@ -282,6 +365,7 @@
 				5771233122158EFE00A3C4CB /* TransformVector.m in Sources */,
 				5771232E22158EF300A3C4CB /* TransformMatrix.m in Sources */,
 				5771232022154EE500A3C4CB /* Shape.m in Sources */,
+				572A434223BF98B0003503DE /* ColorHex.m in Sources */,
 				57FA69492212CACC0028B0BB /* GraphicView.m in Sources */,
 				57EC40C322133640001A69AB /* CoreTransform.m in Sources */,
 				57C4A235224E61A50071ABAB /* KeyInfo.m in Sources */,
@@ -420,11 +504,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Application/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Environment/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer-Graphics/Application/Info.plist";
+				INFOPLIST_FILE = "Computer-Graphics/Environment/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -438,11 +522,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Application/Computer_Graphics.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Computer-Graphics/Environment/Computer_Graphics.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YX6VKW92JQ;
-				INFOPLIST_FILE = "Computer-Graphics/Application/Info.plist";
+				INFOPLIST_FILE = "Computer-Graphics/Environment/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

@@ -17,7 +17,6 @@
 }
 
 @property (weak) IBOutlet NSTableView *logTableView;
-@property NSMutableArray<Shape*>* shapes;
 @property NSMutableArray<KeyInfo*>* keys;
 
 @end

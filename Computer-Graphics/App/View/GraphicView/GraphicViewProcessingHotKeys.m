@@ -134,16 +134,16 @@
     if (!keyInfo.shiftIsClamped) { // The Shift key isn't clamped
         switch (keyInfo.code) {
             case kVK_ANSI_W: // Move up
-                [transform move:0 byY:MOVE_SPEED];
+                [transform move:0 byY:self.layer.frame.size.height / 100 * MOVE_SPEED];
                 break;
             case kVK_ANSI_S: // Move down
-                [transform move:0 byY:-MOVE_SPEED];
+                [transform move:0 byY:self.layer.frame.size.height / 100 * -MOVE_SPEED];
                 break;
             case kVK_ANSI_A: // Move left
-                [transform move:-MOVE_SPEED byY:0];
+                [transform move:self.layer.frame.size.width / 100 * -MOVE_SPEED byY:0];
                 break;
             case kVK_ANSI_D: // Move right
-                [transform move:MOVE_SPEED byY:0];
+                [transform move:self.layer.frame.size.width / 100 * MOVE_SPEED byY:0];
                 break;
                 
             case kVK_ANSI_Q: // Rotate counter-clockwise
@@ -177,16 +177,16 @@
         switch (keyInfo.code) {
                 
             case kVK_ANSI_W: // Rapid Move up
-                [transform move:0 byY:RAPID_MOVE_SPEED];
+                [transform move:0 byY:self.layer.frame.size.height / 100 * RAPID_MOVE_SPEED];
                 break;
             case kVK_ANSI_S: // Rapid Move down
-                [transform move:0 byY:-RAPID_MOVE_SPEED];
+                [transform move:0 byY:self.layer.frame.size.height / 100 * -RAPID_MOVE_SPEED];
                 break;
             case kVK_ANSI_A: // Rapid Move left
-                [transform move:-RAPID_MOVE_SPEED byY:0];
+                [transform move:self.layer.frame.size.width / 100 * -RAPID_MOVE_SPEED byY:0];
                 break;
             case kVK_ANSI_D: // Rapid Move right
-                [transform move:RAPID_MOVE_SPEED byY:0];
+                [transform move:self.layer.frame.size.width / 100 * RAPID_MOVE_SPEED byY:0];
                 break;
                 
             case kVK_ANSI_Q: // Rapid Rotate counter-clockwise
