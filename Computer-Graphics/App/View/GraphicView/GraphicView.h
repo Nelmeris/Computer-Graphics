@@ -21,5 +21,7 @@
 - (void)addShape:(Shape*)shape;
 - (void)clear;
 - (void)nextShape;
+- (void)prevShape;
+- (void)selectShape:(NSUInteger)index;
 
 @end

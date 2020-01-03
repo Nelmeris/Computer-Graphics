@@ -66,7 +66,8 @@
             // Decrease relative to Oy
             [[KeyInfo alloc] initWithKeyCode:kVK_ANSI_L modifiedFlags:0 description:@"Decrease relative to Oy"],
             [[KeyInfo alloc] initWithKeyCode:kVK_ANSI_L modifiedFlags:NSEventModifierFlagShift description:@"Rapid Decrease relative to Oy"],
-            [[KeyInfo alloc] initWithKeyCode:kVK_Tab modifiedFlags:0 description:@"Change shape"],
+            [[KeyInfo alloc] initWithKeyCode:kVK_Tab modifiedFlags:0 description:@"Next shape"],
+            [[KeyInfo alloc] initWithKeyCode:kVK_Tab modifiedFlags:NSEventModifierFlagShift description:@"Previous shape"],
             nil
             ];
 }
@@ -80,6 +81,14 @@
         {
             [controller.keys addObject:(KeyInfo*)[[self keyInfoArray] objectAtIndex:i]];
             [controller.logTableView reloadData];
+            if (keyInfo.code == kVK_Tab) {
+                if (keyInfo.shiftIsClamped) {
+                    [self prevShape];
+                } else {
+                    [self nextShape];
+                }
+                return;
+            }
             if (!self.selectedShape)
                 return;
             CoreTransform* transform = self.selectedShape.transform;
@@ -103,9 +112,6 @@
             return;
         case kVK_ANSI_J: // Mirror frame relative to Oy
             [transform mirrorFrameRefByY];
-            return;
-        case kVK_Tab:
-            [self nextShape];
             return;
     }
     

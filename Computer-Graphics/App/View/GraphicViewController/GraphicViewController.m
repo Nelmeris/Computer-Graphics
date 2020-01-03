@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad {
     _keys = [NSMutableArray new];
+    [_logTableView setHidden:YES];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -99,6 +100,10 @@
 - (void)colorUpdate:(NSColorPanel*)colorPanel{
     NSColor* theColor = colorPanel.color;
     NSLog(@"%f", theColor.blueComponent);
+}
+
+- (IBAction)showOrHideLog:(NSMenuItem *)sender {
+    [_logTableView setHidden:!_logTableView.isHidden];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {

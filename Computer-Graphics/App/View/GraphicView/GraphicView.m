@@ -19,6 +19,8 @@
 #define CLIP_AREA_COLOR 0x000000
 #define CLIP_AREA_MARGIN 30.0
 
+#define SELECTED_SHAPE_THICKNESS 2
+
 @interface GraphicView () {
 }
 
@@ -87,6 +89,7 @@
 }
 
 - (void)clear {
+    selectedShapeIndex = -1;
     [shapes removeAllObjects];
     [self setNeedsDisplay:YES];
 }
@@ -106,23 +109,58 @@
     tShape.shape = shape;
     tShape.transform = transform;
     [shapes addObject:tShape];
-    [self nextShape];
-    [self setNeedsDisplay:YES];
+    [self selectShape:shapes.count - 1];
 }
 
 - (void)nextShape {
     if (shapes.count == 0) return;
-    if (selectedShapeIndex != -1)
-        self.selectedShape.shape.thickness /= 1.5;
-    if (selectedShapeIndex == shapes.count - 1) {
-        selectedShapeIndex = 0;
-    } else {
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
+    
+    if (selectedShapeIndex == shapes.count - 1)
+        selectedShapeIndex = -1;
+    else
         selectedShapeIndex++;
-    }
-    self.selectedShape.shape.thickness *= 1.5;
+    
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
+    
+    [self setNeedsDisplay:YES];
+}
+
+- (void)prevShape {
+    if (shapes.count == 0) return;
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
+    
+    if (selectedShapeIndex == -1)
+        selectedShapeIndex = shapes.count - 1;
+    else
+        selectedShapeIndex--;
+    
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
+    
+    [self setNeedsDisplay:YES];
+}
+
+- (void)selectShape:(NSUInteger)index {
+    if (shapes.count <= index)
+        return;
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
+    
+    selectedShapeIndex = index;
+    
+    if (self.selectedShape)
+        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
+    
+    [self setNeedsDisplay:YES];
 }
 
 - (TransformShape *)selectedShape {
+    if (selectedShapeIndex == -1)
+        return NULL;
     return shapes[selectedShapeIndex];
 }
 
