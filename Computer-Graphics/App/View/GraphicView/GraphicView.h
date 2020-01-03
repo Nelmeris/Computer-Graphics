@@ -19,9 +19,11 @@
 @property (readonly) TransformShape* selectedShape;
 
 - (void)addShape:(Shape*)shape;
+- (void)removeSelectedShape;
 - (void)clear;
 - (void)nextShape;
 - (void)prevShape;
-- (void)selectShape:(NSUInteger)index;
+- (void)selectShape:(NSInteger)index;
+- (NSArray<Shape*>*)getShapes;
 
 @end

@@ -40,4 +40,17 @@
     path = nil;
 }
 
+- (NSDictionary *)toDictionary {
+    return @{
+        @"from": @{
+            @"x": [NSNumber numberWithFloat:_from.x],
+            @"y": [NSNumber numberWithFloat:_from.y]
+        },
+        @"to": @{
+            @"x": [NSNumber numberWithFloat:_to.x],
+            @"y": [NSNumber numberWithFloat:_to.y]
+        }
+    };
+}
+
 @end

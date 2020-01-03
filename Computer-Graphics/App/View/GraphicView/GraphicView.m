@@ -34,6 +34,7 @@
     if (self) {
         shapes = [NSMutableArray new];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"ColorPicked" object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeThickness:) name:@"ThicknessPicked" object:NULL];
         selectedShapeIndex = -1;
     }
     return self;
@@ -42,6 +43,13 @@
 - (void)changeColor:(NSNotification *) notification {
     NSDictionary *dict = notification.userInfo;
     [[self selectedShape].shape setColor:dict[@"color"]];
+    [self setNeedsDisplay:YES];
+}
+
+- (void)changeThickness:(NSNotification *) notification {
+    NSDictionary *dict = notification.userInfo;
+    CGFloat thickness = [((NSNumber*)dict[@"thickness"]) floatValue];
+    [[self selectedShape].shape setThickness:thickness];
     [self setNeedsDisplay:YES];
 }
 
@@ -75,14 +83,13 @@
         [self autoScaling:shape];
         [shape.color setStroke];
         
-        NSInteger linesCount = [shape getLinesCount];
-        if (linesCount == 0) continue;
-        
         // Drawing the transformed points
-        for (Line *line in [shape getLines]) {
+        for (Line *line in shape.lines) {
             Line *transformedLine = [transform transformLine:line];
             if ([transform clipLine:transformedLine]) {
-                [transformedLine drawWithColor:shape.color width:shape.thickness];
+                CGFloat thickness = shape.thickness +
+                    ((shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
+                [transformedLine drawWithColor:shape.color width:thickness];
             }
         }
     }
@@ -114,46 +121,32 @@
 
 - (void)nextShape {
     if (shapes.count == 0) return;
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
     
     if (selectedShapeIndex == shapes.count - 1)
-        selectedShapeIndex = -1;
+        [self selectShape:-1];
     else
-        selectedShapeIndex++;
-    
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
-    
-    [self setNeedsDisplay:YES];
+        [self selectShape:selectedShapeIndex + 1];
 }
 
 - (void)prevShape {
     if (shapes.count == 0) return;
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
     
     if (selectedShapeIndex == -1)
-        selectedShapeIndex = shapes.count - 1;
+        [self selectShape:shapes.count - 1];
     else
-        selectedShapeIndex--;
-    
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
-    
-    [self setNeedsDisplay:YES];
+        [self selectShape:selectedShapeIndex - 1];
 }
 
-- (void)selectShape:(NSUInteger)index {
-    if (shapes.count <= index)
+- (void)selectShape:(NSInteger)index {
+    if (index >= (NSInteger)shapes.count)
         return;
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness /= SELECTED_SHAPE_THICKNESS;
     
     selectedShapeIndex = index;
     
-    if (self.selectedShape)
-        self.selectedShape.shape.thickness *= SELECTED_SHAPE_THICKNESS;
+    if (selectedShapeIndex == -1)
+        [controller hideFigureButtons];
+    else
+        [controller showFigureButtons];
     
     [self setNeedsDisplay:YES];
 }
@@ -162,6 +155,24 @@
     if (selectedShapeIndex == -1)
         return NULL;
     return shapes[selectedShapeIndex];
+}
+
+- (void)removeSelectedShape {
+    TransformShape* shape = self.selectedShape;
+    [self prevShape];
+    [shapes removeObject:shape];
+    [self setNeedsDisplay:YES];
+}
+
+- (NSArray<Shape *> *)getShapes {
+    NSMutableArray* result = [NSMutableArray new];
+    for (TransformShape *tShape in shapes) {
+        CoreTransform* core = tShape.transform;
+        Shape* shape = tShape.shape;
+        [shape transform:core];
+        [result addObject:shape];
+    }
+    return [result copy];
 }
 
 @end

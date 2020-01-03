@@ -7,6 +7,7 @@
 //
 
 #import <AppKit/AppKit.h>
+#import <JSONModel/JSONModel.h>
 
 @interface Line : NSObject
 
@@ -17,5 +18,7 @@
 
 - (void)drawWithColor:(NSColor*)color width:(CGFloat)width;
 - (void)erase;
+
+- (NSDictionary*)toDictionary;
 
 @end

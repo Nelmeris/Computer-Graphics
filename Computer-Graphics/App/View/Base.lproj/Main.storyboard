@@ -796,8 +796,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="colorFigureMenuItem" destination="ySi-sV-HAA" id="jVi-bz-Rfh"/>
                         <outlet property="graphicView" destination="DHL-e8-d1f" id="PwS-y2-9dJ"/>
                         <outlet property="logTableView" destination="Kg6-R5-MqC" id="2KQ-LN-xfr"/>
+                        <outlet property="removeFigureMenuItem" destination="IMS-L6-5Yc" id="UKS-kw-Jq4"/>
+                        <outlet property="thicknessFigureMenuItem" destination="iOX-wa-aqH" id="GK6-xT-b3M"/>
                         <segue destination="Qb2-pz-Lrr" kind="sheet" identifier="ThicknessPickerSegue" id="BCa-y6-Czw"/>
                         <segue destination="rSL-PG-aYf" kind="sheet" identifier="ColorPickerSegue" id="d3g-qT-Jrw"/>
                     </connections>
@@ -851,8 +854,7 @@
                                             <action selector="fileSaveAs:" target="XfG-lQ-9wD" id="aWB-3L-zri"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Close" id="vWF-Xe-f3y">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    <menuItem title="Close" keyEquivalent="c" id="vWF-Xe-f3y">
                                         <connections>
                                             <action selector="fileClose:" target="XfG-lQ-9wD" id="5PN-Qm-Nys"/>
                                         </connections>
@@ -864,18 +866,24 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Figure" id="2jX-Im-aDf">
                                 <items>
-                                    <menuItem title="Thickness" id="iOX-wa-aqH">
+                                    <menuItem title="New" keyEquivalent="n" id="ijy-J3-MNs">
+                                        <connections>
+                                            <action selector="newShape:" target="XfG-lQ-9wD" id="yJD-QT-80y"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Thickness" keyEquivalent="t" id="iOX-wa-aqH">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="openThicknessPicker:" target="XfG-lQ-9wD" id="JdO-a6-J30"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Color" id="ySi-sV-HAA">
+                                    <menuItem title="Color" keyEquivalent="c" id="ySi-sV-HAA">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="openColorPicker:" target="XfG-lQ-9wD" id="aKC-Ml-0xa"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Remove" keyEquivalent="r" id="IMS-L6-5Yc"/>
                                 </items>
                             </menu>
                         </menuItem>
@@ -897,58 +905,74 @@
             </objects>
             <point key="canvasLocation" x="75" y="654.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Thickness Picker View Controller-->
         <scene sceneID="ozZ-sB-N6h">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="Qb2-pz-Lrr" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="Qb2-pz-Lrr" customClass="ThicknessPickerViewController" sceneMemberID="viewController">
                     <view key="view" id="d7a-gM-sgu">
-                        <rect key="frame" x="0.0" y="0.0" width="292" height="102"/>
+                        <rect key="frame" x="0.0" y="0.0" width="140" height="143"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lsk-ma-vsE">
-                                <rect key="frame" x="20" y="61" width="252" height="21"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8XI-Ne-wgY">
+                                <rect key="frame" x="20" y="102" width="82" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8XI-Ne-wgY">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="f0k-D2-Cd3"/>
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ctx-b9-rjD">
-                                <rect key="frame" x="153" y="13" width="125" height="32"/>
-                                <buttonCell key="cell" type="push" title="Применить" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Abu-Ix-Qvd">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xfN-Xp-Zon">
-                                <rect key="frame" x="14" y="13" width="126" height="32"/>
+                                <rect key="frame" x="14" y="13" width="112" height="32"/>
                                 <buttonCell key="cell" type="push" title="Отмена" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0vj-dK-u9b">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="dismissController:" target="Qb2-pz-Lrr" id="VtA-ys-Jlc"/>
+                                    <action selector="cancel:" target="Qb2-pz-Lrr" id="rlY-UF-dKs"/>
+                                </connections>
+                            </button>
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0hM-3A-pcz">
+                                <rect key="frame" x="104" y="99" width="19" height="28"/>
+                                <stepperCell key="cell" continuous="YES" alignment="left" increment="0.0" maxValue="10" doubleValue="2" id="jBi-6i-Mrf"/>
+                                <connections>
+                                    <action selector="clickStepper:" target="Qb2-pz-Lrr" id="Kzf-xV-fHs"/>
+                                </connections>
+                            </stepper>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ctx-b9-rjD">
+                                <rect key="frame" x="14" y="49" width="112" height="32"/>
+                                <buttonCell key="cell" type="push" title="Применить" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Abu-Ix-Qvd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="apply:" target="Qb2-pz-Lrr" id="zGA-P4-c6D"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="xfN-Xp-Zon" secondAttribute="bottom" constant="20" id="6aT-nc-KBQ"/>
-                            <constraint firstItem="Ctx-b9-rjD" firstAttribute="leading" secondItem="xfN-Xp-Zon" secondAttribute="trailing" constant="25" id="JMm-JL-bn8"/>
-                            <constraint firstItem="Ctx-b9-rjD" firstAttribute="centerY" secondItem="xfN-Xp-Zon" secondAttribute="centerY" id="M1g-1X-tt2"/>
+                            <constraint firstItem="Ctx-b9-rjD" firstAttribute="top" secondItem="lsk-ma-vsE" secondAttribute="bottom" constant="25" id="9WC-P6-Qcv"/>
+                            <constraint firstAttribute="trailing" secondItem="0hM-3A-pcz" secondAttribute="trailing" constant="20" id="FDc-Lf-q0a"/>
+                            <constraint firstItem="xfN-Xp-Zon" firstAttribute="top" secondItem="Ctx-b9-rjD" secondAttribute="bottom" constant="15" id="XTE-9c-2ug"/>
+                            <constraint firstAttribute="bottom" secondItem="xfN-Xp-Zon" secondAttribute="bottom" constant="20" id="ZBz-ga-Zeo"/>
                             <constraint firstItem="Ctx-b9-rjD" firstAttribute="width" secondItem="xfN-Xp-Zon" secondAttribute="width" id="dG9-eB-I4z"/>
                             <constraint firstItem="lsk-ma-vsE" firstAttribute="top" secondItem="d7a-gM-sgu" secondAttribute="top" constant="20" id="e5c-oV-csi"/>
-                            <constraint firstItem="xfN-Xp-Zon" firstAttribute="top" secondItem="lsk-ma-vsE" secondAttribute="bottom" constant="20" id="fUw-EW-6O4"/>
+                            <constraint firstItem="0hM-3A-pcz" firstAttribute="leading" secondItem="lsk-ma-vsE" secondAttribute="trailing" constant="5" id="fId-ux-9ky"/>
                             <constraint firstItem="xfN-Xp-Zon" firstAttribute="leading" secondItem="lsk-ma-vsE" secondAttribute="leading" id="m4K-95-uNS"/>
+                            <constraint firstItem="xfN-Xp-Zon" firstAttribute="centerX" secondItem="Ctx-b9-rjD" secondAttribute="centerX" id="tJI-cN-ova"/>
                             <constraint firstItem="lsk-ma-vsE" firstAttribute="leading" secondItem="d7a-gM-sgu" secondAttribute="leading" constant="20" id="uGX-6z-pad"/>
-                            <constraint firstAttribute="trailing" secondItem="lsk-ma-vsE" secondAttribute="trailing" constant="20" id="uxN-Df-3Rr"/>
-                            <constraint firstItem="Ctx-b9-rjD" firstAttribute="trailing" secondItem="lsk-ma-vsE" secondAttribute="trailing" id="w1e-js-Q9P"/>
+                            <constraint firstItem="0hM-3A-pcz" firstAttribute="centerY" secondItem="lsk-ma-vsE" secondAttribute="centerY" id="vYm-sT-Rca"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="thicknessField" destination="lsk-ma-vsE" id="pzr-Qg-5Ds"/>
+                        <outlet property="thicknessStepper" destination="0hM-3A-pcz" id="NIn-WK-J6H"/>
+                    </connections>
                 </viewController>
                 <customObject id="4Wr-cx-V3t" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="595" y="549"/>
+            <point key="canvasLocation" x="519" y="485.5"/>
         </scene>
         <!--Color Picker View Controller-->
         <scene sceneID="FIr-Zk-VdO">

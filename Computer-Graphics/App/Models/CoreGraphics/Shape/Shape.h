@@ -8,22 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import "Line.h"
+#import <JSONModel/JSONModel.h>
+#import "CoreTransform.h"
 
 @interface Shape : NSObject {
-    NSMutableArray<Line *> *lines;
+    NSMutableArray<Line *> *_lines;
 }
 
 @property (nonatomic, strong) NSColor* color;
 @property (nonatomic) CGFloat thickness;
+@property (nonatomic, readonly) NSArray<Line *> *lines;
 
 - (instancetype)init;
-- (instancetype)initFromJSON:(NSString *)filePath;
 
-- (void)loadShapeFromJSON:(NSString *)filePath;
++ (NSArray<Shape*>*)loadShapesFromFile:(NSString *)filePath;
++ (void)saveToFile:(NSArray<Shape*>*)shapes filePath:(NSString *)filePath;
 
-- (NSInteger)getLinesCount;
-
-- (void)scaling: (CGFloat)value;
+- (void)scaling:(CGFloat)value;
+- (void)transform:(CoreTransform*)core;
 
 - (CGFloat)getMinX;
 - (CGFloat)getMinY;
@@ -32,7 +34,5 @@
 
 - (CGFloat)getWidth;
 - (CGFloat)getHeight;
-
-- (NSMutableArray<Line *> *)getLines;
 
 @end
