@@ -83,6 +83,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		572A433523BF8AAC003503DE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,16 +177,43 @@
 			sourceTree = "<group>";
 		};
 		576AD4E1221436480007170C /* GraphicView */ = {
+=======
+		57C4A21B224DFD3B0071ABAB /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69332212CAA20028B0BB /* AppDelegate.h */,
+				57FA69342212CAA20028B0BB /* AppDelegate.m */,
+				57FA693F2212CAA20028B0BB /* main.m */,
+				57FA69412212CAA20028B0BB /* Computer_Graphics.entitlements */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		57C4A21C224DFDD20071ABAB /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				57FA69362212CAA20028B0BB /* ViewController.h */,
+				57FA69372212CAA20028B0BB /* ViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		57C4A21D224DFDD90071ABAB /* GraphicView */ = {
+>>>>>>> origin/master
 			isa = PBXGroup;
 			children = (
 				57FA69472212CACC0028B0BB /* GraphicView.h */,
 				57FA69482212CACC0028B0BB /* GraphicView.m */,
+<<<<<<< HEAD
 				57C4A23D224EAD0F0071ABAB /* GraphicViewProcessingHotKeys.h */,
 				57C4A23E224EAD0F0071ABAB /* GraphicViewProcessingHotKeys.m */,
+=======
+>>>>>>> origin/master
 			);
 			path = GraphicView;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		576AD4E2221436520007170C /* CoreTransform */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +314,8 @@
 			path = ThicknessPickerViewController;
 			sourceTree = "<group>";
 		};
+=======
+>>>>>>> origin/master
 		57FA69272212CAA20028B0BB = {
 			isa = PBXGroup;
 			children = (
@@ -305,10 +335,19 @@
 		57FA69322212CAA20028B0BB /* Computer-Graphics */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				572A434023BF9883003503DE /* Core */,
 				572A433723BF8AD4003503DE /* App */,
 				572A433523BF8AAC003503DE /* Resources */,
 				572A433623BF8AC2003503DE /* Environment */,
+=======
+				57C4A21D224DFDD90071ABAB /* GraphicView */,
+				57C4A21C224DFDD20071ABAB /* ViewController */,
+				57C4A21B224DFD3B0071ABAB /* Application */,
+				57FA69392212CAA20028B0BB /* Assets.xcassets */,
+				57FA693B2212CAA20028B0BB /* Main.storyboard */,
+				57FA693E2212CAA20028B0BB /* Info.plist */,
+>>>>>>> origin/master
 			);
 			path = "Computer-Graphics";
 			sourceTree = "<group>";
