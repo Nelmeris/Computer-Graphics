@@ -9,17 +9,28 @@
 #import <Cocoa/Cocoa.h>
 #import "Shape.h"
 #import "KeyInfo.h"
+#import "GraphicView.h"
 
 @class GraphicView;
 
-@interface GraphicViewController : NSViewController  <NSTableViewDelegate, NSTableViewDataSource> {
+@interface GraphicViewController : NSViewController <NSTableViewDelegate, NSTableViewDataSource> {
     __weak IBOutlet GraphicView* graphicView;
+    __weak IBOutlet IBOutlet NSTableView *logTableView;
 }
 
-@property (weak) IBOutlet NSTableView *logTableView;
 @property NSMutableArray<KeyInfo*>* keys;
+
+@end
+
+@interface GraphicViewController (Figure)
 
 - (void)disableFigureButtons;
 - (void)enableFigureButtons;
+
+@end
+
+@interface GraphicViewController (Log)
+
+- (void)addKeyToLog:(KeyInfo*)key;
 
 @end

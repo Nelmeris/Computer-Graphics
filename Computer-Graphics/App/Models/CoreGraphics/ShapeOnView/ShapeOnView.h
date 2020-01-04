@@ -12,10 +12,11 @@
 #ifndef TransformShape_h
 #define TransformShape_h
 
-@interface TransformShape : NSObject
+@interface ShapeOnView : NSObject
 
 @property Shape* shape;
 @property CoreTransform* transform;
+@property NSBezierPath *clipRectangle;
 
 @end
 

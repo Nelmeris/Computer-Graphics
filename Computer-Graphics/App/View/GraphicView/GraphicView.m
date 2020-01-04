@@ -8,12 +8,11 @@
 
 #import "GraphicView.h"
 #import "CoreTransformClip.h"
-#import "TransformShape.h"
+#import "ShapeOnView.h"
+#import "ColorHex.h"
 
 #define VIEW_WIDTH self.frame.size.width
 #define VIEW_HEIGHT self.frame.size.height
-
-#define NSColorFromHEX(hexValue) [NSColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1.0]
 
 #define BACKGROUND_COLOR 0xFFFFFF
 #define CLIP_AREA_COLOR 0x000000
@@ -23,6 +22,7 @@
 #define SELECTED_SHAPE_THICKNESS 2
 
 @interface GraphicView () {
+    NSBezierPath* background;
 }
 
 @end
@@ -36,6 +36,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeColor:) name:@"ColorPicked" object:NULL];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeThickness:) name:@"ThicknessPicked" object:NULL];
         selectedShapeIndex = -1;
+        background = NULL;
     }
     return self;
 }
@@ -43,46 +44,46 @@
 - (void)changeColor:(NSNotification *) notification {
     NSDictionary *dict = notification.userInfo;
     [[self selectedShape].shape setColor:dict[@"color"]];
-    [self setNeedsDisplay:YES];
+    [self redraw];
 }
 
 - (void)changeThickness:(NSNotification *) notification {
     NSDictionary *dict = notification.userInfo;
     CGFloat thickness = [((NSNumber*)dict[@"thickness"]) floatValue];
     [[self selectedShape].shape setThickness:thickness];
-    [self setNeedsDisplay:YES];
+    [self redraw];
 }
 
 - (void)viewWillDraw {
     controller = (GraphicViewController*)self.window.contentViewController;
 }
 
-- (void)drawRect: (NSRect)dirtyRect {
+- (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
-    
-    // Setting background
-    NSBezierPath *background = [NSBezierPath bezierPath];
-    [background appendBezierPathWithRect: NSMakeRect(0, 0, VIEW_WIDTH, VIEW_HEIGHT)];
 
-    [NSColorFromHEX(BACKGROUND_COLOR) setFill];
+    // Setting background
+    NSRect rect = NSMakeRect(0, 0, VIEW_WIDTH, VIEW_HEIGHT);
+    background = [NSBezierPath bezierPathWithRect:rect];
+    NSColor* bgColor = [NSColor colorWithHex:BACKGROUND_COLOR];
+    [bgColor setFill];
     [background fill];
     
     // Pass through all shapes
-    for (TransformShape *tShape in shapes) {
+    for (ShapeOnView *tShape in shapes) {
         CoreTransform* core = tShape.transform;
         Shape* shape = [tShape.shape copy];
         
         // Setting clip area
-        NSBezierPath *clipRectangle = [NSBezierPath bezierPath];
-        [clipRectangle appendBezierPathWithRect:[core makeClipRectangle]];
+        NSRect rect = [core makeClipRectangle];
+        tShape.clipRectangle = [NSBezierPath bezierPathWithRect:rect];
+        NSColor* clipRectangleColor = [NSColor colorWithHex:CLIP_AREA_COLOR];
+        [clipRectangleColor setStroke];
+        [tShape.clipRectangle setLineWidth:CLIP_AREA_THICKNESS];
+        [tShape.clipRectangle stroke];
         
-        [NSColorFromHEX(CLIP_AREA_COLOR) setStroke];
-        [clipRectangle setLineWidth:CLIP_AREA_THICKNESS];
-        [clipRectangle stroke];
-        
+        // Setting shape
         [shape transform:core];
         [self autoScaling:shape];
-        
         [shape.color setStroke];
         
         // Drawing the transformed points
@@ -93,6 +94,10 @@
                 [line drawWithColor:shape.color width:thickness];
         }
     }
+}
+
+- (void)redraw {
+    [self setNeedsDisplay:YES];
 }
 
 - (void)autoScaling: (Shape*)shape {
@@ -106,12 +111,12 @@
 - (void)clear {
     selectedShapeIndex = -1;
     [shapes removeAllObjects];
-    [self setNeedsDisplay:YES];
+    [self redraw];
 }
 
 - (void)addShape:(Shape *)shape {
     CoreTransform* transform = [[CoreTransform alloc]initWithView:self clipAreaMargin:CLIP_AREA_MARGIN];
-    TransformShape* tShape = [TransformShape new];
+    ShapeOnView* tShape = [ShapeOnView new];
     tShape.shape = shape;
     tShape.transform = transform;
     [shapes addObject:tShape];
@@ -146,26 +151,23 @@
         [controller disableFigureButtons];
     else
         [controller enableFigureButtons];
-    
-    [self setNeedsDisplay:YES];
 }
 
-- (TransformShape *)selectedShape {
+- (ShapeOnView *)selectedShape {
     if (selectedShapeIndex == -1)
         return NULL;
     return shapes[selectedShapeIndex];
 }
 
 - (void)removeSelectedShape {
-    TransformShape* shape = self.selectedShape;
+    ShapeOnView* shape = self.selectedShape;
     [self prevShape];
     [shapes removeObject:shape];
-    [self setNeedsDisplay:YES];
 }
 
 - (NSArray<Shape *> *)getShapes {
     NSMutableArray* result = [NSMutableArray new];
-    for (TransformShape *tShape in shapes) {
+    for (ShapeOnView *tShape in shapes) {
         CoreTransform* core = tShape.transform;
         Shape* shape = [tShape.shape copy];
         [shape transform:core];

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		572A433F23BF8DA1003503DE /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A433E23BF8DA1003503DE /* ColorPickerViewController.m */; };
 		572A434223BF98B0003503DE /* ColorHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A434123BF98B0003503DE /* ColorHex.m */; };
-		572A434723BFAEE0003503DE /* TransformShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A434623BFAEE0003503DE /* TransformShape.m */; };
+		572A434723BFAEE0003503DE /* ShapeOnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 572A434623BFAEE0003503DE /* ShapeOnView.m */; };
 		5771232022154EE500A3C4CB /* Shape.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771231F22154EE500A3C4CB /* Shape.m */; };
 		5771232822157EB400A3C4CB /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232722157EB400A3C4CB /* Matrix.m */; };
 		5771232B22157ED500A3C4CB /* Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771232A22157ED500A3C4CB /* Vector.m */; };
@@ -34,8 +34,8 @@
 		572A433E23BF8DA1003503DE /* ColorPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorPickerViewController.m; sourceTree = "<group>"; };
 		572A434123BF98B0003503DE /* ColorHex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorHex.m; sourceTree = "<group>"; };
 		572A434323BF9A35003503DE /* ColorHex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorHex.h; sourceTree = "<group>"; };
-		572A434523BFABC4003503DE /* TransformShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransformShape.h; sourceTree = "<group>"; };
-		572A434623BFAEE0003503DE /* TransformShape.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformShape.m; sourceTree = "<group>"; };
+		572A434523BFABC4003503DE /* ShapeOnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShapeOnView.h; sourceTree = "<group>"; };
+		572A434623BFAEE0003503DE /* ShapeOnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShapeOnView.m; sourceTree = "<group>"; };
 		5771231E22154EE500A3C4CB /* Shape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shape.h; sourceTree = "<group>"; };
 		5771231F22154EE500A3C4CB /* Shape.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shape.m; sourceTree = "<group>"; };
 		5771232622157EB400A3C4CB /* Matrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
@@ -166,13 +166,13 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		572A434423BFABA9003503DE /* TransformShape */ = {
+		572A434423BFABA9003503DE /* ShapeOnView */ = {
 			isa = PBXGroup;
 			children = (
-				572A434523BFABC4003503DE /* TransformShape.h */,
-				572A434623BFAEE0003503DE /* TransformShape.m */,
+				572A434523BFABC4003503DE /* ShapeOnView.h */,
+				572A434623BFAEE0003503DE /* ShapeOnView.m */,
 			);
-			path = TransformShape;
+			path = ShapeOnView;
 			sourceTree = "<group>";
 		};
 		576AD4E1221436480007170C /* GraphicView */ = {
@@ -250,7 +250,7 @@
 		57C4A22E224E495C0071ABAB /* CoreGraphics */ = {
 			isa = PBXGroup;
 			children = (
-				572A434423BFABA9003503DE /* TransformShape */,
+				572A434423BFABA9003503DE /* ShapeOnView */,
 				5771231D22154E6C00A3C4CB /* Shape */,
 				57C4A22A224E205E0071ABAB /* Line */,
 			);
@@ -384,7 +384,7 @@
 			files = (
 				57C4A23F224EAD0F0071ABAB /* GraphicViewProcessingHotKeys.m in Sources */,
 				572A433F23BF8DA1003503DE /* ColorPickerViewController.m in Sources */,
-				572A434723BFAEE0003503DE /* TransformShape.m in Sources */,
+				572A434723BFAEE0003503DE /* ShapeOnView.m in Sources */,
 				57C4A22D224E20680071ABAB /* Line.m in Sources */,
 				57841956221891C400725034 /* AppDelegate.m in Sources */,
 				5771232822157EB400A3C4CB /* Matrix.m in Sources */,

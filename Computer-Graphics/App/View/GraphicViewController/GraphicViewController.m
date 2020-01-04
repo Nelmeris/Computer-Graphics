@@ -7,12 +7,12 @@
 //
 
 #import "GraphicViewController.h"
-#import "GraphicView.h"
 #import "Shape.h"
 #import "ColorPickerViewController.h"
 #import "ThicknessPickerViewController.h"
 
-#define FILE_TYPES @"nsp"
+#define PROJECT_FILE_TYPE @"npj"
+#define SHAPE_FILE_TYPE @"nsh"
 
 @interface GraphicViewController () <NSTableViewDelegate, NSTableViewDataSource>
 
@@ -32,23 +32,44 @@
 
 @implementation GraphicViewController
 
-- (void)awakeFromNib {
-    [_logTableView setDelegate:self];
-    [_logTableView setDataSource:self];
-}
-
 - (void)viewDidLoad {
     _keys = [NSMutableArray new];
-    [_logTableView setHidden:YES];
+    [logTableView setHidden:YES];
+    [logTableView setDelegate:self];
+    [logTableView setDataSource:self];
     [self disableFigureButtons];
     [self disableFileButtons];
 }
+
+- (void)disableFigureButtons {
+    [_thicknessFigureMenuItem setTarget:NULL];
+    [_thicknessFigureMenuItem setAction:NULL];
+    [_colorFigureMenuItem setTarget:NULL];
+    [_colorFigureMenuItem setAction:NULL];
+    [_removeFigureMenuItem setTarget:NULL];
+    [_removeFigureMenuItem setAction:NULL];
+}
+
+- (void)disableFileButtons {
+    [_saveFileMenuItem setTarget:NULL];
+    [_saveFileMenuItem setAction:NULL];
+    [_saveAsFileMenuItem setTarget:NULL];
+    [_saveAsFileMenuItem setAction:NULL];
+    [_closeFileMenuItem setTarget:NULL];
+    [_closeFileMenuItem setAction:NULL];
+    [_addFigureMenuItem setTarget:NULL];
+    [_addFigureMenuItem setAction:NULL];
+}
+
+@end
+
+@implementation GraphicViewController (Log)
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return _keys.count;
 }
 
-- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     return ((KeyInfo*)_keys[row]).description;
 }
 
@@ -58,51 +79,22 @@
     return cell;
 }
 
-- (IBAction)fileOpen:(id)sender {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setCanChooseFiles:YES];
-    [panel setCanChooseDirectories:NO];
-    [panel setAllowsMultipleSelection:NO];
-    NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
-    [panel setAllowedFileTypes: fileTypes];
-    
-    NSInteger clicked = [panel runModal];
-    
-    if (clicked != NSModalResponseOK) return;
-    
-    for (NSURL *url in [panel URLs]) {
-        [graphicView clear];
-        NSArray<Shape*>* shapes = [Shape loadShapesFromFile:url.relativePath];
-        _fileURL = url.relativePath;
-        for (Shape* shape in shapes)
-            [graphicView addShape:shape];
-    }
-    [self enableFileButtons];
+- (IBAction)showOrHideLog:(NSMenuItem *)sender {
+    [logTableView setHidden:!logTableView.isHidden];
 }
 
-- (IBAction)fileSave:(NSMenuItem *)sender {
-    [Shape saveToFile:[graphicView getShapes] filePath:_fileURL];
+- (void)addKeyToLog:(KeyInfo*)key {
+    [_keys addObject:key];
+    [logTableView reloadData];
 }
 
-- (IBAction)fileSaveAs:(NSMenuItem *)sender {
-    NSSavePanel *panel = [NSSavePanel savePanel];
-    [panel setCanCreateDirectories:YES];
-    NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
-    [panel setAllowedFileTypes: fileTypes];
-    
-    NSInteger clicked = [panel runModal];
-    
-    if (clicked != NSModalResponseOK) return;
-    NSURL *url = [panel URL];
-    
-    _fileURL = url.relativePath;
-    [Shape saveToFile:[graphicView getShapes] filePath:_fileURL];
-}
+@end
 
-- (IBAction)fileClose:(id)sender {
-    [graphicView clear];
-    [self disableFileButtons];
-    [self disableFigureButtons];
+@implementation GraphicViewController (Shapes)
+
+- (void)removeShape:(NSMenuItem *)sender {
+    [graphicView removeSelectedShape];
+    [graphicView redraw];
 }
 
 - (IBAction)openThicknessPicker:(NSMenuItem *)sender {
@@ -113,36 +105,27 @@
     [self performSegueWithIdentifier:@"ColorPickerSegue" sender:self];
 }
 
-- (void)colorUpdate:(NSColorPanel*)colorPanel{
-    NSColor* theColor = colorPanel.color;
-    NSLog(@"%f", theColor.blueComponent);
-}
-
-- (void)removeShape:(NSMenuItem *)sender {
-    [graphicView removeSelectedShape];
-}
-
 - (IBAction)newShape:(NSMenuItem *)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:NO];
-    NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
+    NSArray* fileTypes = [NSArray arrayWithObjects:SHAPE_FILE_TYPE, nil];
     [panel setAllowedFileTypes: fileTypes];
     
-    NSInteger clicked = [panel runModal];
-    
-    if (clicked != NSModalResponseOK) return;
-    
-    for (NSURL *url in [panel URLs]) {
-        NSArray<Shape*>* shapes = [Shape loadShapesFromFile:url.relativePath];
+    NSWindow* window = NSApplication.sharedApplication.mainWindow;
+    [panel beginSheetModalForWindow:window
+                  completionHandler:^(NSModalResponse response) {
+        if (response != NSModalResponseOK) return;
+      
+        NSString *path = panel.URL.relativePath;
+        
+        NSArray<Shape*>* shapes = [Shape loadShapesFromFile:path];
         for (Shape* shape in shapes)
-            [graphicView addShape:shape];
-    }
-}
-
-- (IBAction)showOrHideLog:(NSMenuItem *)sender {
-    [_logTableView setHidden:!_logTableView.isHidden];
+            [self->graphicView addShape:shape];
+        
+        [self->graphicView redraw];
+    }];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender {
@@ -162,15 +145,6 @@
     }
 }
 
-- (void)disableFigureButtons {
-    [_thicknessFigureMenuItem setTarget:NULL];
-    [_thicknessFigureMenuItem setAction:NULL];
-    [_colorFigureMenuItem setTarget:NULL];
-    [_colorFigureMenuItem setAction:NULL];
-    [_removeFigureMenuItem setTarget:NULL];
-    [_removeFigureMenuItem setAction:NULL];
-}
-
 - (void)enableFigureButtons {
     [_thicknessFigureMenuItem setTarget:self];
     [_thicknessFigureMenuItem setAction:@selector(openThicknessPicker:)];
@@ -180,15 +154,72 @@
     [_removeFigureMenuItem setAction:@selector(removeShape:)];
 }
 
-- (void)disableFileButtons {
-    [_saveFileMenuItem setTarget:NULL];
-    [_saveFileMenuItem setAction:NULL];
-    [_saveAsFileMenuItem setTarget:NULL];
-    [_saveAsFileMenuItem setAction:NULL];
-    [_closeFileMenuItem setTarget:NULL];
-    [_closeFileMenuItem setAction:NULL];
-    [_addFigureMenuItem setTarget:NULL];
-    [_addFigureMenuItem setAction:NULL];
+@end
+
+@implementation GraphicViewController (File)
+
+- (IBAction)fileNew:(NSMenuItem *)sender {
+    [graphicView clear];
+    _fileURL = NULL;
+    [self enableFileButtons];
+}
+
+- (IBAction)fileOpen:(id)sender {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles:YES];
+    [panel setCanChooseDirectories:NO];
+    [panel setAllowsMultipleSelection:NO];
+    NSArray* fileTypes = [NSArray arrayWithObjects:PROJECT_FILE_TYPE, nil];
+    [panel setAllowedFileTypes: fileTypes];
+    
+    NSWindow* window = NSApplication.sharedApplication.mainWindow;
+    [panel beginSheetModalForWindow:window
+                  completionHandler:^(NSModalResponse response) {
+        if (response != NSModalResponseOK) return;
+      
+        NSString* path = [panel URL].relativePath;
+        self->_fileURL = path;
+        
+        [self->graphicView clear];
+        
+        NSArray<Shape*>* shapes = [Shape loadShapesFromFile:path];
+        for (Shape* shape in shapes)
+            [self->graphicView addShape:shape];
+        
+        [self enableFileButtons];
+        [self->graphicView redraw];
+    }];
+}
+
+- (IBAction)fileSave:(NSMenuItem *)sender {
+    if (_fileURL)
+        [Shape saveToFile:[graphicView getShapes] filePath:_fileURL];
+    else
+        [self fileSaveAs:NULL];
+}
+
+- (IBAction)fileSaveAs:(NSMenuItem *)sender {
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    [panel setCanCreateDirectories:YES];
+    NSArray* fileTypes = [NSArray arrayWithObjects:PROJECT_FILE_TYPE, nil];
+    [panel setAllowedFileTypes: fileTypes];
+    
+    NSWindow* window = NSApplication.sharedApplication.mainWindow;
+    [panel beginSheetModalForWindow:window
+                  completionHandler:^(NSModalResponse response) {
+        if (response != NSModalResponseOK) return;
+      
+        NSString *path = panel.URL.relativePath;
+        self->_fileURL = path;
+        
+        [Shape saveToFile:[self->graphicView getShapes] filePath:path];
+    }];
+}
+
+- (IBAction)fileClose:(id)sender {
+    [graphicView clear];
+    [self disableFileButtons];
+    [self disableFigureButtons];
 }
 
 - (void)enableFileButtons {

@@ -6,8 +6,8 @@
 //  Copyright © 2020 Artem Kufaev. All rights reserved.
 //
 
-#import "TransformShape.h"
+#import "ShapeOnView.h"
 
-@implementation TransformShape
+@implementation ShapeOnView
 
 @end

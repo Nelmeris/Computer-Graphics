@@ -8,6 +8,8 @@
 
 #import "GraphicView.h"
 
-@interface GraphicView (ProcessingHotKeys)
+@class GraphicView;
+
+@interface GraphicView (Hotkey)
 
 @end

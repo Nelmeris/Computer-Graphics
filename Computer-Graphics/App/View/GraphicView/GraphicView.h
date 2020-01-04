@@ -8,15 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GraphicViewController.h"
-#import "TransformShape.h"
+#import "ShapeOnView.h"
 
+@class GraphicViewController;
 @interface GraphicView : NSView {
     GraphicViewController* controller;
-    NSMutableArray<TransformShape*> *shapes;
+    NSMutableArray<ShapeOnView*> *shapes;
     NSUInteger selectedShapeIndex;
+    NSArray<KeyInfo*>* hotkeys;
 }
 
-@property (readonly) TransformShape* selectedShape;
+@property (readonly) ShapeOnView* selectedShape;
 
 - (void)addShape:(Shape*)shape;
 - (void)removeSelectedShape;
@@ -25,5 +27,6 @@
 - (void)prevShape;
 - (void)selectShape:(NSInteger)index;
 - (NSArray<Shape*>*)getShapes;
+- (void)redraw;
 
 @end

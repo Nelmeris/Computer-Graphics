@@ -723,7 +723,7 @@
                                                     <tableColumns>
                                                         <tableColumn editable="NO" width="195" minWidth="40" maxWidth="1000" id="wBk-3W-R09">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="label" size="11"/>
+                                                                <font key="font" metaFont="toolTip"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -843,6 +843,11 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="File" id="Vhd-JB-vSf">
                                 <items>
+                                    <menuItem title="New" keyEquivalent="n" id="TFM-eh-94Q">
+                                        <connections>
+                                            <action selector="fileNew:" target="XfG-lQ-9wD" id="rv7-kR-d2f"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Open" keyEquivalent="o" id="QuL-Nb-cX6">
                                         <connections>
                                             <action selector="fileOpen:" target="XfG-lQ-9wD" id="5pE-JI-PKw"/>
@@ -870,7 +875,7 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Figure" id="2jX-Im-aDf">
                                 <items>
-                                    <menuItem title="New" keyEquivalent="n" id="ijy-J3-MNs">
+                                    <menuItem title="Add" keyEquivalent="a" id="ijy-J3-MNs">
                                         <connections>
                                             <action selector="newShape:" target="XfG-lQ-9wD" id="yJD-QT-80y"/>
                                         </connections>
