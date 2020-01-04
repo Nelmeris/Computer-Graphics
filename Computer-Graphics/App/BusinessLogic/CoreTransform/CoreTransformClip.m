@@ -18,10 +18,10 @@
         self->view = view;
         self->margin = margin;
         
-        CGFloat scalarX = (view.frame.size.width - margin * 2) / view.frame.size.width;
-        CGFloat scalarY = (view.frame.size.height - margin * 2) / view.frame.size.height;
+//        CGFloat scalarX = (view.frame.size.width - margin * 2) / view.frame.size.width;
+//        CGFloat scalarY = (view.frame.size.height - margin * 2) / view.frame.size.height;
         
-        [self scaleFrame:(scalarX < scalarY) ? scalarX : scalarY];
+//        [self scaleFrame:(scalarX < scalarY) ? scalarX : scalarY];
     }
     return self;
 }
@@ -90,15 +90,6 @@
             continue;
         }
     }
-}
-
-- (void)reset {
-    [matrix makeUnit];
-    
-    CGFloat scalarX = (view.frame.size.width - margin * 2) / view.frame.size.width;
-    CGFloat scalarY = (view.frame.size.height - margin * 2) / view.frame.size.height;
-    
-    [self scaleFrame:(scalarX < scalarY) ? scalarX : scalarY];
 }
 
 @end

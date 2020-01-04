@@ -88,7 +88,7 @@
             Line *transformedLine = [transform transformLine:line];
             if ([transform clipLine:transformedLine]) {
                 CGFloat thickness = shape.thickness +
-                    ((shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
+                    ((tShape.shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
                 [transformedLine drawWithColor:shape.color width:thickness];
             }
         }
