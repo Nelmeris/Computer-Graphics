@@ -11,7 +11,7 @@
 #import "KeyInfo.h"
 
 #define MOVE_SPEED 1
-#define RAPID_MOVE_SPEED 10
+#define RAPID_MOVE_SPEED 5
 #define INCREASE_SPEED 1.1
 #define RAPID_INCREASE_SPEED 1.5
 #define ROTATE_ANGLE 0.05

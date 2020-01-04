@@ -10,6 +10,7 @@
 #import "Shape.h"
 #import "ColorPickerViewController.h"
 #import "ThicknessPickerViewController.h"
+#import <Carbon/Carbon.h>
 
 #define PROJECT_FILE_TYPE @"npj"
 #define SHAPE_FILE_TYPE @"nsh"
@@ -105,6 +106,15 @@
     [self performSegueWithIdentifier:@"ColorPickerSegue" sender:self];
 }
 
+- (void)keyUp:(NSEvent *)event {
+    if (event.modifierFlags != 256 || !graphicView.selectedShape)
+        return;
+    if (event.keyCode == kVK_ANSI_C)
+        [self openColorPicker:NULL];
+    if (event.keyCode == kVK_ANSI_T)
+        [self openThicknessPicker:NULL];
+}
+
 - (IBAction)newShape:(NSMenuItem *)sender {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles:YES];
@@ -162,6 +172,7 @@
     [graphicView clear];
     _fileURL = NULL;
     [self enableFileButtons];
+    [self disableFigureButtons];
 }
 
 - (IBAction)fileOpen:(id)sender {
