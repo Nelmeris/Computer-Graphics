@@ -17,7 +17,7 @@
 
 #define BACKGROUND_COLOR 0xFFFFFF
 #define CLIP_AREA_COLOR 0x000000
-#define CLIP_AREA_MARGIN 10.0
+#define CLIP_AREA_MARGIN 20
 #define CLIP_AREA_THICKNESS 5
 
 #define SELECTED_SHAPE_THICKNESS 2
@@ -69,30 +69,37 @@
     
     // Pass through all shapes
     for (TransformShape *tShape in shapes) {
-        CoreTransform* transform = tShape.transform;
+        CoreTransform* core = tShape.transform;
         Shape* shape = [tShape.shape copy];
         
         // Setting clip area
         NSBezierPath *clipRectangle = [NSBezierPath bezierPath];
-        [clipRectangle appendBezierPathWithRect:[transform makeClipRectangle]];
+        [clipRectangle appendBezierPathWithRect:[core makeClipRectangle]];
         
         [NSColorFromHEX(CLIP_AREA_COLOR) setStroke];
         [clipRectangle setLineWidth:CLIP_AREA_THICKNESS];
         [clipRectangle stroke];
         
+        [shape transform:core];
         [self autoScaling:shape];
+        
         [shape.color setStroke];
         
         // Drawing the transformed points
         for (Line *line in shape.lines) {
-            Line *transformedLine = [transform transformLine:line];
-            if ([transform clipLine:transformedLine]) {
-                CGFloat thickness = shape.thickness +
-                    ((tShape.shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
-                [transformedLine drawWithColor:shape.color width:thickness];
-            }
+            CGFloat thickness = shape.thickness +
+                ((tShape.shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
+            [line drawWithColor:shape.color width:thickness];
         }
     }
+}
+
+- (void)autoScaling: (Shape*)shape {
+    CGFloat scalarX = ((VIEW_WIDTH - CLIP_AREA_MARGIN * 2) / 1000);
+    CGFloat scalarY = ((VIEW_HEIGHT - CLIP_AREA_MARGIN * 2) / 1000);
+    
+    CGFloat finalScalar = ((scalarX < scalarY) ? scalarX : scalarY);
+    [shape scaling:finalScalar];
 }
 
 - (void)clear {
@@ -101,18 +108,9 @@
     [self setNeedsDisplay:YES];
 }
 
-- (Shape*)autoScaling: (Shape*)shape {
-    CGFloat scalarX = ((VIEW_WIDTH - CLIP_AREA_MARGIN * 2) / 1000);
-    CGFloat scalarY = ((VIEW_HEIGHT - CLIP_AREA_MARGIN * 2) / 1000);
-    
-    [shape scaling:((scalarX < scalarY) ? scalarX : scalarY)];
-    
-    return shape;
-}
-
 - (void)addShape:(Shape *)shape {
     CoreTransform* transform = [[CoreTransform alloc]initWithView:self clipAreaMargin:CLIP_AREA_MARGIN];
-    TransformShape* tShape = [[TransformShape alloc] init];
+    TransformShape* tShape = [TransformShape new];
     tShape.shape = shape;
     tShape.transform = transform;
     [shapes addObject:tShape];

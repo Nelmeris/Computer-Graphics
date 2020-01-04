@@ -234,8 +234,7 @@
 
 // Processing keyInfoArray while holding Option key
 - (void)shuffleDependentOnTheOptionkeyInfoArray:(KeyInfo*)keyInfo transform:(CoreTransform*)transform {
-    if (!keyInfo.optionIsClamped) { // The Option isn't clamped
-    } else { // The Option key is clamped
+    if (keyInfo.optionIsClamped) { // The Option key is clamped
         switch (keyInfo.code) {
             case kVK_ANSI_X: // Increase frame
                 [transform scaleFrame:INCREASE_SPEED];
