@@ -89,7 +89,8 @@
         for (Line *line in shape.lines) {
             CGFloat thickness = shape.thickness +
                 ((tShape.shape == [self selectedShape].shape) ? SELECTED_SHAPE_THICKNESS : 0);
-            [line drawWithColor:shape.color width:thickness];
+            if ([core clipLine:line])
+                [line drawWithColor:shape.color width:thickness];
         }
     }
 }

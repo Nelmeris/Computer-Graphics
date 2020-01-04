@@ -40,10 +40,8 @@
     float tmin = 0, tmax = 1, P = 0.0, Q = 0.0;
     int i = 1;
     
-    while (true)
-    {
-        if (i > 4)
-        {
+    while (true) {
+        if (i > 4) {
             float x = from.x + (to.x - from.x) * tmin;
             float y = from.y + (to.y - from.y) * tmin;
             [line setFrom:NSMakePoint(x, y)];
@@ -54,38 +52,32 @@
             return true;
         }
         
-        switch (i)
-        {
+        switch (i) {
             case 1: P = from.x - to.x; Q = from.x - Pmin.x; break;
             case 2: P = to.x - from.x; Q = Pmax.x - from.x; break;
             case 3: P = from.y - to.y; Q = from.y - Pmin.y; break;
             case 4: P = to.y - from.y; Q = Pmax.y - from.y; break;
         }
         
-        if (P == 0)
-        {
+        if (P == 0) {
             if (Q < 0)
                 return false;
-            else
-            {
+            else {
                 i++;
                 continue;
             }
         }
         
-        if (P > 0)
-        {
+        if (P > 0) {
             if (tmax > (Q / P))
                 tmax = Q / P;
         }
-        else
-            if (tmin < (Q / P))
-                tmin = Q / P;
+        else if (tmin < (Q / P))
+            tmin = Q / P;
         
         if (tmin > tmax)
             return false;
-        else
-        {
+        else {
             i++;
             continue;
         }
