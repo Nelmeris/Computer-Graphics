@@ -17,7 +17,8 @@
 
 #define BACKGROUND_COLOR 0xFFFFFF
 #define CLIP_AREA_COLOR 0x000000
-#define CLIP_AREA_MARGIN 30.0
+#define CLIP_AREA_MARGIN 10.0
+#define CLIP_AREA_THICKNESS 5
 
 #define SELECTED_SHAPE_THICKNESS 2
 
@@ -28,8 +29,7 @@
 
 @implementation GraphicView
 
-- (id)initWithCoder: (NSCoder*)coder
-{
+- (id)initWithCoder: (NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
         shapes = [NSMutableArray new];
@@ -70,14 +70,14 @@
     // Pass through all shapes
     for (TransformShape *tShape in shapes) {
         CoreTransform* transform = tShape.transform;
-        Shape* shape = tShape.shape;
+        Shape* shape = [tShape.shape copy];
         
         // Setting clip area
         NSBezierPath *clipRectangle = [NSBezierPath bezierPath];
         [clipRectangle appendBezierPathWithRect:[transform makeClipRectangle]];
         
         [NSColorFromHEX(CLIP_AREA_COLOR) setStroke];
-        [clipRectangle setLineWidth:5];
+        [clipRectangle setLineWidth:CLIP_AREA_THICKNESS];
         [clipRectangle stroke];
         
         [self autoScaling:shape];
@@ -102,10 +102,10 @@
 }
 
 - (Shape*)autoScaling: (Shape*)shape {
-    CGFloat scalarX = (VIEW_WIDTH / 4) / [shape getWidth];
-    CGFloat scalarY = (VIEW_HEIGHT / 4) / [shape getHeight];
+    CGFloat scalarX = ((VIEW_WIDTH - CLIP_AREA_MARGIN * 2) / 1000);
+    CGFloat scalarY = ((VIEW_HEIGHT - CLIP_AREA_MARGIN * 2) / 1000);
     
-    [shape scaling:(1 - scalarX > 1 - scalarY) ? scalarX : scalarY];
+    [shape scaling:((scalarX < scalarY) ? scalarX : scalarY)];
     
     return shape;
 }
@@ -144,9 +144,9 @@
     selectedShapeIndex = index;
     
     if (selectedShapeIndex == -1)
-        [controller hideFigureButtons];
+        [controller disableFigureButtons];
     else
-        [controller showFigureButtons];
+        [controller enableFigureButtons];
     
     [self setNeedsDisplay:YES];
 }
@@ -168,7 +168,7 @@
     NSMutableArray* result = [NSMutableArray new];
     for (TransformShape *tShape in shapes) {
         CoreTransform* core = tShape.transform;
-        Shape* shape = tShape.shape;
+        Shape* shape = [tShape.shape copy];
         [shape transform:core];
         [result addObject:shape];
     }

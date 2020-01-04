@@ -8,16 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "Line.h"
-#import <JSONModel/JSONModel.h>
 #import "CoreTransform.h"
 
-@interface Shape : NSObject {
+@interface Shape : NSObject <NSCopying> {
     NSMutableArray<Line *> *_lines;
 }
 
 @property (nonatomic, strong) NSColor* color;
 @property (nonatomic) CGFloat thickness;
-@property (nonatomic, readonly) NSArray<Line *> *lines;
+@property (nonatomic) NSArray<Line *> *lines;
 
 - (instancetype)init;
 

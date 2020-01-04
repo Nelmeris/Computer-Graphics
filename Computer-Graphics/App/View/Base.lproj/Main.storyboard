@@ -723,7 +723,7 @@
                                                     <tableColumns>
                                                         <tableColumn editable="NO" width="195" minWidth="40" maxWidth="1000" id="wBk-3W-R09">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                <font key="font" metaFont="controlContent" size="11"/>
+                                                                <font key="font" metaFont="label" size="11"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
@@ -796,10 +796,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addFigureMenuItem" destination="ijy-J3-MNs" id="xXc-bx-BVU"/>
+                        <outlet property="closeFileMenuItem" destination="vWF-Xe-f3y" id="umF-gG-Mj9"/>
                         <outlet property="colorFigureMenuItem" destination="ySi-sV-HAA" id="jVi-bz-Rfh"/>
                         <outlet property="graphicView" destination="DHL-e8-d1f" id="PwS-y2-9dJ"/>
                         <outlet property="logTableView" destination="Kg6-R5-MqC" id="2KQ-LN-xfr"/>
                         <outlet property="removeFigureMenuItem" destination="IMS-L6-5Yc" id="UKS-kw-Jq4"/>
+                        <outlet property="saveAsFileMenuItem" destination="pxC-Ix-mlw" id="I4z-0v-63e"/>
+                        <outlet property="saveFileMenuItem" destination="jFu-4Z-36L" id="48c-ke-gat"/>
                         <outlet property="thicknessFigureMenuItem" destination="iOX-wa-aqH" id="GK6-xT-b3M"/>
                         <segue destination="Qb2-pz-Lrr" kind="sheet" identifier="ThicknessPickerSegue" id="BCa-y6-Czw"/>
                         <segue destination="rSL-PG-aYf" kind="sheet" identifier="ColorPickerSegue" id="d3g-qT-Jrw"/>

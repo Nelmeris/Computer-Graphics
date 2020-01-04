@@ -19,7 +19,7 @@
 @property (weak) IBOutlet NSTableView *logTableView;
 @property NSMutableArray<KeyInfo*>* keys;
 
-- (void)hideFigureButtons;
-- (void)showFigureButtons;
+- (void)disableFigureButtons;
+- (void)enableFigureButtons;
 
 @end

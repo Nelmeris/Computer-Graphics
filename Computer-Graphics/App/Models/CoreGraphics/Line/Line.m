@@ -53,4 +53,11 @@
     };
 }
 
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    Line* newLine = [Line new];
+    newLine.from = _from;
+    newLine.to = _to;
+    return newLine;
+}
+
 @end

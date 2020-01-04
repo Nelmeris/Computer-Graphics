@@ -7,9 +7,8 @@
 //
 
 #import <AppKit/AppKit.h>
-#import <JSONModel/JSONModel.h>
 
-@interface Line : NSObject
+@interface Line : NSObject <NSCopying>
 
 @property (nonatomic) NSPoint from;
 @property (nonatomic) NSPoint to;

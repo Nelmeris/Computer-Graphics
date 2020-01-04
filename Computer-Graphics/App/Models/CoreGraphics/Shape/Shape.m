@@ -97,12 +97,14 @@
 }
 
 - (void)scaling: (CGFloat)value {
-    for (int i = 0; i < _lines.count; i++) {
-        Line *line = [_lines objectAtIndex:i];
-        [line setFrom:NSMakePoint(line.from.x * value, line.from.y * value)];
-        [line setTo:NSMakePoint(line.to.x * value, line.to.y * value)];
-        [_lines setObject:line atIndexedSubscript:i];
+    NSMutableArray<Line*>* lines = [NSMutableArray new];
+    for (Line* line in _lines) {
+        Line *newLine = [line copy];
+        [newLine setFrom:NSMakePoint(line.from.x * value, line.from.y * value)];
+        [newLine setTo:NSMakePoint(line.to.x * value, line.to.y * value)];
+        [lines addObject:newLine];
     }
+    _lines = lines;
 }
 
 - (CGFloat)getMinX {
@@ -154,11 +156,23 @@
     return _lines;
 }
 
+- (void)setLines:(NSArray<Line *> *)lines {
+    _lines = [lines copy];
+}
+
 - (void)transform:(CoreTransform *)core {
     NSMutableArray<Line*>* newLines = [NSMutableArray new];
     for (Line* line in _lines)
         [newLines addObject:[core transformLine:line]];
     _lines = newLines;
+}
+
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    Shape* newShape = [[Shape alloc] init];
+    newShape.color = [_color copyWithZone:zone];
+    newShape.thickness = _thickness;
+    newShape.lines = [_lines copyWithZone:zone];
+    return newShape;
 }
 
 @end

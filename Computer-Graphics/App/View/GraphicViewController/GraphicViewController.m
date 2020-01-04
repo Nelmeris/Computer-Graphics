@@ -17,9 +17,16 @@
 @interface GraphicViewController () <NSTableViewDelegate, NSTableViewDataSource>
 
 @property NSString* fileURL;
+
+@property (weak) IBOutlet NSMenuItem *addFigureMenuItem;
+
 @property (weak) IBOutlet NSMenuItem *thicknessFigureMenuItem;
 @property (weak) IBOutlet NSMenuItem *colorFigureMenuItem;
 @property (weak) IBOutlet NSMenuItem *removeFigureMenuItem;
+
+@property (weak) IBOutlet NSMenuItem *saveFileMenuItem;
+@property (weak) IBOutlet NSMenuItem *saveAsFileMenuItem;
+@property (weak) IBOutlet NSMenuItem *closeFileMenuItem;
 
 @end
 
@@ -33,7 +40,8 @@
 - (void)viewDidLoad {
     _keys = [NSMutableArray new];
     [_logTableView setHidden:YES];
-    [self hideFigureButtons];
+    [self disableFigureButtons];
+    [self disableFileButtons];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -69,10 +77,7 @@
         for (Shape* shape in shapes)
             [graphicView addShape:shape];
     }
-}
-
-- (IBAction)fileClose:(id)sender {
-    [graphicView clear];
+    [self enableFileButtons];
 }
 
 - (IBAction)fileSave:(NSMenuItem *)sender {
@@ -80,19 +85,24 @@
 }
 
 - (IBAction)fileSaveAs:(NSMenuItem *)sender {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    [panel setCanChooseFiles:NO];
-    [panel setCanChooseDirectories:NO];
-    [panel setAllowsMultipleSelection:NO];
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    [panel setCanCreateDirectories:YES];
     NSArray* fileTypes = [NSArray arrayWithObjects:FILE_TYPES, nil];
     [panel setAllowedFileTypes: fileTypes];
     
     NSInteger clicked = [panel runModal];
     
     if (clicked != NSModalResponseOK) return;
+    NSURL *url = [panel URL];
     
-    for (NSURL *url in [panel URLs])
-        NSLog(@"%@", url.relativePath);
+    _fileURL = url.relativePath;
+    [Shape saveToFile:[graphicView getShapes] filePath:_fileURL];
+}
+
+- (IBAction)fileClose:(id)sender {
+    [graphicView clear];
+    [self disableFileButtons];
+    [self disableFigureButtons];
 }
 
 - (IBAction)openThicknessPicker:(NSMenuItem *)sender {
@@ -152,7 +162,7 @@
     }
 }
 
-- (void)hideFigureButtons {
+- (void)disableFigureButtons {
     [_thicknessFigureMenuItem setTarget:NULL];
     [_thicknessFigureMenuItem setAction:NULL];
     [_colorFigureMenuItem setTarget:NULL];
@@ -161,13 +171,35 @@
     [_removeFigureMenuItem setAction:NULL];
 }
 
-- (void)showFigureButtons {
+- (void)enableFigureButtons {
     [_thicknessFigureMenuItem setTarget:self];
     [_thicknessFigureMenuItem setAction:@selector(openThicknessPicker:)];
     [_colorFigureMenuItem setTarget:self];
     [_colorFigureMenuItem setAction:@selector(openColorPicker:)];
     [_removeFigureMenuItem setTarget:self];
     [_removeFigureMenuItem setAction:@selector(removeShape:)];
+}
+
+- (void)disableFileButtons {
+    [_saveFileMenuItem setTarget:NULL];
+    [_saveFileMenuItem setAction:NULL];
+    [_saveAsFileMenuItem setTarget:NULL];
+    [_saveAsFileMenuItem setAction:NULL];
+    [_closeFileMenuItem setTarget:NULL];
+    [_closeFileMenuItem setAction:NULL];
+    [_addFigureMenuItem setTarget:NULL];
+    [_addFigureMenuItem setAction:NULL];
+}
+
+- (void)enableFileButtons {
+    [_saveFileMenuItem setTarget:self];
+    [_saveFileMenuItem setAction:@selector(fileSave:)];
+    [_saveAsFileMenuItem setTarget:self];
+    [_saveAsFileMenuItem setAction:@selector(fileSaveAs:)];
+    [_closeFileMenuItem setTarget:self];
+    [_closeFileMenuItem setAction:@selector(fileClose:)];
+    [_addFigureMenuItem setTarget:self];
+    [_addFigureMenuItem setAction:@selector(newShape:)];
 }
 
 @end
